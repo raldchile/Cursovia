@@ -107,10 +107,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.12.9.13',
-	'username' => 'kampusproject_ksVia94',
-	'password' => '{8&7)BIZ3fi5',
-	'database' => 'kampusproject_kpLMSEngine',
+	'hostname' => 'localhost',
+	'username' => 'dev_kampus',
+	'password' => 'A2c9435207m.',
+	'database' => 'dev_kampus',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'kampus_',
 	'pconnect' => FALSE,
@@ -134,9 +134,9 @@ $query_builder = TRUE;
 $db['cursovia'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'cursovia_curUsr19',
-	'password' => 'Q?j~d=$axJpD',
-	'database' => 'cursovia_curBBDDEngine',
+	'username' => 'dev_cursovia',
+	'password' => 'A2c9435207m.',
+	'database' => 'dev_cursovia',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'cursovia_',
 	'pconnect' => FALSE,

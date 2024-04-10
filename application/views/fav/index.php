@@ -96,7 +96,7 @@
               <p class="msg-results">No encontramos ningún curso marcado como favorito.</p>
             </div>
           </div>
-        <div class="content"><a href="/" class="button form">Ver todos los cursos >></a></div>
+        <div class="content"><a href="<?php echo base_url() ?>" class="button form">Ver todos los cursos >></a></div>
         </div>
   <?php } ?>
 </section>

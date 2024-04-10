@@ -4,6 +4,7 @@
 
     $ipuser = $_SERVER['REMOTE_ADDR']; 
     $dev = ( $ipuser == '191.113.23.186' ) ? true : false;
+    $client_name      = stot($courses[0]["client_name"]);
 
     // print_r($paid_banner_courses);
 
@@ -19,25 +20,16 @@
     </div>
   </div>
 </section> -->
+
+
     <form action="<?php echo base_url() ?>" method="post" autocomplete="off" id="buscar">
-    <section class="slide">
+    <section class="client-profile-picture">
       <div class="container top">
 
-      <div class="row">
-        <div class="col-md-12 img" style="padding-top: 22px;">
-          <img src="<?php echo base_url("public/imgs/logo_cursovia-fiwh.svg") ?>"/>
-        </div>
-      </div>
       <div class="row opacity-bkg">
         <div class="col-md-12" style="padding-top: 10px";>
-          <input type="text" style="text-align: center" placeholder="¿Qué quieres aprender hoy?" name="conceptosearch" id="SearchBar"/>
+          <h1 type="text" style="text-align: center; font-size: 50px; color: green;"><?php echo $client_name?> </h1>
         </div>
-
-        <div class="col-md-12">
-          <a href="#" class="button m-top" id="go">Buscar</a>
-        </div>
-      </div>
-
     </div>
   </section>
 </form>
@@ -134,7 +126,7 @@
          ?>
 
          <div class="col-md-4 courses-box grid-item <?php echo $marca; ?>">
-          <!-- <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
+          <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
           <a href="<?php echo base_url('/mostrar/'.$slug); ?>">
 
               <div class="datos">
@@ -147,21 +139,7 @@
                 <span class="price"><?php echo $price; ?></span>
               <?php } ?>
               <div class="imgViewer" style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;"></div>
-        </a> -->
-
-        <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
-              <div class="datos">
-                <a href="<?php echo base_url('/mostrar/'.$slug); ?>"><h1><?php echo $name; ?></h1></a>
-                <a href="<?php echo base_url($client_name); ?>"><h2 class="client-name" ><?php echo $client_name; ?></h2></a>
-              </div>
-              <?php if($price!='Cotizar'){ ?>
-                <a href="<?php echo base_url('/mostrar/'.$slug); ?>"><span class="price"><?php echo formateaMoneda($price); ?></span></a>
-              <?php }else{ ?>
-                <a href="<?php echo base_url('/mostrar/'.$slug); ?>"><span class="price"><?php echo $price; ?></span></a>
-              <?php } ?>
-              <a href="<?php echo base_url('/mostrar/'.$slug); ?>"><div class="imgViewer" style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;"></div></a>
-              
-        
+        </a>
 
         <div class="row share-menu">
 
@@ -177,10 +155,10 @@
             <span> 
 
             <ul>
-              <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url_actual(); ?>mostrar/<?php echo $slug; ?>" style="background-image: url('public/imgs/facebook.svg');" target="_blank"></a></li>
+              <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url_actual(); ?>mostrar/<?php echo $slug; ?>" style="background-image: url('/public/imgs/facebook.svg');" target="_blank"></a></li>
               <!--li><a href="#" style="background-image: url('/public/imgs/linkedin.svg');"></a></li-->
               <!--li><a href="#" style="background-image: url('/public/imgs/twitter.svg');"></a></li-->
-              <li><a href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual(); ?>mostrar/<?php echo $slug; ?>" style="background-image: url('public/imgs/whatsapp.svg');"  target="_blank"></a></li>
+              <li><a href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual(); ?>mostrar/<?php echo $slug; ?>" style="background-image: url('/public/imgs/whatsapp.svg');"  target="_blank"></a></li>
             </ul>
             </span>
           </div>

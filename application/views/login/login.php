@@ -14,7 +14,7 @@
             ¡Ingresa y encuentra tu curso!
           </p>
 
-            <form action="/clogin/checkLogin" method="post" role="form" data-toggle="validator">
+            <form action="<?php echo base_url() ?>/clogin/checkLogin" method="post" role="form" data-toggle="validator">
                 <div class="form-group input-group-lg">
                   <label>Email address</label>
                   <input type="email" name="emailUser" class="form-control" aria-describedby="emailHelp" placeholder="Ingresa mail registrado" required>
@@ -26,7 +26,7 @@
                   <label>Password</label>
                   <input type="password" name="passUser" class="form-control" placeholder="Password"  required>
                   <div class="help-block with-errors"></div>
-                  <small id="emailHelp" class="form-text text-muted"><a href="/clogin/getPassword">Recupera tu clave de acceso</a></small>
+                  <small id="emailHelp" class="form-text text-muted"><a href="<?php echo base_url() ?>/clogin/getPassword">Recupera tu clave de acceso</a></small>
 
                 </div>
                   <input type="hidden" name="backto" class="form-control" value="<?php echo $backto; ?>">
@@ -44,7 +44,7 @@
             Registrate para tener un mejor resultado en Cursovia
           </p>
 
-       <form action="/clogin/setAccount" method="post" autocomplete="false" id="registro" role="form" data-toggle="validator">
+       <form action="<?php echo base_url() ?>/clogin/setAccount" method="post" autocomplete="false" id="registro" role="form" data-toggle="validator">
 
                 <div class="form-group input-group-lg">
                           <label>Nombre completo</label>
@@ -111,7 +111,7 @@
 
           if(email){
             $.ajax({
-            url: "clogin/validaUser",
+            url: "<?php echo base_url() ?>clogin/validaUser",
             type: "POST",
             data: { email: email},
             context: document.body

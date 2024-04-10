@@ -5,7 +5,7 @@
           idcurso = $(this).data("idcurso");
 
           $.ajax({
-          url: "/cfavorites/fav/"+idcurso,
+          url: "cfavorites/fav/"+idcurso,
           context: document.body
           }).done(function(data) {
             if(data){

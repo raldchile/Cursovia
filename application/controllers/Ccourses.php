@@ -53,6 +53,27 @@ class Ccourses extends CI_Controller {
 		}
 	}
 
+	function profile($client_id='')
+	{
+		
+		$data["sessionuser"] = $this->usersession;
+		$posts = $this->input->post();
+		$data["courses"] = $this->ccourses_model->getClientCourses($client_id);
+		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
+		$data["header"] = $this->load->view('templates/header', $data, true);
+		$data["footer"] = $this->load->view('templates/footer', $data, true);
+
+		$data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
+
+		
+		if($posts){
+			$this->session->set_flashdata('txt',$posts["conceptosearch"]);
+		}
+
+		$this->load->view('index/client_profile');
+
+	}
+
 	function getCourse($slug='')
 	{
 		$data["sessionuser"] = $this->usersession;

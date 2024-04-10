@@ -15,7 +15,7 @@ class Clogin_model extends CI_Model {
 
 			$created 	= date('Y-m-d H:i:s');
 			$token 		= sha1($created);
-			$url		= "https://www.cursovia.com/validate/".$token;
+			$url		= base_url()."/validate/".$token;
 
 			$full_name	= soloCaracteresPermitidos( $posts["fullname"] );
 			$company 	= soloCaracteresPermitidos( $posts["company"] );
@@ -195,10 +195,10 @@ class Clogin_model extends CI_Model {
 			$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
 			$message .= "<img src=\"https://www.cursovia.com/public/imgs/logoCusoviaEmail-fi.png\" style=\"width: 165px\" />";
 			$message .= "<p style=\"font-size: 25px\">¡Hola ".$name."!</p>";
-			$message .= "<p>Hemos recibido una solicitud de nueva clave para tu cuenta en <strong>www.cursovia.com</strong>. Tu nueva clave es: <strong>".$token."</strong>. te recomendamos cambiarla desde el panel de usuario > Mi cuenta.</p>";
+			$message .= "<p>Hemos recibido una solicitud de nueva clave para tu cuenta en <strong><a href=\"https://cursovia.local/Cursovia\">www.cursovia.com</a></strong>. Tu nueva clave es: <strong>".$token."</strong>. te recomendamos cambiarla desde el panel de usuario > Mi cuenta.</p>";
 
 			$message .= "<p><strong>¡Ya puedes volver a conectarte y ser parte de este gran marketPlace de Cursos! Ingresa a:</p>";
-			$message .= "<p><a href=\"https://www.cursovia.com\">https://www.cursovia.com</a></p>";
+			$message .= "<p><a href=\"https://cursovia.local/Cursovia/ingresar\">www.cursovia.com</a></p>";
 			$message .= "<p>Atentamente,</p>";
 			$message .= "<p>Tus amigos de <strong>cursovia.com</strong></p>";
 			$message .= "</div>";

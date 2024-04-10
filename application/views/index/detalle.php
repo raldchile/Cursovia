@@ -300,7 +300,7 @@ $(window).scroll(function()
   </div>
 </div>
 
-<? } ?>
+<?php } ?>
 
 
 <?php echo $footer; ?>

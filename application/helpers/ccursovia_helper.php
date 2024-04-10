@@ -156,6 +156,8 @@ function soloCaracteresPermitidos($word,$tipo='') {
 
 function formateaMoneda($monto){
       //return $monto."ggg"; die();
-                $monto_format = money_format('%.0i', $monto);
-                return $monto_format;
+                //$monto_format = money_format('%.0i', $monto);
+                //return $monto_format;
+                $monto_format = number_format($monto, 0, ',', '.');
+                return '$' . $monto_format;
 }

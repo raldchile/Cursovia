@@ -29,7 +29,7 @@
             <strong>Actualiza tus datos:</strong>
           </p>
 
-       <form action="/caccount/updateUser" method="post" autocomplete="false" id="registro" role="form" data-toggle="validator">
+       <form action="<?php echo base_url() ?>/caccount/updateUser" method="post" autocomplete="false" id="registro" role="form" data-toggle="validator">
 
                 <div class="form-group input-group-lg">
                           <label>Nombre completo</label>
@@ -82,7 +82,7 @@
            <strong>Cambia tu password en el siguiente formulario:</strong>
           </p>
 
-            <form action="/caccount/changePassword" method="post" role="form" data-toggle="validator">
+            <form action="<?php echo base_url() ?>/caccount/changePassword" method="post" role="form" data-toggle="validator">
 
               <div class="form-group input-group-lg">
                         <label for="exampleInputPassword1">Password actual:</label>

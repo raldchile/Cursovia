@@ -42,7 +42,7 @@
 
     <meta name="facebook-domain-verification" content="kabvm4o52mle3toe5a7wh5k6qmunah" />
 
-    <link rel="icon" type="image/png" href="/public/imgs/ca.png" />
+    <link rel="icon" type="image/png" href="<?php echo base_url()?>/public/imgs/ca.png" />
 
     <link rel="stylesheet" href="<?php echo base_url("/public/css/cursovia.css") ?>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
@@ -81,23 +81,23 @@
       <section class="barra">
       <div class="container">
         <div class="row" >
-          <div class="col-md-6"><a href="<?php echo base_url(); ?>" class="no-view-logo"><img src="/public/imgs/logo_cursovia-fiwh.svg" class="Logotipo curso"></a></div>
+          <div class="col-md-6"><a href="<?php echo base_url(); ?>" class="no-view-logo"><img src="<?php echo base_url()?>/public/imgs/logo_cursovia-fiwh.svg" class="Logotipo curso"></a></div>
           <div class="col-md-6">
               <ul class="menu">
                     <!--li class="header-button"><a href="/ingresar" class="fa-lock-menu">¿Qué es Cursovia?</a></li-->
 
                 <?php if($sessionuser["validated"]){ ?>
-                    <li class="header-button"><a href="/cursos-favoritos" class="fa-heart-menu white">Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
+                    <li class="header-button"><a href="<?php echo base_url() ?>/cursos-favoritos" class="fa-heart-menu white">Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
                     <li class="header-button"><a href="javascript:void(0);" class="fa-user white"><?php echo $sessionuser["full_name"]; ?></a>
                       <ul class="submenu">
-                        <li><a href="/cuenta" class="fa-gear">Mi cuenta</a></li>
-                        <li><a href="/inbox" class="fa-msg">Mis mensajes</a></li>
-                        <li><a href="/salir" class="fa-sign-out-alt">Logout</a></li>
+                        <li><a href="<?php echo base_url() ?>/cuenta" class="fa-gear">Mi cuenta</a></li>
+                        <li><a href="<?php echo base_url() ?>/inbox" class="fa-msg">Mis mensajes</a></li>
+                        <li><a href="<?php echo base_url() ?>/salir" class="fa-sign-out-alt">Logout</a></li>
                       </ul>
 
                     </li>
                   <?php }else{ ?>
-                    <li class="header-button"><a href="/ingresar" class="fa-lock-menu white">Login / Registro</a></li>
+                    <li class="header-button"><a href="<?php echo base_url() ?>/ingresar" class="fa-lock-menu white">Login / Registro</a></li>
                 <?php } ?>
               </ul>
 
