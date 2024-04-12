@@ -39,12 +39,13 @@
 
 
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script>var baseURL = '<?php echo base_url(); ?>';</script>  
 
     <meta name="facebook-domain-verification" content="kabvm4o52mle3toe5a7wh5k6qmunah" />
 
-    <link rel="icon" type="image/png" href="<?php echo base_url()?>/public/imgs/ca.png" />
+    <link rel="icon" type="image/png" href="<?php echo base_url("public/imgs/ca.png")?>" />
 
-    <link rel="stylesheet" href="<?php echo base_url("/public/css/cursovia.css") ?>">
+    <link rel="stylesheet" href="<?php echo base_url("public/css/cursovia.css") ?>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
@@ -87,12 +88,12 @@
                     <!--li class="header-button"><a href="/ingresar" class="fa-lock-menu">¿Qué es Cursovia?</a></li-->
 
                 <?php if($sessionuser["validated"]){ ?>
-                    <li class="header-button"><a href="<?php echo base_url() ?>/cursos-favoritos" class="fa-heart-menu white">Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
+                    <li class="header-button"><a href="<?php echo base_url("cursos-favoritos")?>" class="fa-heart-menu white">Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
                     <li class="header-button"><a href="javascript:void(0);" class="fa-user white"><?php echo $sessionuser["full_name"]; ?></a>
                       <ul class="submenu">
-                        <li><a href="<?php echo base_url() ?>/cuenta" class="fa-gear">Mi cuenta</a></li>
-                        <li><a href="<?php echo base_url() ?>/inbox" class="fa-msg">Mis mensajes</a></li>
-                        <li><a href="<?php echo base_url() ?>/salir" class="fa-sign-out-alt">Logout</a></li>
+                      <li><a href="<?php echo base_url("cuenta")?>" class="fa-gear">Mi cuenta</a></li>
+                        <li><a href="<?php echo base_url("nbox")?>" class="fa-msg">Mis mensajes</a></li>
+                        <li><a href="<?php echo base_url("salir")?>" class="fa-sign-out-alt">Logout</a></li>
                       </ul>
 
                     </li>

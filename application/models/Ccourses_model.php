@@ -8,7 +8,7 @@ class Ccourses_model extends CI_Model {
 		$this->load->model('cutils_model');
 	}
 
-	function getAllCourses($slug='',$ve=1) {
+	/* function getAllCourses($slug='',$ve=1) {
 
 		$posts = $this->input->post();
 
@@ -22,7 +22,7 @@ class Ccourses_model extends CI_Model {
 			}
 		}
 
-	 	$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.logo as client_logo, cl.id as client_id');
+	 	$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id');
 	 	$this->db->from('courses as c');
 	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
@@ -91,6 +91,116 @@ class Ccourses_model extends CI_Model {
 				$output[$i]['price'] = $price;
 				$output[$i]['description'] = trim($course->cursovia_description);
 				$output[$i]['client_name'] = $course->client_name;
+				$output[$i]['client_slug'] = $course->client_slug;
+				$output[$i]['client_logo'] = $course->client_logo;
+				$output[$i]['client_id'] = $course->client_id;
+				$output[$i]['promotional_video'] = $course->promotional_video;
+				$output[$i]['favorite'] = $this->cfavorites_model->getFavorites($course->course_id);
+				$output[$i]['total_favorites'] = $this->cfavorites_model->getAllFavorites($course->course_id);
+				$output[$i]['showSence'] = $showSence;
+				$output[$i]['modalidad'] = $modalidad;
+
+				if($slug and $showContent==1){
+					$output[$i]['content'] = $this->getContent($course->course_id);
+				}
+
+				$this->cutils_model->setCourseInRsults($course->course_id, $txt, $ve);
+
+			$i++;
+
+			}			
+		}
+
+	 	// echo $this->db->last_query(); die();
+
+		return $output;
+
+	 } */
+
+	 function getAllCourses($slug='',$ve=1, $limit=0, $offset=0) {
+
+		$posts = $this->input->post();
+
+		$output = array();
+		$i=0;
+		$txt = "";
+
+		if(!$slug){
+			if($posts){
+			$txt = soloCaracteresPermitidos( $posts["conceptosearch"] );
+			}
+		}
+
+	 	$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id');
+	 	$this->db->from('courses as c');
+	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
+	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
+	 	$this->db->join('cursovia k', 'k.course_id = c.id');
+	 	$this->db->where('oc.expire >= CURDATE()');
+	 	if($slug){
+	 		$this->db->where('c.slug',$slug);
+	 	}
+
+	 	if($txt){
+
+	 		$this->db->where('( c.name LIKE "%'.$txt.'%" OR
+								c.description LIKE "%'.$txt.'%"
+								OR cl.name LIKE "%'.$txt.'%" )');
+
+	 		// $this->db->like('c.name',$txt);
+	 		// $this->db->or_like('c.description', $txt); 
+	 	}
+	 	$this->db->where('c.status',1);
+	 	$this->db->where('cl.status',1);
+	 	$this->db->where('c.publish_kimun',1);
+	 	$this->db->where('k.cursovia_ispaid !=',1);
+	 	$this->db->order_by('c.id', 'ASC');
+		$this->db->limit($limit, $offset);
+	 	$courses = $this->db->get();
+		$count = $courses->num_rows();
+		echo $count; 
+
+	 	//echo $this->db->last_query(); die();
+
+	 	// print_r($courses->result()); die();
+
+	 	if( $courses->num_rows() ) {
+			foreach ($courses->result() as $key => $course) {
+
+				$showContent = $course->cursovia_structure;
+				$showSence = $course->cursovia_sence_code;
+				$cursovia_elearning = $course->cursovia_elearning;
+				$cursovia_inRoom = $course->cursovia_inRoom;
+				$muestraModalidad = $cursovia_elearning + $cursovia_inRoom;
+				$price = $course->cursovia_price ? $course->cursovia_price : 'Cotizar';
+
+#				echo $showContent; die();
+
+
+				if($muestraModalidad == 2){
+					$modalidad = "E-learning | Presencial";
+				}elseif($muestraModalidad == 1){
+					if($cursovia_elearning) $modalidad 	= 'E-learning';
+					if($cursovia_inRoom) $modalidad 	= 'Presencial';
+				}else{
+					$modalidad = 'Consultar';
+				}
+
+				// if($course->cursovia_price){}
+
+				$output[$i]['id'] = $course->course_id;
+				$output[$i]['image_int'] = $course->image_int;
+				$output[$i]['name'] = $course->name;
+				$output[$i]['resume'] = trim($course->resume);
+				$output[$i]['target'] = $course->cursovia_target;
+				$output[$i]['skill'] = $course->cursovia_learn_objective;
+				$output[$i]['slug'] = $course->slug;
+				$output[$i]['hour'] = $course->hour;
+				$output[$i]['code'] = $course->code;
+				$output[$i]['price'] = $price;
+				$output[$i]['description'] = trim($course->cursovia_description);
+				$output[$i]['client_name'] = $course->client_name;
+				$output[$i]['client_slug'] = $course->client_slug;
 				$output[$i]['client_logo'] = $course->client_logo;
 				$output[$i]['client_id'] = $course->client_id;
 				$output[$i]['promotional_video'] = $course->promotional_video;
@@ -116,7 +226,26 @@ class Ccourses_model extends CI_Model {
 
 	 }
 
-	 function getClientCourses($slug='',$ve=1) {
+	 public function countAllCourses() {
+
+		$this->db->select('c.id');
+		$this->db->from('courses as c');
+		$this->db->join('clients as cl', 'c.client_id = cl.id');
+		$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
+		$this->db->join('cursovia k', 'k.course_id = c.id');
+		$this->db->where('oc.expire >= CURDATE()');
+		$this->db->where('c.status', 1);
+		$this->db->where('cl.status', 1);
+		$this->db->where('c.publish_kimun', 1);
+		$this->db->where('k.cursovia_ispaid !=', 1);
+		$query = $this->db->get();
+		$count = $query->num_rows();
+		
+		// Devuelve la cantidad de cursos que cumplen las condiciones
+		return $count;
+    }
+
+	 function getClientCourses($slug='') {
 
 		$posts = $this->input->post();
 
@@ -130,7 +259,7 @@ class Ccourses_model extends CI_Model {
 			}
 		}
 
-	 	$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.logo as client_logo, cl.id as client_id');
+	 	$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as clientg_slug, cl.logo as client_logo, cl.id as client_id');
 	 	$this->db->from('courses as c');
 	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
@@ -154,7 +283,7 @@ class Ccourses_model extends CI_Model {
 
 	 	$this->db->where('c.status',1);
 	 	$this->db->where('cl.status',1);
-		$this->db->where('client_name',$slug);
+		$this->db->where('cl.slug',$slug);
 	 	$this->db->where('c.publish_kimun',1);
 	 	$this->db->where('k.cursovia_ispaid !=',1);
 	 	$this->db->order_by('rand()');
@@ -200,6 +329,7 @@ class Ccourses_model extends CI_Model {
 				$output[$i]['price'] = $price;
 				$output[$i]['description'] = trim($course->cursovia_description);
 				$output[$i]['client_name'] = $course->client_name;
+				$output[$i]['client_slug'] = $course->client_slug;
 				$output[$i]['client_logo'] = $course->client_logo;
 				$output[$i]['client_id'] = $course->client_id;
 				$output[$i]['promotional_video'] = $course->promotional_video;
@@ -212,7 +342,7 @@ class Ccourses_model extends CI_Model {
 					$output[$i]['content'] = $this->getContent($course->course_id);
 				}
 
-				$this->cutils_model->setCourseInRsults($course->course_id, $txt, $ve);
+				$this->cutils_model->setCourseInRsults($course->course_id, $txt);
 
 			$i++;
 

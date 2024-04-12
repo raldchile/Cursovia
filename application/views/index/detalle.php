@@ -8,6 +8,7 @@
           $hours            = stot($courses[0]["hour"]);
           $code             = stot($courses[0]["code"]);
           $client_name      = stot($courses[0]["client_name"]);
+          $client_slug      = $courses[0]["client_slug"];
           $slug             = $courses[0]["slug"];
           $description      = $courses[0]["description"];
           $idcliente        = $courses[0]["client_id"];
@@ -67,7 +68,7 @@
               <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url_actual(); ?>" target="_blank" style="background-image: url('/public/imgs/facebook.svg');"></a></li>
               <!--li><a href="#" style="background-image: url('/public/imgs/linkedin.svg');"></a></li -->
               <!--li><a href="#" style="background-image: url('/public/imgs/twitter.svg');"></a></li-->
-              <li><a target="_blank" href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual(); ?>" style="background-image: url('/public/imgs/whatsapp.svg');"></a></li>
+              <li><a target="_blank" href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual(); ?>" style="background-image: url('cursovia.local/Cursovia/public/imgs/whatsapp.svg');"></a></li>
             </ul>
             </span>
           </span>
@@ -137,13 +138,14 @@
         </div>
 
         <div class="col-md-4 content-detail pt">
-          <div style="display: block;overflow: auto;margin-bottom: 10px;">
-            <i class="fas fa-heart fav <?php echo $class; ?>" style="float: right;" data-idcurso="<?php echo $idcurso; ?>"> <span style="font-family:arial; font-size: 12px;" id="fav-<?php echo $idcurso; ?>"><?php echo $total_favorites; ?> me gusta</span></i>
+          <div style="display: block;overflow: hidden;margin-bottom: 10px;">
+            <i class="fas fa-heart fav <?php echo $class; ?>" style="float: right;" data-idcurso="<?php echo $idcurso; ?>"> <span style="font-family: 'Figtree', sans-serif;" id="fav-<?php echo $idcurso; ?>"><?php echo $total_favorites; ?> me gusta</span></i>
+            
           </div>
                   
         <ul style="display: block;">
-          <li>Autor: <strong><?php echo $client_name; ?></strong></li>
-          <li>Precio: <strong><?php if($price){echo formateaMoneda($price);}else{echo "--";}?></strong></li>
+          <li>Autor: <strong><a href="<?php echo base_url($client_slug);?>"><?php echo $client_name; ?></a></strong></li>
+          <li>Precio: <strong><a><?php if($price != 'Cotizar'){echo formateaMoneda($price);}else{echo "Cotizar";}?></a></strong></li>
           <li>Horas: <strong><?php if($hours){echo $hours;}else{echo "--";}?></strong></li>
           <?php if($showSence){?>
           <li>Cod. Sence: <strong><?php echo $code; ?></strong></li>
@@ -167,6 +169,7 @@
   </section>
 
    <script type="text/javascript" src="<?php echo base_url('public/js/functions-fav.js'); ?>"></script>
+   
   <script type="text/javascript">
       
         $( "#go" ).click(function() {
@@ -271,7 +274,7 @@ $(window).scroll(function()
         </button>
       </div>
       <div class="modal-body">
-           <form action="/cmessages/sendMessage" method="post" role="form" data-toggle="validator" id="contact-form" method="post">
+           <form action=<?php base_url("cmessages/sendMessage")?> method="post" role="form" data-toggle="validator" id="contact-form" method="post">
                <div class="acount-group">
                   <span>De: <strong><?php echo $sessionuser["full_name"]; ?></strong></span>
                   <span>Para: <strong><?php echo $client_name; ?></strong></span>

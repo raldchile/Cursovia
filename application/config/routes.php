@@ -51,7 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'ccourses';
 $route['mostrar/(:any)'] = 'ccourses/getCourse/$1';
-$route['(:any)'] = 'ccourses/profile/$1';
 $route['ingresar/(:any)'] = 'clogin/index/$1';
 $route['ingresar'] = 'clogin';
 $route['cursos-favoritos'] = 'ccourses/getAllFavorites';
@@ -67,3 +66,4 @@ $route['watch/(:num)/(:any)'] = "ccourses/watchVideo/$1/$2";
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['(:any)'] = 'ccourses/profile/$1';

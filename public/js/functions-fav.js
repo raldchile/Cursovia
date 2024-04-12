@@ -3,13 +3,11 @@
           that = $(this);
 
           idcurso = $(this).data("idcurso");
-
           $.ajax({
-          url: "cfavorites/fav/"+idcurso,
+          url: baseURL+"/cfavorites/fav/"+idcurso,
           context: document.body
           }).done(function(data) {
             if(data){
-
               //alert(data);
                 that.parent('.content').toggleClass('active');
                 that.toggleClass('active');

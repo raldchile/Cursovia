@@ -19,7 +19,7 @@
     </div>
   </div>
 </section> -->
-    <form action="<?php echo base_url() ?>" method="post" autocomplete="off" id="buscar">
+    <form action="<?php echo base_url()?>" method="post" autocomplete="off" id="buscar">
     <section class="slide">
       <div class="container top">
 
@@ -104,6 +104,7 @@
         $image        = $value["image_int"];
         $name         = stot($value["name"]);
         $client_name  = stot($value["client_name"]);
+        $client_slug  = $value["client_slug"];
         $slug         = $value["slug"];
         $description  = $value["description"];
         $idcliente    = $value["client_id"];
@@ -151,15 +152,15 @@
 
         <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
               <div class="datos">
-                <a href="<?php echo base_url('/mostrar/'.$slug); ?>"><h1><?php echo $name; ?></h1></a>
-                <a href="<?php echo base_url($client_name); ?>"><h2 class="client-name" ><?php echo $client_name; ?></h2></a>
+                <a href="<?php echo base_url('mostrar/'.$slug); ?>"><h1><?php echo $name; ?></h1></a>
+                <a href="<?php echo base_url($client_slug); ?>"><h2 class="client-name" ><?php echo $client_name; ?></h2></a>
               </div>
               <?php if($price!='Cotizar'){ ?>
-                <a href="<?php echo base_url('/mostrar/'.$slug); ?>"><span class="price"><?php echo formateaMoneda($price); ?></span></a>
+                <a href="<?php echo base_url('mostrar/'.$slug); ?>"><span class="price"><?php echo formateaMoneda($price); ?></span></a>
               <?php }else{ ?>
-                <a href="<?php echo base_url('/mostrar/'.$slug); ?>"><span class="price"><?php echo $price; ?></span></a>
+                <a href="<?php echo base_url('mostrar/'.$slug); ?>"><span class="price"><?php echo $price; ?></span></a>
               <?php } ?>
-              <a href="<?php echo base_url('/mostrar/'.$slug); ?>"><div class="imgViewer" style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;"></div></a>
+              <a href="<?php echo base_url('mostrar/'.$slug); ?>"><div class="imgViewer" style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;"></div></a>
               
         
 
@@ -194,6 +195,10 @@
 
         <?php }?>
     </div>
+    <div class="pagination-container">
+    <?php echo $pagination; ?>
+    </div>
+
         <!--div class="content button">Ver más cursos >></div-->
 
       </div>
@@ -222,7 +227,7 @@
     <?php } ?>
 
     <?php if($courses){ ?>
-
+    
    <script type="text/javascript" src="<?php echo base_url('public/js/functions-fav.js?'.rand()); ?>"></script>
 
 <script type='text/javascript'>

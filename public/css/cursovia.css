@@ -912,3 +912,41 @@
       /*.grid-item { width: 270px; }*/
 /*      .grid-item--width2 { width: 400px; }
 */
+
+/* Estilo para la paginación */
+.pagination-container {
+  text-align: center; /* Centra la paginación */
+  margin-top: 20px; /* Espacio superior */
+}
+
+/* Estilo para los enlaces de paginación */
+.pagination-container a, .pagination-container strong {
+  color: #067aff; /* Color del enlace */
+  font-weight: 700; /* Grosor de la fuente */
+  font-size: 18px; /* Tamaño de la fuente */
+  text-decoration: none; /* Sin subrayado */
+  margin: 0 5px; /* Espacio entre los enlaces */
+  padding: 8px 12px; /* Relleno del enlace */
+  border: 1px solid #067aff; /* Borde del enlace */
+  border-radius: 5px; /* Borde redondeado */
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Estilo para el enlace activo */
+.pagination-container strong {
+  background-color: #067aff; /* Fondo del enlace activo */
+  color: #fff; /* Color del texto del enlace activo */
+}
+
+/* Estilo para el enlace activo al pasar el cursor */
+.pagination-container a:hover {
+  background-color: #067aff; /* Fondo del enlace al pasar el cursor */
+  color: #fff; /* Color del texto del enlace al pasar el cursor */
+}
+
+/* Estilo para el enlace deshabilitado */
+.pagination-container .disabled a {
+  pointer-events: none; /* Desactiva el enlace */
+  background-color: #ccc; /* Fondo del enlace deshabilitado */
+  color: #999; /* Color del texto del enlace deshabilitado */
+}

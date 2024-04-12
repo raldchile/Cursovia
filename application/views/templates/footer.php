@@ -1,7 +1,7 @@
   <section  class="footer">
     <div class="container">
       <div class="row" style="width: 100%; max-width: 1280px">
-        <div class="col-md-4"><img src="public/imgs/logo_cursovia-fiwh.svg" class="footer-logo">
+        <div class="col-md-4"><img src=<?php echo base_url("public/imgs/logo_cursovia-fiwh.svg")?> class="footer-logo">
           <p style="font-size: 13px;margin-left: 7px;"><strong>Cursovia&#174;</strong> es Marca Registrada de <strong>Rald&#174;</strong>.</p></div>
         <div class="col-md-4"></div>
         <div class="col-md-4">
@@ -33,7 +33,7 @@
         </button>
       </div>
       <div class="modal-body">
-           <form action="/clogin/checkLogin" method="post" role="form" data-toggle="validator">
+           <form action=<?php echo base_url("clogin/checkLogin")?> method="post" role="form" data-toggle="validator">
                 <div class="form-group input-group-lg">
                   <label>Email/Usuario:</label>
                   <input type="email" name="emailUser" class="form-control" aria-describedby="emailHelp" placeholder="Ingresa mail registrado" required>

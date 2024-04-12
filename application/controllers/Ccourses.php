@@ -26,9 +26,10 @@ class Ccourses extends CI_Controller {
 		$this->usersession = $this->session->userdata('user_data');
 		$this->load->model('ccourses_model');
 		$this->load->model('cfavorites_model');
+		$this->load->library('pagination');
 	}
 
-	function index()
+	/* function index()
 	{
 		$data["sessionuser"] = $this->usersession;
 		$posts = $this->input->post();
@@ -51,33 +52,73 @@ class Ccourses extends CI_Controller {
 		}else{
 			$this->load->view('index/index_cursovia', $data);
 		}
-	}
+	} */
 
-	function profile($client_id='')
+	public function index()
+{
+    // Configuración de la paginación
+    $config['base_url'] = base_url();
+	$config['first_url'] = base_url();
+	$config['first_link'] = 'Primera';
+	$config['last_link'] = 'Ultima';
+	$config['use_page_numbers'] = true;
+	$config['enable_query_strings'] = true;
+	$config['page_query_string']  = true;
+	$config['query_string_segment'] = 'pagina';
+	$config['reuse_query_string']  = true;
+    $config['total_rows'] = $this->ccourses_model->countAllCourses();
+    $config['per_page'] = 6;
+
+    $this->pagination->initialize($config);
+	$page = ($this->input->get('pagina')) ? $this->input->get('pagina') : 1;
+	$offset = ($page > 0) ? ($page - 1) * $config['per_page'] : 0;
+
+    $data['pagination'] = $this->pagination->create_links();
+    $data["sessionuser"] = $this->usersession;
+    $data["cant_favorites"] = $this->cfavorites_model->countFavorites();
+    $data["header"] = $this->load->view('templates/header', $data, true);
+    $data["footer"] = $this->load->view('templates/footer', $data, true);
+    $data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
+
+    $posts = $this->input->post();
+    if ($posts) {
+        $this->session->set_flashdata('txt', $posts["conceptosearch"]);
+    }
+
+    // Obtener cursos paginados
+    $data["courses"] = $this->ccourses_model->getAllCourses('', 1, $config['per_page'], $offset);
+
+    /* if (count($data["courses"]) == 1) {
+        $slug = $data["courses"][0]["slug"];
+        redirect('/mostrar/'.$slug, 'refresh');
+    } else {
+        $this->load->view('index/index_cursovia', $data);
+    } */
+
+	$this->load->view('index/index_cursovia', $data);
+}
+
+
+
+	function profile($client_slug='')
 	{
 		
 		$data["sessionuser"] = $this->usersession;
 		$posts = $this->input->post();
-		$data["courses"] = $this->ccourses_model->getClientCourses($client_id);
+		$data["courses"] = $this->ccourses_model->getClientCourses($client_slug);
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		$data["header"] = $this->load->view('templates/header', $data, true);
 		$data["footer"] = $this->load->view('templates/footer', $data, true);
 
 		$data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
 
-		
-		if($posts){
-			$this->session->set_flashdata('txt',$posts["conceptosearch"]);
-		}
-
-		$this->load->view('index/client_profile');
-
 	}
 
 	function getCourse($slug='')
 	{
+		
 		$data["sessionuser"] = $this->usersession;
-		$data["courses"] = $this->ccourses_model->getAllCourses($slug,2);
+		$data["courses"] = $this->ccourses_model->getAllCourses($slug,2,1,0);
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		$data["header"] = $this->load->view('templates/header_detail', $data, true);
 		$data["footer"] = $this->load->view('templates/footer', $data, true);

@@ -39,7 +39,7 @@
     <meta property="og:site_name" content="<?php echo $client_name; ?> está en Cursovia" />
     <meta property="fb:app_id" content="361681531771993" />
 
-    <link rel="icon" type="image/png" href="<?php echo base_url()?>/public/imgs/ca.png" />
+    <link rel="icon" type="image/png" href="<?php echo base_url("public/imgs/ca.png")?>" />
 
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"> 
@@ -58,6 +58,7 @@
 
 
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script>var baseURL = '<?php echo base_url(); ?>';</script>  
 
     <link rel="stylesheet" href="<?php echo base_url("public/css/cursovia.css") ?>">
     
@@ -72,16 +73,16 @@
  <section class="barra">
       <div class="container">
         <div class="row" >
-          <div class="col-md-6"><a href="<?php echo base_url(); ?>"><img src="<?php echo base_url()?> public/imgs/logo_cursovia-fiwh.svg" class="header-logo"></a></div>
+          <div class="col-md-6"><a href="<?php echo base_url(); ?>"><img src="<?php echo base_url("public/imgs/logo_cursovia-fiwh.svg")?>" class="header-logo"></a></div>
           <div class="col-md-6">
               <ul class="menu">
                 <?php if($sessionuser["validated"]){ ?>
-                    <li class="header-button"><a href="<?php echo base_url() ?>/cursos-favoritos" class="fa-heart-menu white">Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
+                    <li class="header-button"><a href="<?php echo base_url("cursos-favoritos")?>/cursos-favoritos" class="fa-heart-menu white">Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
                     <li class="header-button"><a href="javascript:void(0);" class="fa-user white"><?php echo $sessionuser["full_name"]; ?></a>
                       <ul class="submenu">
-                        <li><a href="<?php echo base_url() ?>/cuenta" class="fa-gear">Mi cuenta</a></li>
-                        <li><a href="<?php echo base_url() ?>/inbox" class="fa-msg">Mis mensajes</a></li>
-                        <li><a href="<?php echo base_url() ?>/salir" class="fa-sign-out-alt">Logout</a></li>
+                        <li><a href="<?php echo base_url("cuenta")?>" class="fa-gear">Mi cuenta</a></li>
+                        <li><a href="<?php echo base_url("nbox")?>" class="fa-msg">Mis mensajes</a></li>
+                        <li><a href="<?php echo base_url("salir")?>" class="fa-sign-out-alt">Logout</a></li>
                       </ul>
 
                     </li>
