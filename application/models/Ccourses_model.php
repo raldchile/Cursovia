@@ -116,18 +116,63 @@ class Ccourses_model extends CI_Model {
 		return $output;
 
 	 } */
+	 function setSessionCourses() {
+
+		$gets = $this->input->get();
+
+		if($gets){
+			$txt = soloCaracteresPermitidos( $gets["buscar"] );
+		}
+
+		$output = array();
+		$i=0;
+
+	 	$this->db->select('c.id as course_id');
+	 	$this->db->from('courses as c');
+	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
+	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
+	 	$this->db->join('cursovia k', 'k.course_id = c.id');
+	 	$this->db->where('oc.expire >= CURDATE()');
+
+		 if($txt){
+
+			$this->db->where('( c.name LIKE "%'.$txt.'%" OR
+							   c.description LIKE "%'.$txt.'%"
+							   OR cl.name LIKE "%'.$txt.'%" )');
+
+		}
+
+	 	$this->db->where('c.status',1);
+	 	$this->db->where('cl.status',1);
+	 	$this->db->where('c.publish_kimun',1);
+	 	$this->db->where('k.cursovia_ispaid !=',1);
+	 	$this->db->order_by('rand()');
+	 	$courses = $this->db->get();
+
+		$session_id = $this->session->userdata('session_id');
+		
+	 	if( $courses->num_rows() ) {
+			foreach ($courses->result() as $key => $course) {
+
+				$this->cutils_model->setCourseInRsults($session_id,$course->course_id, 1);
+
+			$i++;
+
+			}			
+		}
+	 }
 
 	 function getAllCourses($slug='',$ve=1, $limit=0, $offset=0) {
 
-		$posts = $this->input->post();
-
+		$gets = $this->input->get();
+		$session_id = $this->session->userdata('session_id');
 		$output = array();
 		$i=0;
 		$txt = "";
 
 		if(!$slug){
-			if($posts){
-			$txt = soloCaracteresPermitidos( $posts["conceptosearch"] );
+			if($gets){
+			$txt = soloCaracteresPermitidos( $gets["buscar"] );
 			}
 		}
 
@@ -136,6 +181,7 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 	 	$this->db->join('cursovia k', 'k.course_id = c.id');
+	 	$this->db->join('cursovia_stats ks', 'ks.course_id = c.id');
 	 	$this->db->where('oc.expire >= CURDATE()');
 	 	if($slug){
 	 		$this->db->where('c.slug',$slug);
@@ -154,11 +200,9 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->where('cl.status',1);
 	 	$this->db->where('c.publish_kimun',1);
 	 	$this->db->where('k.cursovia_ispaid !=',1);
-	 	$this->db->order_by('c.id', 'ASC');
+		$this->db->where('ks.session_id', $session_id);
 		$this->db->limit($limit, $offset);
 	 	$courses = $this->db->get();
-		$count = $courses->num_rows();
-		echo $count; 
 
 	 	//echo $this->db->last_query(); die();
 
@@ -234,64 +278,68 @@ class Ccourses_model extends CI_Model {
 		$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 		$this->db->join('cursovia k', 'k.course_id = c.id');
 		$this->db->where('oc.expire >= CURDATE()');
+		$gets = $this->input->get();
+		$txt = '';
+		if($gets){
+			$txt = soloCaracteresPermitidos( $gets["buscar"] );
+			echo $txt;
+			$this->db->where('( c.name LIKE "%'.$txt.'%" OR
+								   c.description LIKE "%'.$txt.'%"
+								   OR cl.name LIKE "%'.$txt.'%" )');
+		}
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
 		$this->db->where('c.publish_kimun', 1);
 		$this->db->where('k.cursovia_ispaid !=', 1);
 		$query = $this->db->get();
 		$count = $query->num_rows();
-		
-		// Devuelve la cantidad de cursos que cumplen las condiciones
+
 		return $count;
     }
 
-	 function getClientCourses($slug='') {
+	 function getClient($slug = ''){
+		$this->db->select('id, name, slug, alias, description, phone, email, color_first, color_second,	background,	logo, profile_img, profile_cover, profile_description, favicon,	mobileicon,	email_support, address');
+	 	$this->db->from('clients');
+		$this->db->where('slug', $slug);
+		$client = $this->db->get()->row_array();
+		return $client;
+	 }
+	
+	 function getClientCourses($slug='', $limit=0, $offset=0) {
 
-		$posts = $this->input->post();
-
+		$gets = $this->input->get();
+		$session_id = $this->session->userdata('session_id');
 		$output = array();
 		$i=0;
-		$txt = "";
-
-		if(!$slug){
-			if($posts){
-			$txt = soloCaracteresPermitidos( $posts["conceptosearch"] );
+	    if($gets){
+			$txt = soloCaracteresPermitidos( $gets["buscar"] );
+			echo $txt;
 			}
-		}
+		
 
-	 	$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as clientg_slug, cl.logo as client_logo, cl.id as client_id');
+	 	$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id');
 	 	$this->db->from('courses as c');
 	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 	 	$this->db->join('cursovia k', 'k.course_id = c.id');
+		$this->db->join('cursovia_stats ks', 'ks.course_id = c.id');
 	 	$this->db->where('oc.expire >= CURDATE()');
-	 	/* if($slug){
-	 		$this->db->where('c.slug',$slug);
-	 	}
-
+		
 	 	if($txt){
 
 	 		$this->db->where('( c.name LIKE "%'.$txt.'%" OR
 								c.description LIKE "%'.$txt.'%"
 								OR cl.name LIKE "%'.$txt.'%" )');
-
-	 		// $this->db->like('c.name',$txt);
-	 		// $this->db->or_like('c.description', $txt); 
-	 	}else{
-	 		$this->db->limit(50);
-	 	} */
+	 	}
 
 	 	$this->db->where('c.status',1);
 	 	$this->db->where('cl.status',1);
 		$this->db->where('cl.slug',$slug);
 	 	$this->db->where('c.publish_kimun',1);
 	 	$this->db->where('k.cursovia_ispaid !=',1);
-	 	$this->db->order_by('rand()');
+		$this->db->where('ks.session_id', $session_id);
+		$this->db->limit($limit, $offset);
 	 	$courses = $this->db->get();
-
-	 	//echo $this->db->last_query(); die();
-
-	 	// print_r($courses->result()); die();
 
 	 	if( $courses->num_rows() ) {
 			foreach ($courses->result() as $key => $course) {
@@ -342,7 +390,7 @@ class Ccourses_model extends CI_Model {
 					$output[$i]['content'] = $this->getContent($course->course_id);
 				}
 
-				$this->cutils_model->setCourseInRsults($course->course_id, $txt);
+				//$this->cutils_model->setCourseInRsults($course->course_id, $txt);
 
 			$i++;
 
@@ -352,6 +400,38 @@ class Ccourses_model extends CI_Model {
 	 	// echo $this->db->last_query(); die();
 
 		return $output;
+
+	 }
+
+	 function countClientCourses($slug='') {
+		$gets = $this->input->get();
+		if($gets){
+			$txt = soloCaracteresPermitidos( $gets["buscar"] );
+		}
+
+	 	$this->db->select('c.id');
+	 	$this->db->from('courses as c');
+	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
+	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
+	 	$this->db->join('cursovia k', 'k.course_id = c.id');
+	 	$this->db->where('oc.expire >= CURDATE()');
+		
+		 if($txt){
+
+			$this->db->where('( c.name LIKE "%'.$txt.'%" OR
+							   c.description LIKE "%'.$txt.'%"
+							   OR cl.name LIKE "%'.$txt.'%" )');
+		}
+
+	 	$this->db->where('c.status',1);
+	 	$this->db->where('cl.status',1);
+		$this->db->where('cl.slug',$slug);
+	 	$this->db->where('c.publish_kimun',1);
+	 	$this->db->where('k.cursovia_ispaid !=',1);
+	 	$this->db->order_by('c.id', 'ASC');
+	 	$courses = $this->db->get();
+		$count = $courses->num_rows();
+		return $count;
 
 	 }
 
@@ -375,6 +455,8 @@ class Ccourses_model extends CI_Model {
 		$this->db->where('k.cursovia_status', 1);
 		$this->db->order_by('k.cursovia_order', 'asc'); // 'asc' debe estar entre comillas simples o en mayúsculas
 		$paid_banner_courses = $this->db->get();
+
+		//echo $this->db->last_query(); die();
 
 		return $paid_banner_courses->result();
 

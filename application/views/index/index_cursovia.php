@@ -19,85 +19,83 @@
     </div>
   </div>
 </section> -->
-    <form action="<?php echo base_url()?>" method="post" autocomplete="off" id="buscar">
+<form action="<?php echo base_url()?>" method="get" autocomplete="off" id="buscar">
     <section class="slide">
-      <div class="container top">
+        <div class="container top">
 
-      <div class="row">
-        <div class="col-md-12 img" style="padding-top: 22px;">
-          <img src="<?php echo base_url("public/imgs/logo_cursovia-fiwh.svg") ?>"/>
-        </div>
-      </div>
-      <div class="row opacity-bkg">
-        <div class="col-md-12" style="padding-top: 10px";>
-          <input type="text" style="text-align: center" placeholder="¿Qué quieres aprender hoy?" name="conceptosearch" id="SearchBar"/>
-        </div>
+            <div class="row">
+                <div class="col-md-12 img" style="padding-top: 22px;">
+                    <img src="<?php echo base_url("public/imgs/logo_cursovia-fiwh.svg") ?>" />
+                </div>
+            </div>
+            <div class="row opacity-bkg">
+                <div class="col-md-12" style="padding-top: 10px" ;>
+                    <input type="text" class="buscar" style="text-align: center"
+                        placeholder="¿Qué quieres aprender hoy?" name="buscar" id="SearchBar" />
+                </div>
 
-        <div class="col-md-12">
-          <a href="#" class="button m-top" id="go">Buscar</a>
-        </div>
-      </div>
+                <div class="col-md-12">
+                    <a href="#" class="button m-top" id="go">Buscar</a>
+                </div>
+            </div>
 
-    </div>
-  </section>
+        </div>
+    </section>
 </form>
 
-  <?php if($courses){ ?>
+<?php if($courses){ ?>
 
-   <section class="padding-sct">
-      <div class="container wrap">
+<main class="padding-sct">
+    <div class="container wrap">
 
-        <?php if( $dev ) { ?>
+        
         <?php if($paid_banner_courses){ 
 
 // Array ( [0] => stdClass Object ( [course_id] => 2926 [name] => Administración de empresas [slug] => administracion-de-empresas [hour] => [code] => [description] => [resume] => [id] => 48 [cursovia_description] => Curso de Administración [cursovia_target] => Personas naturales, estudiantes, microempresarios. [cursovia_learn_objective] => Entregar herramientas avanzadas de administración a emprendedores. [cursovia_structure] => 0 [cursovia_sence_code] => 0 [cursovia_elearning] => 1 [cursovia_inRoom] => 1 [cursovia_from] => 2024-03-31 17:05:48 [cursovia_tothe] => 2024-07-31 18:06:09 [cursovia_forever] => 1 [cursovia_isbanner] => 1 [cursovia_banner_url] => /public/cliente/uploads/478/02_660869908593e.jpg [cursovia_ispaid] => 1 [cursovia_order] => 0 [cursovia_url] => https://www.rald.cl [cursovia_utm_source] => cursovia [cursovia_utm_medium] => top_banner [cursovia_utm_campaign] => DEMO-CAMPANA [cursovia_utm_term] => administracion [cursovia_utm_content] => curso-de-administracion-demo [cursovia_status] => 1 [token] => TOKENPRUEBA01 [promotional_video] => [cursovia_price] => 0 [created] => 0000-00-00 00:00:00 [client_name] => Cursovia [client_logo] => /public/cliente/uploads/478/logokampusrojo_6407be60d72e2.png [client_id] => 478 ) )
             ?>
         <div class="row">
-          <div class="col-md-12" style="margin-top:-90px">
-
-            <div class="slider">
-
-                <?php foreach ($paid_banner_courses as $key => $paidBanner) {
-
+            <div class="col-md-12" style="margin-top:-90px">
+                <div class="slider">
+                    <?php foreach ($paid_banner_courses as $key => $paidBanner) {
+                      echo "xdddddddddddd";
                     $pb_token   =   $paidBanner->token;
-                    $pb_image   =   "https://w3.kampusproject.com/".$paidBanner->cursovia_banner_url;
+                    $pb_image   =   base_url().$paidBanner->cursovia_banner_url;
                     $pb_name    =   $paidBanner->name;
 
                 ?>
-                  <div>
-                    <a href="<?php echo base_url('/link-externo/'.$pb_token); ?>" target="_blank" title="<?php echo $pb_name ?>">
+                    <div>
+                        <a href="<?php echo base_url('/link-externo/'.$pb_token); ?>" target="_blank"
+                            title="<?php echo $pb_name ?>">
                             <img src="<?php echo $pb_image ?>" /></a>
                     </div>
 
-                <?php } ?>
+                    <?php } ?>
+
+                </div>
+
+
 
             </div>
-
-            
-
-          </div>
         </div>
         <?php } ?>
 
 
         <script>
-            $( ".target01" ).on( "click", function() {
-  alert( "Handler for `click` called." );
-} );
+        $(".target01").on("click", function() {
+            alert("Handler for `click` called.");
+        });
         </script>
 
 
-        <?php } ?>
+        <div class="row grid" id="cursos-container">
 
-      <div class="row grid">
-
-       <?php 
+            <?php 
 
       $cuantos_registros = count($courses);
       $cuantas_paginas = ceil($cuantos_registros/10);
 
 
-        $courses = array_slice( $courses, 0, 25 );
+        //$courses = array_slice( $courses, 0, 25 );
 
         foreach ($courses as $key => $value) {
 
@@ -134,8 +132,8 @@
 
          ?>
 
-         <div class="col-md-4 courses-box grid-item <?php echo $marca; ?>">
-          <!-- <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
+            <div class="course col-md-4 courses-box grid-item <?php echo $marca; ?>">
+                <!-- <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
           <a href="<?php echo base_url('/mostrar/'.$slug); ?>">
 
               <div class="datos">
@@ -150,175 +148,192 @@
               <div class="imgViewer" style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;"></div>
         </a> -->
 
-        <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
-              <div class="datos">
-                <a href="<?php echo base_url('mostrar/'.$slug); ?>"><h1><?php echo $name; ?></h1></a>
-                <a href="<?php echo base_url($client_slug); ?>"><h2 class="client-name" ><?php echo $client_name; ?></h2></a>
-              </div>
-              <?php if($price!='Cotizar'){ ?>
-                <a href="<?php echo base_url('mostrar/'.$slug); ?>"><span class="price"><?php echo formateaMoneda($price); ?></span></a>
-              <?php }else{ ?>
-                <a href="<?php echo base_url('mostrar/'.$slug); ?>"><span class="price"><?php echo $price; ?></span></a>
-              <?php } ?>
-              <a href="<?php echo base_url('mostrar/'.$slug); ?>"><div class="imgViewer" style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;"></div></a>
-              
-        
-
-        <div class="row share-menu">
-
-          <div class="col-3" style="padding-left: 0;">
-                <i class="fas fa-heart fav <?php echo $class; ?>" data-idcurso="<?php echo $idcurso; ?>">
-                    <span style="font-family:arial; font-size: 12px;" id="fav-<?php echo $idcurso; ?>"><?php echo $total_favorites; ?></span>
-                </i>
-          </div>
-
-          <div class="col-9 share-bar index">
-
-            <span style="margin-right: 10px">Compartir en:</span> 
-            <span> 
-
-            <ul>
-              <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url_actual(); ?>mostrar/<?php echo $slug; ?>" style="background-image: url('public/imgs/facebook.svg');" target="_blank"></a></li>
-              <!--li><a href="#" style="background-image: url('/public/imgs/linkedin.svg');"></a></li-->
-              <!--li><a href="#" style="background-image: url('/public/imgs/twitter.svg');"></a></li-->
-              <li><a href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual(); ?>mostrar/<?php echo $slug; ?>" style="background-image: url('public/imgs/whatsapp.svg');"  target="_blank"></a></li>
-            </ul>
-            </span>
-          </div>
+                <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
+                    <div class="datos">
+                        <a href="<?php echo base_url('mostrar/'.$slug); ?>">
+                            <h1><?php echo $name; ?></h1>
+                        </a>
+                        <a href="<?php echo base_url($client_slug); ?>">
+                            <h2 class="client-name"><?php echo $client_name; ?></h2>
+                        </a>
+                    </div>
+                    <?php if($price!='Cotizar'){ ?>
+                    <a href="<?php echo base_url('mostrar/'.$slug); ?>"><span
+                            class="price"><?php echo formateaMoneda($price); ?></span></a>
+                    <?php }else{ ?>
+                    <a href="<?php echo base_url('mostrar/'.$slug); ?>"><span
+                            class="price"><?php echo $price; ?></span></a>
+                    <?php } ?>
+                    <a href="<?php echo base_url('mostrar/'.$slug); ?>">
+                        <div class="imgViewer"
+                            style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;"></div>
+                    </a>
 
 
-          </div>
-          </div>
+
+                    <div class="row share-menu">
+
+                        <div class="col-3" style="padding-left: 0;">
+                            <i class="fas fa-heart fav <?php echo $class; ?>" data-idcurso="<?php echo $idcurso; ?>">
+                                <span style="font-family:arial; font-size: 12px;"
+                                    id="fav-<?php echo $idcurso; ?>"><?php echo $total_favorites; ?></span>
+                            </i>
+                        </div>
+
+                        <div class="col-9 share-bar index">
+
+                            <span style="margin-right: 10px">Compartir en:</span>
+                            <span>
+
+                                <ul>
+                                    <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url_actual("mostrar")?><?php echo $slug?>"
+                                            style="background-image: url('public/imgs/facebook.svg');"
+                                            target="_blank"></a></li>
+                                    <!--li><a href="#" style="background-image: url('/public/imgs/linkedin.svg');"></a></li-->
+                                    <!--li><a href="#" style="background-image: url('/public/imgs/twitter.svg');"></a></li-->
+                                    <li><a href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual("mostrar")?><?php echo $slug; ?>"
+                                            style="background-image: url('public/imgs/whatsapp.svg');"
+                                            target="_blank"></a></li>
+                                </ul>
+                            </span>
+                        </div>
 
 
-        </div> 
+                    </div>
+                </div>
 
-        <?php }?>
-    </div>
-    <div class="pagination-container">
-    <?php echo $pagination; ?>
-    </div>
 
-        <!--div class="content button">Ver más cursos >></div-->
-
-      </div>
-      </div>
-    </section>
-    <?php }else{ ?>
-
-      <section>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <p class="msg-results">No encontramos ningún curso con "<?php echo $this->session->flashdata('txt'); ?>" :'(</p>
             </div>
-          </div>
+
+            <?php }?>
+        </div>
+
+
+        <div id="load-more-courses" class="content button" style="display:none;">Ver más cursos </div>
+        <div class="subir" ><a class="fa-arrow-up"></a></div>
+
+    </div>
+</main>
+<?php }else{ ?>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="msg-results">No encontramos ningún curso con "<?php echo $this->session->flashdata('txt'); ?>"
+                    :'(</p>
+            </div>
+        </div>
         <div class="content"><a href="/" class="button">Ver todos los cursos >></a></div>
 
 
-        
-
-
-        </div>
-      </section>
 
 
 
-    <?php } ?>
+    </div>
+</section>
 
-    <?php if($courses){ ?>
-    
-   <script type="text/javascript" src="<?php echo base_url('public/js/functions-fav.js?'.rand()); ?>"></script>
 
+
+<?php } ?>
+
+<?php if($courses){ ?>
+
+<script type="text/javascript" src="<?php echo base_url('public/js/functions-fav.js?'.rand()); ?>"></script>
+<script>
+var clientSlug = '';
+var totalCourses = <?php echo $total_courses?>;
+var offset = <?php echo count($courses)?>
+</script>
+<script type="text/javascript" src="<?php echo base_url('public/js/load-more-courses.js')?>"></script>
 <script type='text/javascript'>
-
-$(window).on('load', function () {
-  loadMasonry();
+$(window).on('load', function() {
+    loadMasonry();
 });
 
-function loadMasonry(){
+function loadMasonry() {
 
-var elem = document.querySelector('.grid');
-var msnry = new Masonry( elem, {
-  itemSelector: '.grid-item',
-  columnWidth: 270
-});
+    var elem = document.querySelector('.grid');
+    var msnry = new Masonry(elem, {
+        itemSelector: '.grid-item',
+        columnWidth: 270
+    });
 
-var msnry = new Masonry( '.grid', {
-});
+    var msnry = new Masonry('.grid', {});
 
 }
-
 </script>
 
 <script type="text/javascript">
-  var page = 1;
-  // var total_pages = <?php #print $count?>;
-  var total_pages = <?php echo $cuantas_paginas ?>;
-
- 
-  // $(window).scroll(function() {
-  //     if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-  //         page++;
-  //         if(page < total_pages) {
-  //           loadMore(page);
-  //         }
-  //     }
-  // });
+var page = 1;
+// var total_pages = <?php #print $count?>;
+var total_pages = <?php echo $cuantas_paginas ?>;
 
 
-  function loadMore(page){
-              var data = "";
-
-              $(".grid").append(data);
-                loadMasonry();
-
-  }
-
-  (function($){
-
-$(document).ready(
-
-  function(){
-
-        $( "#SearchBar" ).focus();
-
-      // Hacemos que el sitio haga scroll down hasta poner el foco en el buscador.
-
-      // $('html, body').animate( {
-      //   scrollTop : 60
-      // }, 800, function(){
-
-      //   $( "#SearchBar" ).focus();
-
-      // });
+// $(window).scroll(function() {
+//     if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+//         page++;
+//         if(page < total_pages) {
+//           loadMore(page);
+//         }
+//     }
+// });
 
 
-    // Comprobar si estamos, al menos, 100 px por debajo de la posición top
-    // para mostrar o esconder el botón
-    $(window).scroll(function(){
+function loadMore(page) {
+    var data = "";
 
-      if ( $(this).scrollTop() > 100 ) {
+    $(".grid").append(data);
+    loadMasonry();
 
-        $('.scroll-to-top').fadeIn();
+}
 
-      } else {
+(function($) {
 
-        $('.scroll-to-top').fadeOut();
+    $(document).ready(
 
-      }
+        function() {
 
-    });
+            $("#SearchBar").focus();
 
-    // al hacer click, animar el scroll hacia arriba
-    $('.scroll-to-top').click( function( e ) {
+            // Hacemos que el sitio haga scroll down hasta poner el foco en el buscador.
 
-      e.preventDefault();
-      $('html, body').animate( {scrollTop : 0}, 800 );
+            // $('html, body').animate( {
+            //   scrollTop : 60
+            // }, 800, function(){
 
-    });
+            //   $( "#SearchBar" ).focus();
 
-  });
+            // });
+
+
+            // Comprobar si estamos, al menos, 100 px por debajo de la posición top
+            // para mostrar o esconder el botón
+            $(window).scroll(function() {
+
+                if ($(this).scrollTop() > 100) {
+
+                    $('.scroll-to-top').fadeIn();
+
+                } else {
+
+                    $('.scroll-to-top').fadeOut();
+
+                }
+
+            });
+
+            // al hacer click, animar el scroll hacia arriba
+            $('.scroll-to-top').click(function(e) {
+
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 800);
+
+            });
+
+        });
 
 })(jQuery);
 </script>

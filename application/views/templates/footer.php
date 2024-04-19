@@ -33,7 +33,7 @@
         </button>
       </div>
       <div class="modal-body">
-           <form action=<?php echo base_url("clogin/checkLogin")?> method="post" role="form" data-toggle="validator">
+           <form action='<?php echo base_url("clogin/checkLogin")?>' method="post" role="form" data-toggle="validator">
                 <div class="form-group input-group-lg">
                   <label>Email/Usuario:</label>
                   <input type="email" name="emailUser" class="form-control" aria-describedby="emailHelp" placeholder="Ingresa mail registrado" required>
@@ -51,7 +51,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">¡No por ahora!</button>
-        <button type="button" class="btn btn-primary"><a href="/ingresar">Registrarse</a></button>
+        <button type="button" class="btn btn-primary"><a href="<?php echo base_url("ingresar")?>">Registrarse</a></button>
       </div>
     </div>
   </div>
