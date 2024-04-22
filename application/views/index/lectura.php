@@ -9,7 +9,7 @@
       <div class="row ">
         <div class="col-md-12 content-detail">
 
-                 <form action="/cmessages/getTheMessage" method="post" role="form" data-toggle="validator" id="contact-form" method="post">
+                 <form action="<?php echo base_url("cmessages/getTheMessage")?>" method="post" role="form" data-toggle="validator" id="contact-form">
                <div class="acount-group">
                   <span><strong>De: </strong><?php echo $datos[0]["full_name"];?></span>
                   <span><strong>Para: </strong><?php echo $datos[0]["client_name"];?></span>

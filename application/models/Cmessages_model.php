@@ -90,7 +90,7 @@ class Cmessages_model extends CI_Model {
 	 											foreach ($datosCliente->result() as $key => $usrCliente) {
 													$cliente_email = $usrCliente->email;
 													$cliente_name = $usrCliente->name;
-													$url = "https://www.cursovia.com/lectura/".$token;
+													$url =  base_url("lectura/").$token;
 												}
 
 											$accion 	= "Contacto"; 
@@ -134,7 +134,6 @@ class Cmessages_model extends CI_Model {
 											$message .= "<img src=\"https://www.cursovia.com/public/imgs/logoCusoviaEmail-fi.png\" style=\"width: 165px\" />";
 											$message .= "<p style=\"font-size: 25px\">Estimado usuario:</p>";
 											$message .= "<p>Te enviamos un respaldo del contacto que has realizado en www.cursovia.com. ¡Apenas tengas una respuesta te avisaremos!</p>";
-
 											$message .= "<p>Atentamente,</p>";
 											$message .= "<p>Tus amigos de <strong>cursovia.com</strong></p>";
 											$message .= "</div>";
@@ -178,6 +177,9 @@ class Cmessages_model extends CI_Model {
 	 		$dbc->where('m.isget', 1);
 	 		$dbc->where('u.status', 1);
 	 		$datos = $dbc->get();
+
+
+
 
 	 		if($dbc->affected_rows()){ // Token valido // entonces reviso si Cliente esta vigente
 
@@ -332,7 +334,7 @@ class Cmessages_model extends CI_Model {
 	 										foreach ($datosCliente as $key => $usrCliente) {
 													$cliente_email = $usrCliente->email;
 													$cliente_name = $usrCliente->name;
-													$url = "https://www.cursovia.com/lectura/".$Gentoken;
+													$url = base_url("lectura/").$Gentoken;
 											}
 
 											$accion 	= "Contacto"; 
@@ -348,7 +350,7 @@ class Cmessages_model extends CI_Model {
 											$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
 											$message .= "<img src=\"https://www.cursovia.com/public/imgs/logoCusoviaEmail-fi.png\" style=\"width: 165px\" />";
 											$message .= "<p style=\"font-size: 25px\">Estimado cliente:</p>";
-											$message .= "<p>Has recibido respuesta a tu consulta de curso: ".$course.". Para verlo, haz clic en el siguiente enlace, o copialo y pégalo en tu browser:</p>";
+											$message .= "<p>Has recibido respuesta a tu consulta de curso: <strong>".$course."</strong>. Para verlo, haz clic en el siguiente enlace, o copialo y pégalo en tu browser:</p>";
 											$message .= "<p><a href=\"".$url."\">".$url."</a></p>";
 											$message .= "<p>Atentamente,</p>";
 											$message .= "<p>Tus amigos de <strong>cursovia.com</strong></p>";

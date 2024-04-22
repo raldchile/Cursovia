@@ -81,7 +81,7 @@
         <div class="col-md-12">
           
            <div class="modal-body">
-           <form action="/cmessages/sendMessage" method="post" role="form" data-toggle="validator" id="contact-form" method="post">
+           <form action="<?php echo base_url("cmessages/sendMessage")?>" method="post" role="form" data-toggle="validator" id="contact-form" method="post">
                 <div class="respuesta"></div>
                 <div class="acount-group">
                   <label><strong>Envía una respuesta o consulta:</strong></label>

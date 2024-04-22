@@ -122,11 +122,11 @@ class Clogin extends CI_Controller {
 				if($posts["backto"]){
 					redirect($posts["backto"]);
 				}else{
-					redirect('/');
+					redirect(base_url());
 				}
 			}else{
 				$this->session->set_flashdata('msg','<span class="msg">Ingreso no válido. Email de usuario, clave errónea y/o usuario no activo aún.</span>');
-				redirect('/ingresar');
+				redirect(base_url('/ingresar'));
 
 			}
 	}

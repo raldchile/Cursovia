@@ -28,7 +28,7 @@ class Ccourses extends CI_Controller {
 		$this->load->model('cfavorites_model');
 		$session_id = $this->session->userdata('session_id');
 		if(!$session_id){
-			$session_id = uniqid();
+			$session_id = uniqid().date('YmdHis');
 			$this->session->set_userdata('session_id', $session_id);
 			$this->ccourses_model->setSessionCourses();
 		}
@@ -102,11 +102,6 @@ class Ccourses extends CI_Controller {
     $data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, 0);
 	$data["total_courses"] = $this->ccourses_model->countAllCourses();
 
-	if(!$data["courses"]){
-		$this->ccourses_model->setSessionCourses();
-		$data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, 0);
-
-	}
 
     $gets = $this->input->get();
     if ($gets) {

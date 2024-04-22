@@ -151,7 +151,7 @@
                 <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
                     <div class="datos">
                         <a href="<?php echo base_url('mostrar/'.$slug); ?>">
-                            <h1><?php echo $name; ?></h1>
+                            <h1><?php echo $name;?></h1>
                         </a>
                         <a href="<?php echo base_url($client_slug); ?>">
                             <h2 class="client-name"><?php echo $client_name; ?></h2>

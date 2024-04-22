@@ -48,7 +48,7 @@ class Cmessages extends CI_Controller {
 
 		$send = $this->cmessages_model->SendMessage();
 		if($send){
-			echo "<span class=\"content-msg\">¡Contacto realizado!</span>"; die();
+			echo "<span class=\"content-msg\">¡Contacto realizado!</span>";
 		}			
 		}else{
 		 redirect(base_url());
@@ -57,17 +57,17 @@ class Cmessages extends CI_Controller {
 
 	public function getTheMessage()
 	{
-
 		// VALIDAMOS SESION DEL USUARIO SI NO REDIRECCIONAMOS AL LOGIN
 		$check = $this->cmessages_model->getTheMessage();
 		if($check){
 			echo "¡Contacto realizado!"; die();
-		}			
+		}
 	}
 
 	public function checkMessage($token)
 	{
 		$check = $this->cmessages_model->CheckMessage($token);
+
 		if($check){
 
 			$data["datos"] = $check;

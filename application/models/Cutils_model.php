@@ -94,7 +94,7 @@ class Cutils_model extends CI_Model {
 	 	return $this->db->affected_rows() ? true : false;	
 	}
 
-	/* function setCourseInRsults($idCourse='', $txt_search='', $ve=1){
+	function setCourseInRsults($idCourse='', $txt_search='', $ve=1){
 
 		$fecha = date('Y-m-d H:i:s');
 		$data = array(
@@ -108,26 +108,8 @@ class Cutils_model extends CI_Model {
 		// print_r($data); die();
 		
 		$this->db->insert('cursovia_stats', $data);
-	} */
-
-	function setCourseInRsults($session_id ='',$idCourse='', $ve=1){
-
-		$fecha = date('Y-m-d H:i:s');
-		$data = array(
-			'session_id'=> $session_id,
-			'course_id' => (int)$idCourse,
-			'date_result' => $fecha,
-			'text_search' => '',
-			'has_detail' => $ve
-			// 'origin' => $_SERVER['HTTP_REFERER']
-		);
-
-		// print_r($data); die();
-		
-		$this->db->insert('cursovia_stats', $data);
-
-		//echo $this->db->last_query(); 
 	}
+
 
 
 	

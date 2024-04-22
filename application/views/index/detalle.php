@@ -65,10 +65,10 @@
             <span style="position: absolute;"> 
 
             <ul>
-              <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url_actual(); ?>" target="_blank" style="background-image: url('/public/imgs/facebook.svg');"></a></li>
+              <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url_actual()?>" target="_blank" style="background-image: url('public/imgs/facebook.svg');"></a></li>
               <!--li><a href="#" style="background-image: url('/public/imgs/linkedin.svg');"></a></li -->
               <!--li><a href="#" style="background-image: url('/public/imgs/twitter.svg');"></a></li-->
-              <li><a target="_blank" href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual(); ?>" style="background-image: url('cursovia.local/Cursovia/public/imgs/whatsapp.svg');"></a></li>
+              <li><a target="_blank" href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual()?>" style="background-image: url('public/imgs/whatsapp.svg');"></a></li>
             </ul>
             </span>
           </span>
@@ -274,7 +274,7 @@ $(window).scroll(function()
         </button>
       </div>
       <div class="modal-body">
-           <form action=<?php base_url("cmessages/sendMessage")?> method="post" role="form" data-toggle="validator" id="contact-form" method="post">
+           <form action=<?php echo base_url("cmessages/sendMessage")?> method="post" role="form" data-toggle="validator" id="contact-form">
                <div class="acount-group">
                   <span>De: <strong><?php echo $sessionuser["full_name"]; ?></strong></span>
                   <span>Para: <strong><?php echo $client_name; ?></strong></span>

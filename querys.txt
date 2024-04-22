@@ -1,0 +1,7 @@
+
+ALTER TABLE `kampus_clients` ADD `profile_img` TEXT NULL AFTER `logo`, ADD `profile_cover` TEXT NULL AFTER `profile_img`, ADD `profile_description` TEXT NULL AFTER `profile_cover`;
+
+ALTER TABLE `kampus_cursovia_stats` ADD `session_id` INT NULL AFTER `id`;
+
+CREATE TABLE `dev_cursovia`.`cursovia_results` ( `id` INT NOT NULL AUTO_INCREMENT ,  `session_id` TEXT NOT NULL ,  `courses_id` TEXT NOT NULL ,  `user_id` INT NULL ,  `result_date` DATE NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+

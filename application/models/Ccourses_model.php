@@ -4,8 +4,10 @@ class Ccourses_model extends CI_Model {
 
 	function __construct() {
 		parent::__construct();
+		$this->usersession = $this->session->userdata('user_data');
 		$this->load->model('cfavorites_model');
 		$this->load->model('cutils_model');
+		$this->load->model('clogin_model');
 	}
 
 	/* function getAllCourses($slug='',$ve=1) {
@@ -116,16 +118,9 @@ class Ccourses_model extends CI_Model {
 		return $output;
 
 	 } */
+
+
 	 function setSessionCourses() {
-
-		$gets = $this->input->get();
-
-		if($gets){
-			$txt = soloCaracteresPermitidos( $gets["buscar"] );
-		}
-
-		$output = array();
-		$i=0;
 
 	 	$this->db->select('c.id as course_id');
 	 	$this->db->from('courses as c');
@@ -133,15 +128,6 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 	 	$this->db->join('cursovia k', 'k.course_id = c.id');
 	 	$this->db->where('oc.expire >= CURDATE()');
-
-		 if($txt){
-
-			$this->db->where('( c.name LIKE "%'.$txt.'%" OR
-							   c.description LIKE "%'.$txt.'%"
-							   OR cl.name LIKE "%'.$txt.'%" )');
-
-		}
-
 	 	$this->db->where('c.status',1);
 	 	$this->db->where('cl.status',1);
 	 	$this->db->where('c.publish_kimun',1);
@@ -149,23 +135,59 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->order_by('rand()');
 	 	$courses = $this->db->get();
 
-		$session_id = $this->session->userdata('session_id');
+		$course_ids_text = '';
 		
 	 	if( $courses->num_rows() ) {
 			foreach ($courses->result() as $key => $course) {
 
-				$this->cutils_model->setCourseInRsults($session_id,$course->course_id, 1);
-
-			$i++;
+				$course_ids_text .= ($key > 0 ? ',' : '').$course->course_id;
 
 			}			
 		}
+
+		$sessionuser = $this->usersession;
+		$user_id = ($sessionuser) ? $sessionuser["id"] : null;
+		$session_id = $this->session->userdata('session_id');
+		$dbc = $this->load->database('cursovia', TRUE);
+
+		$fecha = date('Y-m-d H:i:s');
+		$data = array(
+			'session_id'=> $session_id,
+			'courses_id' => $course_ids_text,
+			'user_id' => $user_id,
+			'result_date' => $fecha,
+		);
+
+		
+
+		//print_r($data); die();
+		
+		$dbc->insert('cursovia_results', $data);
+
+		//echo dbc->last_query(); 
 	 }
 
 	 function getAllCourses($slug='',$ve=1, $limit=0, $offset=0) {
 
-		$gets = $this->input->get();
+		
 		$session_id = $this->session->userdata('session_id');
+
+		$dbc = $this->load->database('cursovia', TRUE);
+		$dbc->select('id, courses_id');
+		$dbc->from('cursovia_results');
+		$dbc->where('session_id',$session_id);
+		$query = $dbc->get();
+
+		if (!$query->num_rows()){
+			$this->setSessionCourses();
+		}
+
+		$result = $query->row();
+		$result_courses_id = explode(",", $result->courses_id);
+		$result_courses_id = array_map('intval', $result_courses_id);
+
+
+		$gets = $this->input->get();
 		$output = array();
 		$i=0;
 		$txt = "";
@@ -181,7 +203,7 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 	 	$this->db->join('cursovia k', 'k.course_id = c.id');
-	 	$this->db->join('cursovia_stats ks', 'ks.course_id = c.id');
+		//$this->db->where_in('c.id', $result_courses_id);
 	 	$this->db->where('oc.expire >= CURDATE()');
 	 	if($slug){
 	 		$this->db->where('c.slug',$slug);
@@ -200,7 +222,7 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->where('cl.status',1);
 	 	$this->db->where('c.publish_kimun',1);
 	 	$this->db->where('k.cursovia_ispaid !=',1);
-		$this->db->where('ks.session_id', $session_id);
+		 $this->db->order_by("FIELD(c.id, " . implode(",", $result_courses_id) . ")");
 		$this->db->limit($limit, $offset);
 	 	$courses = $this->db->get();
 
@@ -307,8 +329,23 @@ class Ccourses_model extends CI_Model {
 	
 	 function getClientCourses($slug='', $limit=0, $offset=0) {
 
-		$gets = $this->input->get();
 		$session_id = $this->session->userdata('session_id');
+
+		$dbc = $this->load->database('cursovia', TRUE);
+		$dbc->select('id, courses_id');
+		$dbc->from('cursovia_results');
+		$dbc->where('session_id',$session_id);
+		$query = $dbc->get();
+
+		if (!$query->num_rows()){
+			$this->setSessionCourses();
+		}
+
+		$result = $query->row();
+		$result_courses_id = explode(",", $result->courses_id);
+		$result_courses_id = array_map('intval', $result_courses_id);
+
+		$gets = $this->input->get();
 		$output = array();
 		$i=0;
 	    if($gets){
@@ -322,7 +359,6 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 	 	$this->db->join('cursovia k', 'k.course_id = c.id');
-		$this->db->join('cursovia_stats ks', 'ks.course_id = c.id');
 	 	$this->db->where('oc.expire >= CURDATE()');
 		
 	 	if($txt){
@@ -337,7 +373,7 @@ class Ccourses_model extends CI_Model {
 		$this->db->where('cl.slug',$slug);
 	 	$this->db->where('c.publish_kimun',1);
 	 	$this->db->where('k.cursovia_ispaid !=',1);
-		$this->db->where('ks.session_id', $session_id);
+		$this->db->order_by("FIELD(c.id, " . implode(",", $result_courses_id) . ")");
 		$this->db->limit($limit, $offset);
 	 	$courses = $this->db->get();
 
