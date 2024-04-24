@@ -62,49 +62,20 @@
                     style="background:<?php echo $client_color_first?>" id="go">Buscar</a></div>
         </div>
     </section>
-    <section class="container client-content">
+    <section class="container">
         <div class="row">
-            <div class="col-3">
+            <div class="col-md-3 client-profile-description">
                 <h1>Descripción</h1>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit cupiditate dolorem sint animi
                 perspiciatis necessitatibus. Nesciunt at enim blanditiis doloribus voluptatem sint eos, voluptatibus id
                 debitis saepe vel accusamus quos.
                 <?php echo $client_profile_description?>
             </div>
-            <div class="col col-courses">
+            <div class="col-md-9 col-courses">
                 <?php if($courses){ ?>
                 <div class="container wrap">
-                    <?php if( $dev ) {?>
-                    <?php if($paid_banner_courses){
-                            // Array ( [0] => stdClass Object ( [course_id] => 2926 [name] => Administración de empresas [slug] => administracion-de-empresas [hour] => [code] => [description] => [resume] => [id] => 48 [cursovia_description] => Curso de Administración [cursovia_target] => Personas naturales, estudiantes, microempresarios. [cursovia_learn_objective] => Entregar herramientas avanzadas de administración a emprendedores. [cursovia_structure] => 0 [cursovia_sence_code] => 0 [cursovia_elearning] => 1 [cursovia_inRoom] => 1 [cursovia_from] => 2024-03-31 17:05:48 [cursovia_tothe] => 2024-07-31 18:06:09 [cursovia_forever] => 1 [cursovia_isbanner] => 1 [cursovia_banner_url] => /public/cliente/uploads/478/02_660869908593e.jpg [cursovia_ispaid] => 1 [cursovia_order] => 0 [cursovia_url] => https://www.rald.cl [cursovia_utm_source] => cursovia [cursovia_utm_medium] => top_banner [cursovia_utm_campaign] => DEMO-CAMPANA [cursovia_utm_term] => administracion [cursovia_utm_content] => curso-de-administracion-demo [cursovia_status] => 1 [token] => TOKENPRUEBA01 [promotional_video] => [cursovia_price] => 0 [created] => 0000-00-00 00:00:00 [client_name] => Cursovia [client_logo] => /public/cliente/uploads/478/logokampusrojo_6407be60d72e2.png [client_id] => 478 ) )
-                            ?>
-                    <div class="row">
-                        <div class="col-md-12" style="margin-top:-90px">
-                            <div class="slider">
-                                <?php foreach ($paid_banner_courses as $key => $paidBanner) {
-                                                $pb_token   =   $paidBanner->token;
-                                                $pb_image   =   "https://w3.kampusproject.com/".$paidBanner->cursovia_banner_url;
-                                                $pb_name    =   $paidBanner->name;
-                                            ?>
-                                <div>
-                                    <a href="<?php echo base_url('/link-externo/'.$pb_token); ?>" target="_blank"
-                                        title="<?php echo $pb_name ?>">
-                                        <img src="<?php echo $pb_image ?>" /></a>
-                                </div>
-                                <?php }?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php }?>
-                    <script>
-                    $(".target01").on("click", function() {
-                        alert("Handler for `click` called.");
-                    });
-                    </script>
-                    <?php } ?>
                     <div class="row grid courses-list" id="cursos-container">
                         <?php 
-          
     
                         $cuantos_registros = count($courses);
                         $cuantas_paginas = ceil($cuantos_registros/10);

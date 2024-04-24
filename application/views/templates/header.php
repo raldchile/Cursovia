@@ -53,7 +53,7 @@
 
     <script>
 
-      $(document).ready(function(){
+     /*  $(document).ready(function(){
         $(".slider").bxSlider({
           infiniteLoop: true,
           // slideWidth: 600,
@@ -64,12 +64,48 @@
           auto: true,
           autoDelay: 20,
           slideWidth: 363,
-          minSlides: 3,
+          minSlides: 1,
           maxSlides: 3,
           slideMargin: 12,
           speed: 1500
           });
-      });
+      }); */
+
+      $(document).ready(function(){
+
+        slider = null; 
+    // Función para detectar el cambio de tamaño de la ventana y ajustar el slider
+    function adjustSlider() {
+        var windowWidth = $(window).width();
+        var slides = (windowWidth < 768) ? 1 : 3;
+        var margin = (windowWidth < 768) ? 0 : 6;
+
+        if(slider){
+          slider.destroySlider();
+        }
+
+        slider = $(".slider").bxSlider({
+          infiniteLoop: true,
+          // slideWidth: 600,
+          // randomStart: true,
+          // tickerHover: true,
+          touchEnabled: false,
+          controls: false,
+          auto: true,
+          autoDelay: 20,
+          slideWidth: 363,
+          minSlides: slides,
+          maxSlides: slides,
+          slideMargin: margin,
+          speed: 1500
+          });
+        
+    }
+
+    // Llama a la función para ajustar el slider cuando se carga la página y cuando cambia el tamaño de la ventana
+    adjustSlider();
+    $(window).resize(adjustSlider);
+});
 
 
     </script>
@@ -79,7 +115,7 @@
 
     <video class="home" src="<?php echo base_url("/public/video/RALD_video.mp4") ?>" autoplay="true" muted="true" loop="true"></video>
 
-      <section class="barra">
+      <section class="barra sect">
       <div class="container">
         <div class="row" >
           <div class="col-md-6"><a href="<?php echo base_url(); ?>" class="no-view-logo"><img src="<?php echo base_url("public/imgs/logo_cursovia-fiwh.svg")?>" class="Logotipo curso"></a></div>

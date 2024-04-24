@@ -19,7 +19,7 @@
     </div>
   </div>
 </section> -->
-<form action="<?php echo base_url()?>" method="get" autocomplete="off" id="buscar">
+<form action="<?php echo base_url()?>" method="get" autocomplete="off" id="buscar" class="sect">
     <section class="slide">
         <div class="container top">
 
@@ -42,29 +42,29 @@
         </div>
     </section>
 </form>
+</section>
 
 <?php if($courses){ ?>
 
-<main class="padding-sct">
+<main class="padding-sct sect">
     <div class="container wrap">
 
-        
+
         <?php if($paid_banner_courses){ 
 
 // Array ( [0] => stdClass Object ( [course_id] => 2926 [name] => Administración de empresas [slug] => administracion-de-empresas [hour] => [code] => [description] => [resume] => [id] => 48 [cursovia_description] => Curso de Administración [cursovia_target] => Personas naturales, estudiantes, microempresarios. [cursovia_learn_objective] => Entregar herramientas avanzadas de administración a emprendedores. [cursovia_structure] => 0 [cursovia_sence_code] => 0 [cursovia_elearning] => 1 [cursovia_inRoom] => 1 [cursovia_from] => 2024-03-31 17:05:48 [cursovia_tothe] => 2024-07-31 18:06:09 [cursovia_forever] => 1 [cursovia_isbanner] => 1 [cursovia_banner_url] => /public/cliente/uploads/478/02_660869908593e.jpg [cursovia_ispaid] => 1 [cursovia_order] => 0 [cursovia_url] => https://www.rald.cl [cursovia_utm_source] => cursovia [cursovia_utm_medium] => top_banner [cursovia_utm_campaign] => DEMO-CAMPANA [cursovia_utm_term] => administracion [cursovia_utm_content] => curso-de-administracion-demo [cursovia_status] => 1 [token] => TOKENPRUEBA01 [promotional_video] => [cursovia_price] => 0 [created] => 0000-00-00 00:00:00 [client_name] => Cursovia [client_logo] => /public/cliente/uploads/478/logokampusrojo_6407be60d72e2.png [client_id] => 478 ) )
             ?>
         <div class="row">
-            <div class="col-md-12" style="margin-top:-90px">
+            <div class="col-md-12 slider_container" style="margin-top:-90px">
                 <div class="slider">
                     <?php foreach ($paid_banner_courses as $key => $paidBanner) {
-                      echo "xdddddddddddd";
                     $pb_token   =   $paidBanner->token;
                     $pb_image   =   base_url().$paidBanner->cursovia_banner_url;
                     $pb_name    =   $paidBanner->name;
 
                 ?>
                     <div>
-                        <a href="<?php echo base_url('/link-externo/'.$pb_token); ?>" target="_blank"
+                        <a href="<?php echo base_url('link-externo/'.$pb_token); ?>" target="_blank"
                             title="<?php echo $pb_name ?>">
                             <img src="<?php echo $pb_image ?>" /></a>
                     </div>
@@ -133,21 +133,6 @@
          ?>
 
             <div class="course col-md-4 courses-box grid-item <?php echo $marca; ?>">
-                <!-- <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
-          <a href="<?php echo base_url('/mostrar/'.$slug); ?>">
-
-              <div class="datos">
-                <h1><?php echo $name; ?></h1>
-                <h2><?php echo $client_name; ?></h2>
-              </div>
-              <?php if($price!='Cotizar'){ ?>
-                <span class="price"><?php echo formateaMoneda($price); ?></span>
-              <?php }else{ ?>
-                <span class="price"><?php echo $price; ?></span>
-              <?php } ?>
-              <div class="imgViewer" style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;"></div>
-        </a> -->
-
                 <div class="content <?php echo $class; ?> <?php echo $hover; ?>">
                     <div class="datos">
                         <a href="<?php echo base_url('mostrar/'.$slug); ?>">
@@ -210,7 +195,7 @@
 
 
         <div id="load-more-courses" class="content button" style="display:none;">Ver más cursos </div>
-        <div class="subir" ><a class="fa-arrow-up"></a></div>
+        <div class="subir"><a class="fa-arrow-up"></a></div>
 
     </div>
 </main>
