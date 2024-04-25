@@ -1,5 +1,4 @@
 $(document).ready(function () {
-	console.log("inicie");
 	function stot(txt) {
 		// Convierte la primera letra a mayúsculas y el resto a minúsculas
 		return txt.toUpperCase();
@@ -12,11 +11,9 @@ $(document).ready(function () {
 	}
 	if (offset < totalCourses) {
 		$("#load-more-courses").fadeIn();
-		console.log("apareci");
 	}
 
 	$("#load-more-courses").on("click", function () {
-		console.log("me precionaron -" + clientSlug + "- " + offset);
 		$.ajax({
 			url: baseURL + "/ccourses/loadMoreCourses/",
 			method: "POST",
@@ -62,7 +59,7 @@ $(document).ready(function () {
 
 					// Construir el HTML del curso
 					var cursoHTML = `
-<div class="col-md-4 courses-box grid-item ${marcaVar}">
+<div class="course col-md-4 courses-box grid-item ${marcaVar}">
   <div class="content ${classVar} ${randomHover}">
       <a href="${baseURL}/mostrar/${slug}">
           <div class="datos">
@@ -78,7 +75,6 @@ $(document).ready(function () {
 						<a href="${baseURL}/mostrar/${slug}">
 						<span class="price">${formateaMoneda(price)}</span></a>`;
 					} else if (price !== "Cotizar" && client) {
-						console.log(response.client.color_second);
 						cursoHTML += `
 						<a href="${baseURL}/mostrar/${slug}" class="price" style="color:${
 							response.client.color_second
@@ -124,6 +120,12 @@ $(document).ready(function () {
 					} catch (error) {
 						console.log(error);
 					}
+					try {
+						responsive_profile();
+						loadMasonry();
+					} catch (error) {
+						console.log(error);
+					}
 				});
 
 				offset += response.courses.length;
@@ -136,35 +138,5 @@ $(document).ready(function () {
 				console.error("Error al cargar más cursos:", error);
 			},
 		});
-	});
-
-	var $subir = $(".subir");
-
-	$(window).scroll(function () {
-		// Obtener la posición vertical del scroll
-		var scrollPos = $(window).scrollTop();
-
-		// Mostrar el botón si la posición del scroll es mayor a 500px (ajusta este valor según tus necesidades)
-		if (scrollPos > 500) {
-			$subir.fadeIn();
-		} else {
-			$subir.fadeOut();
-		}
-	});
-
-	$subir.click(function () {
-		// Obtener la posición superior de la barra de búsqueda
-		var searchBarTop = $("#SearchBar").offset().top;
-
-		// Calcular la posición a la que deseas desplazarte
-		var scrollToPos = searchBarTop - 200; // Resta una cantidad de píxeles para dejar la barra en el medio
-
-		// Hacer scroll suavemente a la posición calculada
-		$("html, body").animate(
-			{
-				scrollTop: scrollToPos,
-			},
-			800
-		); // Duración de la animación en milisegundos
 	});
 });

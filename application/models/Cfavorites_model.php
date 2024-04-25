@@ -32,8 +32,8 @@ class Cfavorites_model extends CI_Model {
 
 	 function getAllFavorites($course_id='') {
 			$dbc = $this->load->database('cursovia', TRUE);
-			$sessionuser = $this->usersession;
-			$id_user  = $sessionuser["id"];
+			//$sessionuser = $this->usersession;
+			//$id_user  = $sessionuser["id"];
 			// $id_course	= $id_course;
 		 	$dbc->select('course_id');
 		 	$dbc->from('favorites');

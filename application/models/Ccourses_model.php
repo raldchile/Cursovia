@@ -303,8 +303,9 @@ class Ccourses_model extends CI_Model {
 		$gets = $this->input->get();
 		$txt = '';
 		if($gets){
-			$txt = soloCaracteresPermitidos( $gets["buscar"] );
-			echo $txt;
+			$txt = soloCaracteresPermitidos( $gets["buscar"] );		
+		}
+		if($txt){
 			$this->db->where('( c.name LIKE "%'.$txt.'%" OR
 								   c.description LIKE "%'.$txt.'%"
 								   OR cl.name LIKE "%'.$txt.'%" )');
@@ -346,11 +347,12 @@ class Ccourses_model extends CI_Model {
 		$result_courses_id = array_map('intval', $result_courses_id);
 
 		$gets = $this->input->get();
+		$txt = '';
+		
 		$output = array();
 		$i=0;
 	    if($gets){
 			$txt = soloCaracteresPermitidos( $gets["buscar"] );
-			echo $txt;
 			}
 		
 
@@ -426,8 +428,6 @@ class Ccourses_model extends CI_Model {
 					$output[$i]['content'] = $this->getContent($course->course_id);
 				}
 
-				//$this->cutils_model->setCourseInRsults($course->course_id, $txt);
-
 			$i++;
 
 			}			
@@ -441,6 +441,7 @@ class Ccourses_model extends CI_Model {
 
 	 function countClientCourses($slug='') {
 		$gets = $this->input->get();
+		$txt = '';
 		if($gets){
 			$txt = soloCaracteresPermitidos( $gets["buscar"] );
 		}
@@ -464,7 +465,6 @@ class Ccourses_model extends CI_Model {
 		$this->db->where('cl.slug',$slug);
 	 	$this->db->where('c.publish_kimun',1);
 	 	$this->db->where('k.cursovia_ispaid !=',1);
-	 	$this->db->order_by('c.id', 'ASC');
 	 	$courses = $this->db->get();
 		$count = $courses->num_rows();
 		return $count;
@@ -602,6 +602,7 @@ class Ccourses_model extends CI_Model {
 							$output[$i]['slug'] = $course->slug;
 							$output[$i]['hour'] = $course->hour;
 							$output[$i]['code'] = $course->code;
+							$output[$i]['description'] = trim($course->cursovia_description);
 							$output[$i]['client_name'] = $course->client_name;
 							$output[$i]['client_logo'] = $course->client_logo;
 							$output[$i]['client_id'] = $course->client_id;

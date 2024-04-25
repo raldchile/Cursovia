@@ -51,6 +51,4 @@ $(document.body).on("click", ".fav", function () {
           });
         }); */
 
-$("#go").click(function () {
-	$("#buscar").submit();
-});
+

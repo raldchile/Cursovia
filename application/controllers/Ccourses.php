@@ -125,22 +125,18 @@ class Ccourses extends CI_Controller {
 	function profile($client_slug='')
 	{	
 		$limit = 5;
-		$data["sessionuser"] = $this->usersession;
+		$data["courses"] = $this->ccourses_model->getClientCourses($client_slug,$limit, 0);
 		$data["client"] = $this->ccourses_model->getClient($client_slug);
-		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
+		$data["sessionuser"] = $this->usersession;
+		if ( $this->usersession){
+			$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
+		}
 		$data["header"] = $this->load->view('templates/header_detail', $data, true);
 		$data["footer"] = $this->load->view('templates/footer', $data, true);
 		$data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
 		$data["total_courses"] = $this->ccourses_model->countClientCourses($client_slug);
 
-		$data["courses"] = $this->ccourses_model->getClientCourses($client_slug,$limit, 0);
-
-		if(!$data["courses"]){
-
-			$this->ccourses_model->setSessionCourses();
-			$data["courses"] = $this->ccourses_model->getClientCourses($client_slug,$limit, 0);
-	
-		}
+		
 
 		$gets = $this->input->get();
 		if ($gets) {

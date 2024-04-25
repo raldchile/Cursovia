@@ -19,10 +19,9 @@
     </div>
   </div>
 </section> -->
-<form action="<?php echo base_url()?>" method="get" autocomplete="off" id="buscar" class="sect">
+<form action="<?php echo base_url()?>" method="get" autocomplete="off" id="buscar">
     <section class="slide">
         <div class="container top">
-
             <div class="row">
                 <div class="col-md-12 img" style="padding-top: 22px;">
                     <img src="<?php echo base_url("public/imgs/logo_cursovia-fiwh.svg") ?>" />
@@ -33,12 +32,10 @@
                     <input type="text" class="buscar" style="text-align: center"
                         placeholder="¿Qué quieres aprender hoy?" name="buscar" id="SearchBar" />
                 </div>
-
                 <div class="col-md-12">
                     <a href="#" class="button m-top" id="go">Buscar</a>
                 </div>
             </div>
-
         </div>
     </section>
 </form>
@@ -46,7 +43,7 @@
 
 <?php if($courses){ ?>
 
-<main class="padding-sct sect">
+<main class="padding-sct">
     <div class="container wrap">
 
 
@@ -195,7 +192,7 @@
 
 
         <div id="load-more-courses" class="content button" style="display:none;">Ver más cursos </div>
-        <div class="subir"><a class="fa-arrow-up"></a></div>
+        <div class="subir" style="display:none;"><a class="fa-arrow-up"></a></div>
 
     </div>
 </main>
@@ -221,6 +218,13 @@
 
 
 <?php } ?>
+
+<script>
+$("#go").click(function() {
+    $("#buscar").submit();
+    console.log("xlixkkk");
+});
+</script>
 
 <?php if($courses){ ?>
 
@@ -250,77 +254,37 @@ function loadMasonry() {
 </script>
 
 <script type="text/javascript">
-var page = 1;
-// var total_pages = <?php #print $count?>;
-var total_pages = <?php echo $cuantas_paginas ?>;
+$(document).ready(function() {
+    var $subir = $(".subir");
 
+    $(window).scroll(function() {
+        // Obtener la posición vertical del scroll
+        var scrollPos = $(window).scrollTop();
 
-// $(window).scroll(function() {
-//     if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-//         page++;
-//         if(page < total_pages) {
-//           loadMore(page);
-//         }
-//     }
-// });
+        // Mostrar el botón si la posición del scroll es mayor a 500px (ajusta este valor según tus necesidades)
+        if (scrollPos > 500) {
+            $subir.fadeIn();
+        } else {
+            $subir.fadeOut();
+        }
+    });
 
+    $subir.click(function() {
+        // Obtener la posición superior de la barra de búsqueda
+        var searchBarTop = $("#SearchBar").offset().top;
 
-function loadMore(page) {
-    var data = "";
+        // Calcular la posición a la que deseas desplazarte
+        var scrollToPos = searchBarTop -
+            200; // Resta una cantidad de píxeles para dejar la barra en el medio
 
-    $(".grid").append(data);
-    loadMasonry();
-
-}
-
-(function($) {
-
-    $(document).ready(
-
-        function() {
-
-            $("#SearchBar").focus();
-
-            // Hacemos que el sitio haga scroll down hasta poner el foco en el buscador.
-
-            // $('html, body').animate( {
-            //   scrollTop : 60
-            // }, 800, function(){
-
-            //   $( "#SearchBar" ).focus();
-
-            // });
-
-
-            // Comprobar si estamos, al menos, 100 px por debajo de la posición top
-            // para mostrar o esconder el botón
-            $(window).scroll(function() {
-
-                if ($(this).scrollTop() > 100) {
-
-                    $('.scroll-to-top').fadeIn();
-
-                } else {
-
-                    $('.scroll-to-top').fadeOut();
-
-                }
-
-            });
-
-            // al hacer click, animar el scroll hacia arriba
-            $('.scroll-to-top').click(function(e) {
-
-                e.preventDefault();
-                $('html, body').animate({
-                    scrollTop: 0
-                }, 800);
-
-            });
-
-        });
-
-})(jQuery);
+        // Hacer scroll suavemente a la posición calculada
+        $("html, body").animate({
+                scrollTop: scrollToPos,
+            },
+            800
+        ); // Duración de la animación en milisegundos
+    });
+});
 </script>
 
 <?php } ?>

@@ -225,9 +225,9 @@ section.slide {
 	background-size: 1260px;
 }
 
-.slider_container{
+.slider_container {
 	display: grid;
-    place-items: center;
+	place-items: center;
 }
 
 section.slide.inner {
@@ -395,13 +395,12 @@ b {
 	font-size: 13px;
 	margin: 0;
 }
-@media (max-width: 576px) { 
+@media (max-width: 576px) {
 	.row h2 {
 		font-size: 15px;
 		margin: 0;
 	}
- }
-
+}
 
 .row h2 a {
 	color: #171717;
@@ -613,6 +612,7 @@ a.button:hover {
 @media (max-width: 992px) {
 	.content-detail.fixed {
 		border-top: 5px dotted #c1c0c0;
+		position: -webkit-sticky;
 		position: sticky;
 		bottom: 0;
 		right: auto;
@@ -1036,9 +1036,8 @@ input.buscar {
 	);
 }
 
-.search-client-courses {
-	background: #fff;
 
+.search-client-courses {
 	.client-searchbar {
 		input {
 			display: block;
@@ -1059,6 +1058,7 @@ input.buscar {
 		color: #ffffff;
 		text-transform: uppercase;
 		border-radius: 13px;
+		cursor: pointer;
 		padding: auto;
 		transition: all 0.3s ease 0s;
 		-webkit-transition: all 0.3s ease 0s;
@@ -1066,17 +1066,60 @@ input.buscar {
 		-ms-transition: all 0.3s ease 0s;
 		-o-transition: all 0.3s ease 0s;
 	}
+	.client-search-button:hover {
+		background: #007bff;
+		border-color: #b9c9da;
+		color: #fff;
+	}
+}
+.description-col{
+	padding-top: 50px;
 }
 
-.client-profile-description {
-	text-align: justify;
-	margin-top: 60px;
+
+@media (max-width: 767px) {
+	.client-profile-main{
+		display: flex;
+		flex-direction: column-reverse;
+	}
+	
+	.search-client-courses {
+		position: -webkit-sticky;
+		position: sticky;
+		bottom: 0;
+		z-index: 10;		
+		
+	}
+
+	.description-col{
+		padding-top: 65px;
+		padding-bottom: 30px;
+
+		.description-title {
+			text-align: center;
+
+			
+		}
+		
+		.description{
+			text-align: center;
+			display: none;
+		}
+
+	}
+
+	
+	
 }
 
-.client-search-button:hover {
-	background: #007bff;
-	border-color: #b9c9da;
-	color: #fff;
+.fa-magnifying-glass:before {
+	content: "\f002";
+	font-family: "fontAwesome";
+}
+
+.fa-arrow-down:before {
+	content: "\f063";
+	font-family: "fontAwesome";
 }
 
 .courses-list {
@@ -1107,4 +1150,5 @@ input.buscar {
 .fa-arrow-up:before {
 	content: "\f062";
 	font-family: "fontAwesome";
+
 }

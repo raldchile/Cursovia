@@ -48,7 +48,7 @@
         <h1><?php echo $client_name; ?></h1>
     </div>
 </section>
-<main class="padding-sct">
+<main class="padding-sct client-profile-main">
     <section class="container search-client-courses">
         <div class="row justify-content-end align-items-center">
             <div class="col-7 client-searchbar">
@@ -59,17 +59,20 @@
                 </form>
             </div>
             <div class="col-2"><a href="#" class="client-search-button"
-                    style="background:<?php echo $client_color_first?>" id="go">Buscar</a></div>
+                    style="background:<?php echo $client_color_first?>" id="go">Buscar</a>
+            </div>
         </div>
     </section>
     <section class="container">
         <div class="row">
-            <div class="col-md-3 client-profile-description">
-                <h1>Descripción</h1>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit cupiditate dolorem sint animi
-                perspiciatis necessitatibus. Nesciunt at enim blanditiis doloribus voluptatem sint eos, voluptatibus id
-                debitis saepe vel accusamus quos.
-                <?php echo $client_profile_description?>
+            <div class="col-md-3 description-col">
+                <h1 class="description-title">
+                    Descripción
+                    <a class="description-buttom"></a>
+                </h1>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic,
+                    saepe.<?php echo $client_profile_description?></p>
             </div>
             <div class="col-md-9 col-courses">
                 <?php if($courses){ ?>
@@ -174,7 +177,7 @@
                         <?php }?>
                     </div>
                     <div id="load-more-courses" class="content button" style="display:none;">Ver más cursos </div>
-                    <div class="subir" ><a class="fa-arrow-up"></a></div>
+                    <div class="subir" style="display:none;"><a class="fa-arrow-up"></a></div>
                 </div>
                 <?php }
                 else{ ?>
@@ -199,6 +202,13 @@
 </main>
 
 
+<script>
+$("#go").click(function() {
+    $("#buscar").submit();
+    console.log("xlixkkk");
+});
+</script>
+
 <?php if($courses){ ?>
 
 <script type="text/javascript" src="<?php echo base_url('public/js/functions-fav.js'); ?>"></script>
@@ -207,8 +217,98 @@ var clientSlug = '<?php echo $client_slug?>';
 var totalCourses = <?php echo $total_courses?>;
 var offset = <?php echo count($courses)?>
 </script>
-<script type="text/javascript" src="<?php echo base_url('public/js/load-more-courses.js')?>"></script>
+<script type='text/javascript'>
+var $subir = $(".subir");
 
+$subir.click(function() {
+    // Obtener la posición superior de la barra de búsqueda
+    var searchBarTop = $("#SearchBar").offset().top;
+
+    // Calcular la posición a la que deseas desplazarte
+    var scrollToPos = searchBarTop -
+        200; // Resta una cantidad de píxeles para dejar la barra en el medio
+
+    // Hacer scroll suavemente a la posición calculada
+    $("html, body").animate({
+            scrollTop: scrollToPos,
+        },
+        800
+    ); // Duración de la animación en milisegundos
+});
+
+$(window).scroll(function() {
+    // Obtener la posición vertical del scroll
+    var scrollPos = $(window).scrollTop();
+
+    // Mostrar el botón si la posición del scroll es mayor a 500px (ajusta este valor según tus necesidades)
+    if (scrollPos > 500) {
+        var windowWidth = $(window).width();
+        if (windowWidth > 768) {
+            $subir.fadeIn();
+        }
+    } else {
+        $subir.fadeOut();
+    }
+});
+
+
+var $descriptionTitle = $(".description-title");
+var $description = $('.description');
+var $descriptionButtom = $(".description-buttom");
+var $descriptionCol =  $(".description-col");
+
+$descriptionCol.click(function() {
+
+    if ($descriptionButtom.hasClass("fa-arrow-up")) {
+        $description.fadeIn();
+        $descriptionButtom.removeClass("fa-arrow-up");
+        $descriptionButtom.addClass("fa-arrow-down");
+    } else if ($descriptionButtom.hasClass("fa-arrow-down")) {
+        $description.fadeOut();
+        $descriptionButtom.removeClass("fa-arrow-down");
+        $descriptionButtom.addClass("fa-arrow-up");
+    }
+});
+
+function responsive_profile() {
+    var $searchButtom = $('.client-search-button');
+    var $searchBar = $(".client-searchbar");;
+    var $course = $(".course");
+
+    var windowWidth = $(window).width();
+    if (windowWidth >= 768 && windowWidth < 1024) {
+        $course.removeClass("col-md-4");
+        $course.addClass("col-md-6");
+    } else if (windowWidth < 768) {
+        $searchButtom.text('');
+        $subir.fadeOut();
+        $description.fadeOut();
+        $searchBar.removeClass("col-7");
+        $searchBar.addClass("col-10");
+        $descriptionButtom.addClass("fa-arrow-up");
+        $searchButtom.addClass("fa-magnifying-glass");
+
+    } else {
+        $descriptionButtom.removeClass("fa-arrow-up");
+        $descriptionButtom.removeClass("fa-arrow-down");
+        $searchButtom.removeClass("fa-magnifying-glass");
+        $searchBar.removeClass("col-10");
+        $course.removeClass("col-md-6");
+        $course.addClass("col-md-4");
+        $searchBar.addClass("col-7");
+        $searchButtom.text('');
+        $searchButtom.text('BUSCAR');
+    }
+
+}
+$(document).ready(function() {
+    responsive_profile();
+
+    $(window).resize(responsive_profile);
+
+});
+</script>
+<script type="text/javascript" src="<?php echo base_url('public/js/load-more-courses.js')?>"></script>
 <script type='text/javascript'>
 $(window).on('load', function() {
     loadMasonry();

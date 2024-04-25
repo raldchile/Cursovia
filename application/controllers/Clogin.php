@@ -36,6 +36,7 @@ class Clogin extends CI_Controller {
 		if(!check_islogin() ) {
 
 		$data["sessionuser"] = $this->usersession;
+		$data["courses"] = array();
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		$data["header"] = $this->load->view('templates/header_detail', $data, true);
 		$data["footer"] = $this->load->view('templates/footer', $data, true);
