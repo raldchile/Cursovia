@@ -64,7 +64,7 @@
                         <div class="help-block with-errors"></div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">¡Modificar mis datos!</button>
+                <button type="submit" class="button-primary">¡Modificar mis datos!</button>
 
             </form>
 
@@ -101,7 +101,7 @@
                         <input type="password" class="form-control" placeholder="Confirma nueva password" required data-match-error="Las password nuevas no coinciden" data-match="#npassword">
                         <div class="help-block with-errors"></div>
                 </div>
-                <button type="submit" class="btn btn-primary">¡Cambiar password!</button>
+                <button type="submit" class="button-primary">¡Cambiar password!</button>
             </form>
         </div>
 

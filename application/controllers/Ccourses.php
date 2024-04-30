@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Ccourses extends CI_Controller {
+class Ccourses extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -21,19 +22,18 @@ class Ccourses extends CI_Controller {
 
 	// 
 
-	function __construct() {
+	function __construct()
+	{
 		parent::__construct();
 		$this->usersession = $this->session->userdata('user_data');
 		$this->load->model('ccourses_model');
 		$this->load->model('cfavorites_model');
 		$session_id = $this->session->userdata('session_id');
-		if(!$session_id){
-			$session_id = uniqid().date('YmdHis');
+		if (!$session_id) {
+			$session_id = uniqid() . date('YmdHis');
 			$this->session->set_userdata('session_id', $session_id);
 			$this->ccourses_model->setSessionCourses();
 		}
-		
-
 	}
 
 	/* function index()
@@ -62,9 +62,9 @@ class Ccourses extends CI_Controller {
 	} */
 
 
-	
 
-/* 	public function index()
+
+	/* 	public function index()
 {
     $data["sessionuser"] = $this->usersession;
     $data["cant_favorites"] = $this->cfavorites_model->countFavorites();
@@ -90,45 +90,44 @@ class Ccourses extends CI_Controller {
 	$this->load->view('index/index_cursovia', $data);
 } */
 
-    public function index()
-{
-	
-	$limit = 5;
-    $data["sessionuser"] = $this->usersession;
-    $data["cant_favorites"] = $this->cfavorites_model->countFavorites();
-    $data["header"] = $this->load->view('templates/header', $data, true);
-    $data["footer"] = $this->load->view('templates/footer', $data, true);
-    $data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
-    $data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, 0);
-	$data["total_courses"] = $this->ccourses_model->countAllCourses();
+	public function index()
+	{
+
+		$limit = 5;
+		$data["sessionuser"] = $this->usersession;
+		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
+		$data["header"] = $this->load->view('templates/header', $data, true);
+		$data["footer"] = $this->load->view('templates/footer', $data, true);
+		$data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
+		$data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, 0);
+		$data["total_courses"] = $this->ccourses_model->countAllCourses();
 
 
-    $gets = $this->input->get();
-    if ($gets) {
-        $this->session->set_flashdata('txt', $gets["buscar"]);
-    }
+		$gets = $this->input->get();
+		if ($gets) $this->session->set_flashdata('txt', $gets["buscar"]);
+		else $this->session->set_flashdata('txt','');
 
-	
 
-    /* if (count($data["courses"]) == 1) {
+
+		/* if (count($data["courses"]) == 1) {
         $slug = $data["courses"][0]["slug"];
         redirect('/mostrar/'.$slug, 'refresh');
     } else {
         $this->load->view('index/index_cursovia', $data);
     }  */
 
-	$this->load->view('index/index_cursovia', $data);
-} 
+		$this->load->view('index/index_cursovia', $data);
+	}
 
 
 
-	function profile($client_slug='')
-	{	
+	function profile($client_slug = '')
+	{
 		$limit = 5;
-		$data["courses"] = $this->ccourses_model->getClientCourses($client_slug,$limit, 0);
+		$data["courses"] = $this->ccourses_model->getClientCourses($client_slug, $limit, 0);
 		$data["client"] = $this->ccourses_model->getClient($client_slug);
 		$data["sessionuser"] = $this->usersession;
-		if ( $this->usersession){
+		if ($this->usersession) {
 			$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		}
 		$data["header"] = $this->load->view('templates/header_detail', $data, true);
@@ -136,89 +135,86 @@ class Ccourses extends CI_Controller {
 		$data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
 		$data["total_courses"] = $this->ccourses_model->countClientCourses($client_slug);
 
-		
-
 		$gets = $this->input->get();
-		if ($gets) {
-        $this->session->set_flashdata('txt', $gets["buscar"]);
-    }
-		
-		
+		if ($gets) $this->session->set_flashdata('txt', $gets["buscar"]);
+		else $this->session->set_flashdata('txt','');
+
+
 		$this->load->view('index/client_profile', $data);
 	}
 
-	public function loadMoreCourses() {
+	public function loadMoreCourses()
+	{
 		$limit = 5;
 		$client_slug = $this->input->post('client_slug');
 		$offset = $this->input->post('offset');
 
-		if($client_slug){
+		if ($client_slug) {
 			$data["courses"] = $this->ccourses_model->getClientCourses($client_slug, $limit, $offset);
 			$data["client"] = $this->ccourses_model->getClient($client_slug);
-		}else{
+		} else {
 			$data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, $offset);
 			$data["client"] = '';
 		}
-		
+
 		echo json_encode($data);
 	}
-	
-	function getCourse($slug='')
+
+	function getCourse($slug = '')
 	{
-		
+
 		$data["sessionuser"] = $this->usersession;
-		$data["courses"] = $this->ccourses_model->getAllCourses($slug,2,1,0);
+		$data["courses"] = $this->ccourses_model->getAllCourses($slug, 2, 1, 0);
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		$data["header"] = $this->load->view('templates/header_detail', $data, true);
 		$data["footer"] = $this->load->view('templates/footer', $data, true);
 		$data["isLogged"] = check_islogin();
 		$c = count($data["courses"]);
 
-		if($c!=0){
+		if ($c != 0) {
 			$this->load->view('index/detalle', $data);
-		}else{
+		} else {
 			$data["error"] = "Curso No existe...";
 			$this->load->view('index/error', $data);
 		}
-
 	}
 
-	function getURLExternal($token='')
+	function getURLExternal($token = '')
 	{
+		echo 'llego';
 		$data["sessionuser"] = $this->usersession;
 		$URLExternal = $this->ccourses_model->getURLExternal($token);
+		echo $URLExternal;
 		$data["isLogged"] = check_islogin();
-
-		if($URLExternal){
+		echo 'llego2';
+		if ($URLExternal) {
 			// echo $URLExternal; die();
 			## DEBE CONSIDERAR UN REGISTRO DE CADA CLIC EN URL EXTERNA
+			echo 'llego3';
 			redirect($URLExternal);
-
 		}
-
 	}
 
 	function getAllFavorites()
 	{
-		if(check_islogin() ) {
+		if (check_islogin()) {
 
-		$data["sessionuser"] = $this->usersession;
-		$data["courses"] = $this->ccourses_model->getAllFavCourses();
-		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
-		$data["header"] = $this->load->view('templates/header_detail', $data, true);
-		$data["footer"] = $this->load->view('templates/footer', $data, true);
-		$data["isLogged"] = check_islogin();
+			$data["sessionuser"] = $this->usersession;
+			$data["courses"] = $this->ccourses_model->getAllFavCourses();
+			$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
+			$data["header"] = $this->load->view('templates/header_detail', $data, true);
+			$data["footer"] = $this->load->view('templates/footer', $data, true);
+			$data["isLogged"] = check_islogin();
 
-		$this->load->view('fav/index', $data);
-	}else{
-		redirect('/ingresar/cursos-favoritos');
-	}
-	}
-
-	function watchVideo($client='',$uri=''){
-
-		return 'https://dev.kampusproject.com/public_htm/public/cliente/uploads/'.$client.'/'.$uri;
+			$this->load->view('fav/index', $data);
+		} else {
+			redirect('/ingresar/cursos-favoritos');
+		}
 	}
 
+	function watchVideo($client = '', $uri = '')
+	{
 
+		return 'https://dev.kampusproject.com/public_htm/public/cliente/uploads/' . $client . '/' . $uri;
+	}
 }

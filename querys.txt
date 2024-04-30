@@ -5,3 +5,18 @@ ALTER TABLE `kampus_cursovia_stats` ADD `session_id` INT NULL AFTER `id`;
 
 CREATE TABLE `dev_cursovia`.`cursovia_results` ( `id` INT NOT NULL AUTO_INCREMENT ,  `session_id` TEXT NOT NULL ,  `courses_id` TEXT NOT NULL ,  `user_id` INT NULL ,  `result_date` DATE NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
 
+CREATE TABLE `dev_kampus`.`kampus_buttonlabels` ( `id` INT NOT NULL AUTO_INCREMENT ,  `label` TEXT NOT NULL ,  `icon` TEXT NULL ,  `creation_date` DATE NOT NULL ,  `status` INT NOT NULL DEFAULT '1' ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `kampus_cursovia` ADD `cursovia_button` INT NULL DEFAULT NULL AFTER `cursovia_ispaid`;
+
+INSERT INTO `dev_kampus`.`kampus_buttonlabels` (`label`, `icon`, `creation_date`)
+VALUES ('Mas Información', '<i class="fa-light fa-circle-info"></i>', CURDATE());
+
+INSERT INTO `dev_kampus`.`kampus_buttonlabels` (`label`, `icon`, `creation_date`)
+VALUES ('Comprar', '<i class="fa-light fa-credit-card"></i>', CURDATE());
+
+INSERT INTO `dev_kampus`.`kampus_buttonlabels` (`label`, `icon`, `creation_date`)
+VALUES ('Inscribirte', '<i class="fa-light fa-calendar-lines-pen"></i>', CURDATE());
+
+INSERT INTO `dev_kampus`.`kampus_buttonlabels` (`label`, `icon`, `creation_date`)
+VALUES ('Reservar', '<i class="fa-light fa-star"></i>', CURDATE());

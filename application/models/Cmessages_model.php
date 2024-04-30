@@ -90,7 +90,7 @@ class Cmessages_model extends CI_Model {
 	 											foreach ($datosCliente->result() as $key => $usrCliente) {
 													$cliente_email = $usrCliente->email;
 													$cliente_name = $usrCliente->name;
-													$url =  base_url("lectura/").$token;
+													$url =  base_url("lectura/".$token);
 												}
 
 											$accion 	= "Contacto"; 
@@ -334,7 +334,7 @@ class Cmessages_model extends CI_Model {
 	 										foreach ($datosCliente as $key => $usrCliente) {
 													$cliente_email = $usrCliente->email;
 													$cliente_name = $usrCliente->name;
-													$url = base_url("lectura/").$Gentoken;
+													$url = base_url("lectura/".$Gentoken);
 											}
 
 											$accion 	= "Contacto"; 

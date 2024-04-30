@@ -43,7 +43,8 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
     </script>
 
-    <script src="https://kit.fontawesome.com/168dbd124a.js" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/33f877f153.js" crossorigin="anonymous"></script>
 
 
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
@@ -62,7 +63,7 @@
     <title>Cursovia</title>
 
     <script>
-    /*  $(document).ready(function(){
+     $(document).ready(function(){
         $(".slider").bxSlider({
           infiniteLoop: true,
           // slideWidth: 600,
@@ -75,46 +76,14 @@
           slideWidth: 363,
           minSlides: 1,
           maxSlides: 3,
-          slideMargin: 12,
-          speed: 1500
+          slideMargin: 6,
+          speed: 1500,
+          shrinkItems: true,
+          captions: true,
+          autoHover: true
           });
-      }); */
+      });
 
-    $(document).ready(function() {
-
-        slider = null;
-        // Función para detectar el cambio de tamaño de la ventana y ajustar el slider
-        function adjustSlider() {
-            var windowWidth = $(window).width();
-            var slides = (windowWidth < 768) ? 1 : 3;
-            var margin = (windowWidth < 768) ? 0 : 6;
-
-            if (slider) {
-                slider.destroySlider();
-            }
-
-            slider = $(".slider").bxSlider({
-                infiniteLoop: true,
-                // slideWidth: 600,
-                // randomStart: true,
-                // tickerHover: true,
-                touchEnabled: false,
-                controls: false,
-                auto: true,
-                autoDelay: 20,
-                slideWidth: 363,
-                minSlides: slides,
-                maxSlides: slides,
-                slideMargin: margin,
-                speed: 1500
-            });
-
-        }
-
-        // Llama a la función para ajustar el slider cuando se carga la página y cuando cambia el tamaño de la ventana
-        adjustSlider();
-        $(window).resize(adjustSlider);
-    });
     </script>
 
 </head>
@@ -144,13 +113,13 @@
                             <ul class="submenu">
                                 <li><a href="<?php echo base_url("cuenta")?>" class="fa-gear">Mi cuenta</a></li>
                                 <li><a href="<?php echo base_url("inbox")?>" class="fa-msg">Mis mensajes</a></li>
-                                <li><a href="<?php echo base_url("salir")?>" class="fa-sign-out-alt">Logout</a></li>
+                                <li><a href="<?php echo base_url("salir")?>"><i class="icon fa-solid fa-right-from-bracket"></i>Logout</a></li>
                             </ul>
 
                         </li>
                         <?php }else{ ?>
-                        <li class="header-button"><a href="<?php echo base_url() ?>/ingresar"
-                                class="fa-lock-menu white">Login / Registro</a></li>
+                          <li class="header-button"><a href="<?php echo base_url("ingresar")?>"
+                                class="white"><i class="icon fa-solid fa-right-to-bracket"></i>Login / Registro</a></li>
                         <?php } ?>
                     </ul>
 

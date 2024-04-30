@@ -14,13 +14,13 @@
             Ingresa el email registrado para enviarte una nueva clave:
           </p>
 
-            <form action="<?php echo base_url() ?>/clogin/getPassword" method="post" role="form" data-toggle="validator">
+            <form action="<?php echo base_url('clogin/getPassword')?>" method="post" role="form" data-toggle="validator">
                 <div class="form-group input-group-lg">
                   <label>Email address</label>
                   <input type="email" name="emailUser" class="form-control" aria-describedby="emailHelp" placeholder="E-mail" required>
                   <div class="help-block with-errors"></div>
                 </div>
-                  <input type="hidden" name="backto" class="form-control" value="<?php echo $backto; ?>">
+                  <!-- <input type="hidden" name="backto" class="form-control" value="<?php echo $backto?>"> -->
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>

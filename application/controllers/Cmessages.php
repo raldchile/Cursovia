@@ -120,7 +120,7 @@ class Cmessages extends CI_Controller {
 			$data["sessionuser"] = $this->usersession;
 			$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 			$data["user"] = $this->caccount_model->getUsername();
-			$data["header"] = $this->load->view('templates/header', $data, true);
+			$data["header"] = $this->load->view('templates/header_detail', $data, true);
 			$data["footer"] = $this->load->view('templates/footer', $data, true);
 
 			switch ($check) {

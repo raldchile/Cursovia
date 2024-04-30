@@ -16,7 +16,7 @@
 
             <form action="<?php echo base_url() ?>/clogin/checkLogin" method="post" role="form" data-toggle="validator">
                 <div class="form-group input-group-lg">
-                  <label>Email address</label>
+                  <label>Email</label>
                   <input type="email" name="emailUser" class="form-control" aria-describedby="emailHelp" placeholder="Ingresa mail registrado" required>
                   <div class="help-block with-errors"></div>
                   <small id="emailHelp" class="form-text text-muted">¡Nunca compartiremos tu email con nadie! :)</small>
@@ -26,11 +26,12 @@
                   <label>Password</label>
                   <input type="password" name="passUser" class="form-control" placeholder="Password"  required>
                   <div class="help-block with-errors"></div>
-                  <small id="emailHelp" class="form-text text-muted"><a href="<?php echo base_url() ?>/clogin/getPassword">Recupera tu clave de acceso</a></small>
+                  <small id="emailHelp" class="form-text text-muted"><a href="<?php echo base_url('clogin/getPassword')?>">Recupera tu clave de acceso</a></small>
 
                 </div>
                   <input type="hidden" name="backto" class="form-control" value="<?php echo $backto; ?>">
-                <button type="submit" class="btn btn-primary">Ingresar</button>
+                <button type="submit" class="button-primary">Ingresar</button>
+                
             </form>
         </div>
 
@@ -90,7 +91,7 @@
               <div class="g-recaptcha" data-sitekey="6LeQjJsaAAAAAAChoSu2zHAOpfHjQiiNnYUZT6uF"></div>
                   
 
-                <button id="submit"  type="submit" class="btn btn-primary" disabled>¡Registrarme!</button>
+                <button id="submit"  type="submit" class="button-primary" disabled>¡Registrarme!</button>
 
             </form>
 

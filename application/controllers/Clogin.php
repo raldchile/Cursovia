@@ -153,7 +153,7 @@ class Clogin extends CI_Controller {
 			die();
 
 		}
-
+		$data = array();
 		$data["header"] = $this->load->view('templates/header_detail', $data, true);
 		$data["footer"] = $this->load->view('templates/footer', $data, true);
 		$this->load->view('/login/password_recovery', $data);

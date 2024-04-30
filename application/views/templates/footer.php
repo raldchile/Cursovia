@@ -46,12 +46,12 @@
                   <input type="password" name="passUser" class="form-control" placeholder="Password"  required>
                   <div class="help-block with-errors"></div>
                 </div>
-                <button type="submit" class="btn btn-primary">Ingresar</button>
+                <button type="submit" class="button-primary">Ingresar</button>
             </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">¡No por ahora!</button>
-        <button type="button" class="btn btn-primary"><a href="<?php echo base_url("ingresar")?>">Registrarse</a></button>
+        <button type="button" class="button-secondary" data-dismiss="modal">¡No por ahora!</button>
+        <button type="button" class="button-primary"><a style="text-decoration: none; color: inherit;" href="<?php echo base_url("ingresar")?>">Registrarse</a></button>
       </div>
     </div>
   </div>

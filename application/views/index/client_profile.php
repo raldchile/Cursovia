@@ -54,27 +54,27 @@
             <div class="col-7 client-searchbar">
                 <form action="<?php echo base_url($client_slug)?>" method="get" autocomplete="off" id="buscar">
                     <input type="text" style="text-align: center"
-                        placeholder="¿Qué quieres aprender de <?php echo $client_alias?>?" name="buscar"
+                        placeholder="¿Qué quieres aprender en <?php echo $client_alias?>?" name="buscar"
                         id="SearchBar" />
                 </form>
             </div>
-            <div class="col-2"><a href="#" class="client-search-button"
+            <div class="col-sm-2"><a href="#" class="client-search-button"
                     style="background:<?php echo $client_color_first?>" id="go">Buscar</a>
             </div>
         </div>
     </section>
     <section class="container">
         <div class="row">
-            <div class="col-md-3 description-col">
+            <div class="col-3 description-col">
                 <h1 class="description-title">
                     Descripción
-                    <a class="description-buttom"></a>
+                    <i class="description-button fa-regular"></i>
                 </h1>
                 <p class="description">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic,
                     saepe.<?php echo $client_profile_description?></p>
             </div>
-            <div class="col-md-9 col-courses">
+            <div class="col-9 col-courses">
                 <?php if($courses){ ?>
                 <div class="container wrap">
                     <div class="row grid courses-list" id="cursos-container">
@@ -156,13 +156,13 @@
                                         <span>
                                             <ul>
                                                 <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url_actual("mostrar")?><?php echo $slug?>"
-                                                        style="background-image: url('public/imgs/facebook.svg');"
-                                                        target="_blank"></a></li>
+                                                        target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
+                                                </li>
                                                 <!--li><a href="#" style="background-image: url('/public/imgs/linkedin.svg');"></a></li-->
                                                 <!--li><a href="#" style="background-image: url('/public/imgs/twitter.svg');"></a></li-->
                                                 <li><a href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20<?php echo url_actual("mostrar")?><?php echo $slug; ?>"
-                                                        style="background-image: url('public/imgs/whatsapp.svg');"
-                                                        target="_blank"></a></li>
+                                                        target="_blank"><i class="fa-brands fa-square-whatsapp"></i></a>
+                                                </li>
                                             </ul>
                                         </span>
                                     </div>
@@ -176,8 +176,8 @@
 
                         <?php }?>
                     </div>
-                    <div id="load-more-courses" class="content button" style="display:none;">Ver más cursos </div>
-                    <div class="subir" style="display:none;"><a class="fa-arrow-up"></a></div>
+                    <div id="load-more-courses" class="load-more-button" style="display:none;">Ver más cursos </div>
+                    <div class="subir" style="display:none;"><i class="fa-solid fa-arrow-up"></i></div>
                 </div>
                 <?php }
                 else{ ?>
@@ -203,15 +203,15 @@
 
 
 <script>
-$("#go").click(function() {
-    $("#buscar").submit();
-    console.log("xlixkkk");
-});
+
+    $("#go").click(function() {
+        $("#buscar").submit();
+    });
 </script>
 
 <?php if($courses){ ?>
 
-<script type="text/javascript" src="<?php echo base_url('public/js/functions-fav.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('public/js/functions-fav.js?'.rand()); ?>"></script>
 <script>
 var clientSlug = '<?php echo $client_slug?>';
 var totalCourses = <?php echo $total_courses?>;
@@ -254,50 +254,52 @@ $(window).scroll(function() {
 
 var $descriptionTitle = $(".description-title");
 var $description = $('.description');
-var $descriptionButtom = $(".description-buttom");
-var $descriptionCol =  $(".description-col");
+var $descriptionButton = $(".description-button");
+var $descriptionCol = $(".description-col");
 
 $descriptionCol.click(function() {
 
-    if ($descriptionButtom.hasClass("fa-arrow-up")) {
+    if ($descriptionButton.hasClass("fa-arrow-turn-up")) {
         $description.fadeIn();
-        $descriptionButtom.removeClass("fa-arrow-up");
-        $descriptionButtom.addClass("fa-arrow-down");
-    } else if ($descriptionButtom.hasClass("fa-arrow-down")) {
+        $descriptionButton.removeClass("fa-arrow-turn-up");
+        $descriptionButton.addClass("fa-arrow-turn-left-down");
+    } else if ($descriptionButton.hasClass("fa-arrow-turn-left-down")) {
         $description.fadeOut();
-        $descriptionButtom.removeClass("fa-arrow-down");
-        $descriptionButtom.addClass("fa-arrow-up");
+        $descriptionButton.removeClass("fa-arrow-turn-left-down");
+        $descriptionButton.addClass("fa-arrow-turn-up");
     }
 });
 
 function responsive_profile() {
-    var $searchButtom = $('.client-search-button');
+    var $searchButton = $('.client-search-button');
     var $searchBar = $(".client-searchbar");;
     var $course = $(".course");
 
     var windowWidth = $(window).width();
-    if (windowWidth >= 768 && windowWidth < 1024) {
-        $course.removeClass("col-md-4");
-        $course.addClass("col-md-6");
-    } else if (windowWidth < 768) {
-        $searchButtom.text('');
+
+    if (windowWidth < 768) {
+        $searchButton.text('');
         $subir.fadeOut();
         $description.fadeOut();
         $searchBar.removeClass("col-7");
-        $searchBar.addClass("col-10");
-        $descriptionButtom.addClass("fa-arrow-up");
-        $searchButtom.addClass("fa-magnifying-glass");
-
+        $searchBar.addClass("col-sm-10");
+        $descriptionButton.addClass("fa-arrow-turn-up");
+        $searchButton.addClass("fa-light fa-magnifying-glass");
+    } else if (windowWidth >= 768 && windowWidth < 1024) {
+        $course.removeClass("col-md-4");
+        $course.addClass("col-md-6");
+        $searchBar.removeClass("col-sm-10");
+        $searchBar.addClass("col-7");
     } else {
-        $descriptionButtom.removeClass("fa-arrow-up");
-        $descriptionButtom.removeClass("fa-arrow-down");
-        $searchButtom.removeClass("fa-magnifying-glass");
-        $searchBar.removeClass("col-10");
+        $descriptionButton.removeClass("fa-arrow-turn-up");
+        $descriptionButton.removeClass("fa-arrow-turn-left-down");
+        $searchButton.removeClass("fa-light fa-magnifying-glass");
+        $searchBar.removeClass("col-sm-10");
         $course.removeClass("col-md-6");
         $course.addClass("col-md-4");
         $searchBar.addClass("col-7");
-        $searchButtom.text('');
-        $searchButtom.text('BUSCAR');
+        $searchButton.text('');
+        $searchButton.text('BUSCAR');
     }
 
 }
@@ -308,7 +310,7 @@ $(document).ready(function() {
 
 });
 </script>
-<script type="text/javascript" src="<?php echo base_url('public/js/load-more-courses.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('public/js/load-more-courses.js?'.rand())?>"></script>
 <script type='text/javascript'>
 $(window).on('load', function() {
     loadMasonry();

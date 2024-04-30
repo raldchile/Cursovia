@@ -15,7 +15,7 @@ class Clogin_model extends CI_Model {
 
 			$created 	= date('Y-m-d H:i:s');
 			$token 		= sha1($created);
-			$url		= base_url()."/validate/".$token;
+			$url		= base_url('validate/'.$token);
 
 			$full_name	= soloCaracteresPermitidos( $posts["fullname"] );
 			$company 	= soloCaracteresPermitidos( $posts["company"] );
@@ -169,9 +169,20 @@ class Clogin_model extends CI_Model {
 
 		// print_r($iduser); die();
 
-		$id = (int)$iduser->id;
+		/* $id = (int)$iduser->id;
 		$emilio = $iduser->emilio;
-		$name = $iduser->full_name;
+		$name = $iduser->full_name; */
+
+		if (is_object($iduser)) {
+			$id = isset($iduser->id) ? (int)$iduser->id : null;
+			$emilio = isset($iduser->emilio) ? $iduser->emilio : null;
+			$name = isset($iduser->full_name) ? $iduser->full_name : null;
+		} else {
+			// Manejo de la situación donde $iduser no es un objeto
+			$id = null;
+			$emilio = null;
+			$name = null;
+		}
 
 		$dbc = $this->load->database('cursovia', TRUE);
 		$date 	= date('Y-m-d H:i:s');

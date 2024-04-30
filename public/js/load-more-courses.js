@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	var $loadMoreCourses = $("#load-more-courses");
 	function stot(txt) {
 		// Convierte la primera letra a mayúsculas y el resto a minúsculas
 		return txt.toUpperCase();
@@ -10,10 +11,10 @@ $(document).ready(function () {
 		return monto_format;
 	}
 	if (offset < totalCourses) {
-		$("#load-more-courses").fadeIn();
+		$loadMoreCourses.fadeIn();
 	}
 
-	$("#load-more-courses").on("click", function () {
+	$loadMoreCourses.on("click", function () {
 		$.ajax({
 			url: baseURL + "/ccourses/loadMoreCourses/",
 			method: "POST",
@@ -103,8 +104,8 @@ $(document).ready(function () {
               <span style="margin-right: 10px">Compartir en:</span> 
               <span> 
                   <ul>
-                      <li><a href="https://www.facebook.com/sharer/sharer.php?u=${baseURL}/mostrar/${slug}" style="background-image: url('public/imgs/facebook.svg');" target="_blank"></a></li>
-                      <li><a href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20${baseURL}/mostrar/${slug}" style="background-image: url('public/imgs/whatsapp.svg');" target="_blank"></a></li>
+					  <li><a href="https://www.facebook.com/sharer/sharer.php?u=${baseURL}/mostrar/${slug}" target="_blank"><i class="fa-brands fa-square-facebook"></i></a></li>
+                      <li><a href="https://api.whatsapp.com/send?text=Hola!%20te%20Env%C3%ADo%20este%20interesante%20link%20${baseURL}/mostrar/${slug}" target="_blank"><i class="fa-brands fa-square-whatsapp"></i></a></li>
                   </ul>
               </span>
           </div>
@@ -131,7 +132,7 @@ $(document).ready(function () {
 				offset += response.courses.length;
 
 				if (offset >= totalCourses) {
-					$("#load-more-courses").fadeOut();
+					$loadMoreCourses.fadeOut();
 				}
 			},
 			error: function (xhr, status, error) {

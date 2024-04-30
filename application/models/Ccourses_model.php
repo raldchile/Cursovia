@@ -203,7 +203,6 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 	 	$this->db->join('cursovia k', 'k.course_id = c.id');
-		//$this->db->where_in('c.id', $result_courses_id);
 	 	$this->db->where('oc.expire >= CURDATE()');
 	 	if($slug){
 	 		$this->db->where('c.slug',$slug);
@@ -222,7 +221,7 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->where('cl.status',1);
 	 	$this->db->where('c.publish_kimun',1);
 	 	$this->db->where('k.cursovia_ispaid !=',1);
-		 $this->db->order_by("FIELD(c.id, " . implode(",", $result_courses_id) . ")");
+		$this->db->order_by("FIELD(c.id, " . implode(",", $result_courses_id) . ")");
 		$this->db->limit($limit, $offset);
 	 	$courses = $this->db->get();
 
@@ -476,11 +475,12 @@ class Ccourses_model extends CI_Model {
 		$i=0;
 		$output = array();
 
-	 	$this->db->select('c.id as course_id, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.logo as client_logo, cl.id as client_id');
+	 	$this->db->select('c.id as course_id, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.logo as client_logo, cl.id as client_id, bl.*');
 		$this->db->from('courses as c');
 		$this->db->join('clients as cl', 'c.client_id = cl.id');
 		$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 		$this->db->join('cursovia k', 'k.course_id = c.id');
+		$this->db->join('buttonlabels as bl', 'bl.id = k.cursovia_button', 'left');
 		$this->db->where('oc.expire >= CURDATE()');
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
@@ -513,6 +513,7 @@ class Ccourses_model extends CI_Model {
 	 	$this->db->where('token', $token);
 	 	$this->db->where('cursovia_status', 1);
 	 	$active_courses = $this->db->get();
+		echo $this->db->last_query();
 
 	 	if( $active_courses->num_rows() ) {
 			foreach ($active_courses->result() as $key => $url) {
@@ -534,7 +535,7 @@ class Ccourses_model extends CI_Model {
 
 		}
 
-			return $url_return = $cursovia_url. $utm_string;
+			return $url_return = trim($cursovia_url).$utm_string;
  	}
 
 

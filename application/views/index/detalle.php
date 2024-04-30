@@ -115,7 +115,7 @@
                     <?php 
                foreach ($content["topics"] as $key => $value) {
                 $content_title      = $value["title"];
-                $content_modules    = $value["modules"];
+                $content_modules    = (isset($value["modules"])) ? $value["modules"] : array();
             ?>
 
                     <li><?php echo $content_title; ?> </li>
