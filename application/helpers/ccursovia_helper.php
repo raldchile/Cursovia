@@ -67,10 +67,10 @@ function soloCaracteresPermitidos($word,$tipo='') {
             // Conectamos sendmail
             $configGmail = array(
                 'protocol' => 'smtp',
-                'smtp_host' => 'mail.smtp2go.com',
-                'smtp_port' => 25,
-                'smtp_user' => 'cursovia',
-                'smtp_pass' => 'MWttOG9uMzBlY3Zp',
+                'smtp_host' => 'smtp.mandrillapp.com',
+                'smtp_port' => 587,
+                'smtp_user' => 'Rald',
+                'smtp_pass' => 'md-BxSG__wuRCSqSARsg9nc-w',
                 'mailtype' => 'html',
                 'charset' => 'utf-8',
                 'newline' => "\r\n"

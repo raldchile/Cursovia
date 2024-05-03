@@ -54,7 +54,7 @@
             <div class="col-7 client-searchbar">
                 <form action="<?php echo base_url($client_slug)?>" method="get" autocomplete="off" id="buscar">
                     <input type="text" style="text-align: center"
-                        placeholder="¿Qué quieres aprender en <?php echo $client_alias?>?" name="buscar"
+                        placeholder="¿Qué quieres aprender con <?php echo $client_alias?>?" name="buscar"
                         id="SearchBar" />
                 </form>
             </div>
@@ -65,7 +65,7 @@
     </section>
     <section class="container">
         <div class="row">
-            <div class="col-3 description-col">
+            <div class="col-lg-3 description-col">
                 <h1 class="description-title">
                     Descripción
                     <i class="description-button fa-regular"></i>
@@ -74,7 +74,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic,
                     saepe.<?php echo $client_profile_description?></p>
             </div>
-            <div class="col-9 col-courses">
+            <div class="col-lg-9 col-courses">
                 <?php if($courses){ ?>
                 <div class="container wrap">
                     <div class="row grid courses-list" id="cursos-container">

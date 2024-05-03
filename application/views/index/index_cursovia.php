@@ -241,6 +241,61 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
         var totalCourses = <?php echo $total_courses ?>;
         var offset = <?php echo count($courses) ?>
     </script>
+    <script type='text/javascript'>
+        var $subir = $(".subir");
+
+        $subir.click(function() {
+            // Obtener la posición superior de la barra de búsqueda
+            var searchBarTop = $("#SearchBar").offset().top;
+
+            // Calcular la posición a la que deseas desplazarte
+            var scrollToPos = searchBarTop -
+                200; // Resta una cantidad de píxeles para dejar la barra en el medio
+
+            // Hacer scroll suavemente a la posición calculada
+            $("html, body").animate({
+                    scrollTop: scrollToPos,
+                },
+                800
+            ); // Duración de la animación en milisegundos
+        });
+
+        $(window).scroll(function() {
+            // Obtener la posición vertical del scroll
+            var scrollPos = $(window).scrollTop();
+
+            // Mostrar el botón si la posición del scroll es mayor a 500px (ajusta este valor según tus necesidades)
+            if (scrollPos > 500) {
+                var windowWidth = $(window).width();
+                if (windowWidth > 768) {
+                    $subir.fadeIn();
+                }
+            } else {
+                $subir.fadeOut();
+            }
+        });
+
+        function responsive_profile() {
+            var $course = $(".course");
+
+            var windowWidth = $(window).width();
+
+            if (windowWidth >= 768 && windowWidth < 960) {
+                $course.removeClass("col-md-4");
+                $course.addClass("col-md-6");
+            } else {
+                $course.removeClass("col-md-6");
+                $course.addClass("col-md-4");
+            }
+
+        }
+        $(document).ready(function() {
+            responsive_profile();
+
+            $(window).resize(responsive_profile);
+
+        });
+    </script>
     <script type="text/javascript" src="<?php echo base_url('public/js/load-more-courses.js?' . rand()) ?>"></script>
     <script type='text/javascript'>
         $(window).on('load', function() {
@@ -260,39 +315,6 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
         }
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var $subir = $(".subir");
-
-            $(window).scroll(function() {
-                // Obtener la posición vertical del scroll
-                var scrollPos = $(window).scrollTop();
-
-                // Mostrar el botón si la posición del scroll es mayor a 500px (ajusta este valor según tus necesidades)
-                if (scrollPos > 500) {
-                    $subir.fadeIn();
-                } else {
-                    $subir.fadeOut();
-                }
-            });
-
-            $subir.click(function() {
-                // Obtener la posición superior de la barra de búsqueda
-                var searchBarTop = $("#SearchBar").offset().top;
-
-                // Calcular la posición a la que deseas desplazarte
-                var scrollToPos = searchBarTop -
-                    200; // Resta una cantidad de píxeles para dejar la barra en el medio
-
-                // Hacer scroll suavemente a la posición calculada
-                $("html, body").animate({
-                        scrollTop: scrollToPos,
-                    },
-                    800
-                ); // Duración de la animación en milisegundos
-            });
-        });
-    </script>
 
 <?php } ?>
 

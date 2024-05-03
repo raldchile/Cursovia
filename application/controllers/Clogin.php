@@ -120,6 +120,7 @@ class Clogin extends CI_Controller {
 		$account = $this->clogin_model->checkLogin();
 		if($account){
 				$posts = $this->input->post();
+				$this->session->set_flashdata('msg','');
 				if($posts["backto"]){
 					redirect($posts["backto"]);
 				}else{

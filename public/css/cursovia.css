@@ -931,6 +931,11 @@ input.buscar {
 		font-size: 20px;
 	}
 }
+@media (max-width: 374px) {
+	input.buscar {
+		font-size: 17px;
+	}
+}
 
 .logo {
 	background: #fff;
@@ -1111,11 +1116,6 @@ input.buscar {
 			color: #000;
 		}
 	}
-	@media (max-width: 576px) {
-		.client-searchbar {
-			padding-right: 15px;
-		}
-	}
 
 	.client-search-button {
 		padding: 0;
@@ -1137,6 +1137,21 @@ input.buscar {
 		background: #007bff;
 		border-color: #b9c9da;
 		color: #fff;
+	}
+}
+
+@media (max-width: 576px) {
+	.search-client-courses {
+		.client-searchbar {
+			padding-right: 15px;
+		}
+	}
+}
+@media (max-width: 374px) {
+	.client-searchbar {
+		input {
+			font-size: 15px;
+		}
 	}
 }
 
