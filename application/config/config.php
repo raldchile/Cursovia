@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $domain = $_SERVER['SERVER_NAME'];
-$baseUrl = ($domain == 'cursovia.local') ? 'https://cursovia.local/Cursovia' : $domain;
+$baseUrl = ($domain == 'cursovia.local') ? 'https://cursovia.local/Cursovia' : 'https://'.$domain;
 $config['base_url'] = $baseUrl;
 
 /*
