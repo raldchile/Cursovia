@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://cursovia.local/Cursovia';
+$domain = $_SERVER['SERVER_NAME'];
+$baseUrl = ($domain == 'cursovia.local') ? 'https://cursovia.local/Cursovia' : $domain;
+$config['base_url'] = $baseUrl;
 
 /*
 |--------------------------------------------------------------------------
