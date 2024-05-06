@@ -47,7 +47,7 @@
     $baseUrl = ($domain == 'cursovia.local') ? 'https://cursovia.local/Cursovia' : 'https://'.$domain;
     echo $prueba ?>
     <script>
-        var baseURL = '<?php echo $baseUrl ?>';
+        var baseURL = '<?php echo base_url()?>';
     </script>
    
 

@@ -88,7 +88,7 @@ if (isset($courses)) {
     echo $prueba
     ?>
     <script>
-        var baseURL = '<?php echo $baseUrl ?>';
+        var baseURL =  '<?php echo base_url()?>';
     </script>
 
 
