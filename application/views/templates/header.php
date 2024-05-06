@@ -42,10 +42,7 @@
 
 
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <?php
-    $domain = $_SERVER['SERVER_NAME'];
-    $baseUrl = ($domain == 'cursovia.local') ? 'https://cursovia.local/Cursovia' : 'https://'.$domain;
-    echo $prueba ?>
+
     <script>
         var baseURL = '<?php echo base_url()?>';
     </script>

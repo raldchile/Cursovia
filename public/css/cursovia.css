@@ -756,6 +756,7 @@ a.button:hover {
 	width: 20px;
 	height: 20px;
 	display: block;
+	color: #7c7c7c;
 	i {
 		font-size: large;
 	}
@@ -1050,7 +1051,6 @@ input.buscar {
 	border: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
-	/*background-attachment: fixed;*/
 
 	.profile-image {
 		position: absolute;
@@ -1062,10 +1062,18 @@ input.buscar {
 		z-index: 2;
 
 		img {
-			border: 4px solid #fff; /* Un borde blanco alrededor de la imagen de perfil */
-			border-radius: 50%; /* Hace que la imagen sea circular */
-			width: 150px; /* Tamaño de la imagen de perfil */
+			width: 150px;
 			height: 150px;
+			background-color: #fff;
+			border: 4px solid #fff;
+			border-radius: 20%;
+			-webkit-border-radius: 20%;
+			-moz-border-radius: 20%;
+			-ms-border-radius: 20%;
+			-o-border-radius: 20%;
+			box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+				rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+				rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 		}
 		h1 {
 			transform: translateY(-50%);
@@ -1085,9 +1093,10 @@ input.buscar {
 	background: rgb(0, 0, 0);
 	background: linear-gradient(
 		0deg,
-		rgba(0, 0, 0, 0.94) 20%,
-		rgba(139, 190, 123, 0) 50%,
-		rgba(0, 0, 0, 0.73) 95%
+		rgba(0, 0, 0, 0.7679446778711485) 20%,
+		rgba(139, 190, 123, 0) 44%,
+		rgba(114, 156, 101, 0) 58%,
+		rgba(0, 0, 0, 0.7343312324929971) 95%
 	);
 }
 
@@ -1157,6 +1166,9 @@ input.buscar {
 
 .description-col {
 	padding-top: 50px;
+	.description {
+		display: contents;
+	}
 }
 
 @media (max-width: 767px) {
@@ -1173,8 +1185,8 @@ input.buscar {
 	}
 
 	.description-col {
-		padding-top: 65px;
-		padding-bottom: 30px;
+		padding-top: 80px;
+		padding-bottom: 10px;
 
 		.description-title {
 			text-align: center;
@@ -1292,7 +1304,6 @@ input.buscar {
 
 .button-primary:hover {
 	background: #007bff;
-	color: #e91e63;
 }
 
 .button-secondary {

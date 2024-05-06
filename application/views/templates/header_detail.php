@@ -82,10 +82,6 @@ if (isset($courses)) {
     else if ($segmento1 == 'inbox') $title = 'Mensajes';
     else if ($segmento1 == 'leer') $title = 'Chat';
     else  $title = isset($client_name) ? $client_name : '';
-
-    $domain = $_SERVER['SERVER_NAME'];
-    $baseUrl = ($domain == 'cursovia.local') ? 'https://cursovia.local/Cursovia' : 'https://'.$domain;
-    echo $prueba
     ?>
     <script>
         var baseURL =  '<?php echo base_url()?>';

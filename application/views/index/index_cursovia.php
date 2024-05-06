@@ -55,7 +55,8 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                         <div class="slider">
                             <?php foreach ($paid_banner_courses as $key => $paidBanner) {
                                 $pb_token   =   $paidBanner->token;
-                                $pb_image   =   base_url() . $paidBanner->cursovia_banner_url;
+                                $pb_image   =   $paidBanner->cursovia_banner_url;
+                                $pb_image   =   ($pb_image) ? "https://w3.kampusproject.com/".$pb_image : base_url('/public/imgs/slider/0'.($key+1).'.jpg');
                                 $pb_name    =   $paidBanner->name;
                                 $label      =   $paidBanner->label;
                                 $icon       =   $paidBanner->icon;
