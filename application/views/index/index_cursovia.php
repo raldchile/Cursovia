@@ -32,7 +32,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                     <input type="text" class="buscar" style="text-align: center" placeholder="¿Qué quieres aprender hoy?" name="buscar" id="SearchBar" />
                 </div>
                 <div class="col">
-                    <a href="#" class="button m-top" id="go">Buscar</a>
+                    <div id="go" class="search-button">Buscar</div>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                             <?php foreach ($paid_banner_courses as $key => $paidBanner) {
                                 $pb_token   =   $paidBanner->token;
                                 $pb_image   =   $paidBanner->cursovia_banner_url;
-                                $pb_image   =   ($pb_image) ? "https://w3.kampusproject.com/".$pb_image : base_url('/public/imgs/slider/0'.($key+1).'.jpg');
+                                $pb_image   =   ($pb_image) ? "https://w3.kampusproject.com/" . $pb_image : base_url('/public/imgs/slider/0' . ($key + 1) . '.jpg');
                                 $pb_name    =   $paidBanner->name;
                                 $label      =   $paidBanner->label;
                                 $icon       =   $paidBanner->icon;
@@ -142,8 +142,8 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                                 <a href="<?php echo base_url('mostrar/' . $slug); ?>">
                                     <h1><?php echo $name; ?></h1>
                                 </a>
-                                <a href="<?php echo base_url($client_slug); ?>">
-                                    <h2 class="client-name"><?php echo $client_name; ?></h2>
+                                <a class="client-name" href="<?php echo base_url($client_slug); ?>">
+                                    <h2><?php echo $client_name; ?></h2>
                                 </a>
                             </div>
                             <?php if ($price != 'Cotizar') { ?>
@@ -205,7 +205,9 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                         :'(</p>
                 </div>
             </div>
-            <div class="content"><a href="/" class="button">Ver todos los cursos >></a></div>
+            <div class="button-primary"">
+            <a href=" <?php echo base_url() ?>" class="button">Ver todos los cursos >></a>
+            </div>
 
 
 

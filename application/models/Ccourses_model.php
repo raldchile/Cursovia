@@ -583,7 +583,7 @@ class Ccourses_model extends CI_Model
 				$r = $favorites->result();
 
 				foreach ($r as $key => $value) {
-					$this->db->select('k.*, c.id,c.image_int, c.name, c.slug, c.hour, c.code, cl.name as client_name, cl.logo as client_logo, cl.id as client_id');
+					$this->db->select('k.*, c.id,c.image_int, c.name, c.slug, c.hour, c.code, cl.name as client_name, cl.logo as client_logo, cl.id as client_id, cl.slug as client_slug');
 					$this->db->from('courses as c');
 					$this->db->join('cursovia k', 'k.course_id = c.id');
 					$this->db->join('lastClientOC as oc', 'oc.client_id = c.client_id');
@@ -609,6 +609,7 @@ class Ccourses_model extends CI_Model
 							$output[$i]['code'] = $course->code;
 							$output[$i]['description'] = trim($course->cursovia_description);
 							$output[$i]['client_name'] = $course->client_name;
+							$output[$i]['client_slug'] = $course->client_slug;
 							$output[$i]['client_logo'] = $course->client_logo;
 							$output[$i]['client_id'] = $course->client_id;
 							$output[$i]['favorite'] = $this->cfavorites_model->getFavorites($course->id);

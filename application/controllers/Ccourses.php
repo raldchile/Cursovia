@@ -36,63 +36,9 @@ class Ccourses extends CI_Controller
 		}
 	}
 
-	/* function index()
-	{
-		$data["sessionuser"] = $this->usersession;
-		$posts = $this->input->post();
-		$data["courses"] = $this->ccourses_model->getAllCourses();
-		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
-		$data["header"] = $this->load->view('templates/header', $data, true);
-		$data["footer"] = $this->load->view('templates/footer', $data, true);
-
-		$data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
-
-		
-		if($posts){
-			$this->session->set_flashdata('txt',$posts["conceptosearch"]);
-		}
-
-		if(count($data["courses"])==1){
-				$slug = $data["courses"][0]["slug"];
-
-				redirect('/mostrar/'.$slug, 'refresh');
-		}else{
-			$this->load->view('index/index_cursovia', $data);
-		}
-	} */
-
-
-
-
-	/* 	public function index()
-{
-    $data["sessionuser"] = $this->usersession;
-    $data["cant_favorites"] = $this->cfavorites_model->countFavorites();
-    $data["header"] = $this->load->view('templates/header', $data, true);
-    $data["footer"] = $this->load->view('templates/footer', $data, true);
-    $data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
-
-    $gets = $this->input->get();
-    if ($gets) {
-        $this->session->set_flashdata('txt', $gets["buscar"]);
-    }
-
-    // Obtener cursos paginados
-    $data["courses"] = $this->ccourses_model->getAllCourses('', 1, 50, 0);
-
-    if (count($data["courses"]) == 1) {
-        $slug = $data["courses"][0]["slug"];
-        redirect('/mostrar/'.$slug, 'refresh');
-    } else {
-        $this->load->view('index/index_cursovia', $data);
-    } 
-
-	$this->load->view('index/index_cursovia', $data);
-} */
-
 	public function index()
 	{
-		$limit = 25;
+		$limit = 5;
 		$data["sessionuser"] = $this->usersession;
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		$data["header"] = $this->load->view('templates/header', $data, true);
@@ -119,7 +65,7 @@ class Ccourses extends CI_Controller
 
 	function profile($client_slug = '')
 	{
-		$limit = 25;
+		$limit = 5;
 		$data["courses"] = $this->ccourses_model->getClientCourses($client_slug, $limit, 0);
 		$data["client"] = $this->ccourses_model->getClient($client_slug);
 		$data["sessionuser"] = $this->usersession;
@@ -141,7 +87,7 @@ class Ccourses extends CI_Controller
 
 	public function loadMoreCourses()
 	{
-		$limit = 25;
+		$limit = 5;
 		$client_slug = $this->input->post('client_slug');
 		$offset = $this->input->post('offset');
 

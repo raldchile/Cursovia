@@ -27,12 +27,12 @@ $client_address = $client['address'];
 if (!$client_profile_cover) {
     $noimage = array(1, 2, 3, 4, 5, 6, 7, 8);
     $noimage = array_rand($noimage, 1);
-    $client_profile_cover = "https://cursovia.com/public/imgs/nophoto0" .$noimage.".jpg";
+    $client_profile_cover = "https://cursovia.com/public/imgs/nophoto0" . $noimage . ".jpg";
 } else {
-    $image = "https://w3.kampusproject.com/".$image;
+    $image = "https://w3.kampusproject.com/" . $image;
 }
 
-$client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/'.$client_profile_img : 'public/imgs/ca_perfil_2.png';
+$client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . $client_profile_img : 'public/imgs/ca_perfil_2.png';
 
 // print_r($paid_banner_courses);
 
@@ -50,10 +50,11 @@ $client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/'.$c
         <div class="row justify-content-end align-items-center">
             <div class="col-7 client-searchbar">
                 <form action="<?php echo base_url($client_slug) ?>" method="get" autocomplete="off" id="buscar">
-                    <input type="text" style="text-align: center" placeholder="¿Qué quieres aprender con <?php echo $client_alias ?>?" name="buscar" id="SearchBar" />
+                    <input type="text" style="text-align: center" placeholder="¿Qué quieres aprender con <?php echo (($client_alias) ? $client_alias : $client_name)?>?" name="buscar" id="SearchBar" />
                 </form>
             </div>
-            <div class="col-sm-2"><a href="#" class="client-search-button" style="background:<?php echo $client_color_first ?>" id="go">Buscar</a>
+            <div class="col-sm-2">
+                <div id="go" class="client-search-button" style="background:<?php echo $client_color_first ?>">Buscar</div>
             </div>
         </div>
     </section>
@@ -174,12 +175,13 @@ $client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/'.$c
                             <div class="row">
                                 <div class="col-md-12">
                                     <p class="msg-results">Lo sentimos no encontramos cursos de
-                                        <?php echo $client_name ?>"
+                                        <?php echo (($client_alias) ? $client_alias : $client_name) ?>"
                                         :'(</p>
                                 </div>
                             </div>
-                            <div class="content"><a href="<?php echo base_url() ?>" class="button">Ver todos los cursos
-                                    >></a></div>
+                            <div class="button-primary"">
+                            <a href=" <?php echo base_url('/'.$client_slug) ?>" class="button">Ver todos los cursos de <?php echo (($client_alias) ? $client_alias : $client_name)?> >></a>
+                            </div>
 
                         </div>
                     </div>
