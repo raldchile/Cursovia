@@ -71,9 +71,6 @@ if (isset($courses)) {
 
 
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script>
-        var baseURL = '<?php echo base_url() ?>';
-    </script>
     <link rel="stylesheet" href="<?php echo base_url("public/css/cursovia.css") ?>">
 
     <?php
@@ -86,7 +83,13 @@ if (isset($courses)) {
     else if ($segmento1 == 'leer') $title = 'Chat';
     else  $title = isset($client_name) ? $client_name : '';
 
+    $domain = $_SERVER['SERVER_NAME'];
+    $baseUrl = ($domain == 'cursovia.local') ? 'https://cursovia.local/Cursovia' : $domain;
+    echo $prueba
     ?>
+    <script>
+        var baseURL = '<?php echo $baseUrl ?>';
+    </script>
 
 
     <title>Cursovia: <?php echo $title ?></title>

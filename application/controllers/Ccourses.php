@@ -92,8 +92,7 @@ class Ccourses extends CI_Controller
 
 	public function index()
 	{
-
-		$limit = 5;
+		$limit = 25;
 		$data["sessionuser"] = $this->usersession;
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		$data["header"] = $this->load->view('templates/header', $data, true);
@@ -105,25 +104,22 @@ class Ccourses extends CI_Controller
 
 		$gets = $this->input->get();
 		if ($gets) $this->session->set_flashdata('txt', $gets["buscar"]);
-		else $this->session->set_flashdata('txt','');
+		else $this->session->set_flashdata('txt', '');
 
 
 
-		/* if (count($data["courses"]) == 1) {
-        $slug = $data["courses"][0]["slug"];
-        redirect('/mostrar/'.$slug, 'refresh');
-    } else {
-        $this->load->view('index/index_cursovia', $data);
-    }  */
+		if (count($data["courses"]) == 1) {
 
-		$this->load->view('index/index_cursovia', $data);
+			$slug = $data["courses"][0]["slug"];
+			redirect('/mostrar/' . $slug, 'refresh');
+		} else $this->load->view('index/index_cursovia', $data);
 	}
 
 
 
 	function profile($client_slug = '')
 	{
-		$limit = 5;
+		$limit = 25;
 		$data["courses"] = $this->ccourses_model->getClientCourses($client_slug, $limit, 0);
 		$data["client"] = $this->ccourses_model->getClient($client_slug);
 		$data["sessionuser"] = $this->usersession;
@@ -137,7 +133,7 @@ class Ccourses extends CI_Controller
 
 		$gets = $this->input->get();
 		if ($gets) $this->session->set_flashdata('txt', $gets["buscar"]);
-		else $this->session->set_flashdata('txt','');
+		else $this->session->set_flashdata('txt', '');
 
 
 		$this->load->view('index/client_profile', $data);
@@ -145,7 +141,7 @@ class Ccourses extends CI_Controller
 
 	public function loadMoreCourses()
 	{
-		$limit = 5;
+		$limit = 25;
 		$client_slug = $this->input->post('client_slug');
 		$offset = $this->input->post('offset');
 

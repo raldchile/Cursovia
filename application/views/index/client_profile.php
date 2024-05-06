@@ -28,19 +28,6 @@
 
 ?>
 
-
-
-<!-- <section>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-      </div>
-    </div>
-  </div>
-</section> -->
-
-
-
 <!-- Imagen de portada -->
 <section class="profile-cover" style="background-image: url('public/imgs/nophoto05.jpg')">
     <div class="profile-image">
@@ -71,8 +58,8 @@
                     <i class="description-button fa-regular"></i>
                 </h1>
                 <p class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic,
-                    saepe.<?php echo $client_profile_description?></p>
+                    <?php if($description) echo $description;
+                          else echo (($client_alias)?$client_alias:$client_name).' no ha puesto una descripción aún';?></p>
             </div>
             <div class="col-lg-9 col-courses">
                 <?php if($courses){ ?>
@@ -333,17 +320,6 @@ function loadMasonry() {
 var page = 1;
 // var total_pages = <?php #print $count?>;
 var total_pages = <?php echo $cuantas_paginas ?>;
-
-
-// $(window).scroll(function() {
-//     if($(window).scrollTop() + $(window).height() >= $(document).height()) {
-//         page++;
-//         if(page < total_pages) {
-//           loadMore(page);
-//         }
-//     }
-// });
-
 
 function loadMore(page) {
     var data = "";
