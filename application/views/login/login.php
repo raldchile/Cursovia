@@ -1,135 +1,144 @@
 <?php echo $header; ?>
-    <section  class="slide inner">
-      <div class="container inner-top">
-        <?php if($this->session->flashdata('msg')){ ?>
-        <div class="row">
-          <div class="col-md-12"><?php echo $this->session->flashdata('msg'); ?>          </div>
-        </div>
-      <?php } ?>
-      <div class="row ">
-        <div class="col-md-6 content-detail">
-                  
-          <h1>Login</h1>
-          <p>
-            ¡Ingresa y encuentra tu curso!
-          </p>
+<section class="slide inner">
+  <div class="container inner-top">
+    <?php if ($this->session->flashdata('msg')) { ?>
+      <div class="row">
+        <div class="col-md-12"><?php echo $this->session->flashdata('msg'); ?> </div>
+      </div>
+    <?php } ?>
+    <div class="row ">
+      <div class="col-md-6 content-detail">
 
-            <form action="<?php echo base_url() ?>/clogin/checkLogin" method="post" role="form" data-toggle="validator">
-                <div class="form-group input-group-lg">
-                  <label>Email</label>
-                  <input type="email" name="emailUser" class="form-control" aria-describedby="emailHelp" placeholder="Ingresa mail registrado" required>
-                  <div class="help-block with-errors"></div>
-                  <small id="emailHelp" class="form-text text-muted">¡Nunca compartiremos tu email con nadie! :)</small>
-                </div>
+        <h1>Login</h1>
+        <p>
+          ¡Ingresa y encuentra tu curso!
+        </p>
 
-                <div class="form-group input-group-lg">
-                  <label>Password</label>
-                  <input type="password" name="passUser" class="form-control" placeholder="Password"  required>
-                  <div class="help-block with-errors"></div>
-                  <small id="emailHelp" class="form-text text-muted"><a href="<?php echo base_url('clogin/getPassword')?>">Recupera tu clave de acceso</a></small>
+        <form action="<?php echo base_url('clogin/checkLogin')?>" method="post" role="form" data-toggle="validator">
+          <div class="form-group input-group-lg">
+            <label>Email</label>
+            <input type="email" name="emailUser" class="form-control" aria-describedby="emailHelp" placeholder="Ingresa mail registrado" required>
+            <div class="help-block with-errors"></div>
+            <small id="emailHelp" class="form-text text-muted">¡Nunca compartiremos tu email con nadie! :)</small>
+          </div>
 
-                </div>
-                  <input type="hidden" name="backto" class="form-control" value="<?php echo $backto; ?>">
-                <button type="submit" class="button-primary">Ingresar</button>
-                
-            </form>
-        </div>
+          <div class="form-group input-group-lg">
+            <label>Password</label>
+            <input type="password" name="passUser" class="form-control" placeholder="Password" required>
+            <div class="help-block with-errors"></div>
+            <small id="emailHelp" class="form-text text-muted"><a href="<?php echo base_url('clogin/getPassword') ?>">Recupera tu clave de acceso</a></small>
 
-        <div class="col-md-6 content-detail" style="border-left: 1px dashed #EEE;">
-        
-         <h1>Registro</h1>
+          </div>
+          <input type="hidden" name="backto" class="form-control" value="<?php echo $backto; ?>">
+          <button type="submit" class="button-primary">Ingresar</button>
 
-           <p><?php echo $this->session->flashdata('msg-reg'); ?></p>
+        </form>
+      </div>
 
-          <p>
-            Registrate para tener un mejor resultado en Cursovia
-          </p>
+      <div class="col-md-6 content-detail" style="border-left: 1px dashed #EEE;">
 
-       <form action="<?php echo base_url() ?>/clogin/setAccount" method="post" autocomplete="false" id="registro" role="form" data-toggle="validator">
+        <h1>Registro</h1>
 
-                <div class="form-group input-group-lg">
-                          <label>Nombre completo</label>
-                          <input name="fullname" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingresa tu nombre" data-error="Debes ingresar tu nombre" required>
-                          <div class="help-block with-errors"></div>
-                </div>
+        <p><?php echo $this->session->flashdata('msg-reg'); ?></p>
 
-               
-                 <div class="form-group input-group-lg">
-                          <label>Empresa</label>
-                          <input name="company" type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Nombre de empresa">
-                </div>
+        <p>
+          Registrate para tener un mejor resultado en Cursovia
+        </p>
 
-                <div class="form-group input-group-lg">
-                  <label for="email">Email</label>
-                  <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingresa tu email" required>
-                        <div class="help-block with-errors"></div>
+        <form action="<?php echo base_url('clogin/setAccount')?>" method="post" autocomplete="false" id="registroForm" role="form" data-toggle="validator">
 
-                  <span class="alert" id="alert"><strong>¡Email ya está en uso!</strong> Intente con otro.</span>
-                  <small id="emailHelp" class="form-text text-muted">Deberás validarlo en tu casilla de email. <strong>¡Este será tu email de acceso!</strong></small>
-                </div>
+          <div class="form-group input-group-lg">
+            <label>Nombre completo</label>
+            <input name="fullname" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Ingresa tu nombre" data-error="Debes ingresar tu nombre" required>
+            <div class="help-block with-errors"></div>
+          </div>
 
-                <div class="form-group input-group-lg">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" data-minlength="6"  data-error="La password debe tener al menos 6 caracteres" required>
-                        <div class="help-block with-errors"></div>
-                </div>
 
-                <div class="form-group input-group-lg">
-                        <label for="exampleInputPassword1">Confirma tu password</label>
-                        <input type="password" class="form-control" placeholder="Password" required data-match-error="Las password no coinciden" data-match="#password">
-                        <div class="help-block with-errors"></div>
-                </div>
+          <div class="form-group input-group-lg">
+            <label>Empresa</label>
+            <input name="company" type="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Nombre de empresa">
+          </div>
 
-                 <div class="form-group input-group-lg">
-                  <label for="exampleInputPassword1">País</label>
-  
-                    <?php
-                                echo form_dropdown('country', $countries, (isset($usercopy[0]->country_id) ? $usercopy[0]->country_id : set_value('country')), 'class="form-control" required');
-                            ?>
-                  </div>
+          <div class="form-group input-group-lg">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingresa tu email" required>
+            <div class="help-block with-errors"></div>
 
-              <div class="g-recaptcha" data-sitekey="6LeQjJsaAAAAAAChoSu2zHAOpfHjQiiNnYUZT6uF"></div>
-                  
+            <span class="alert" id="alert"><strong>¡Email ya está en uso!</strong> Intente con otro.</span>
+            <small id="emailHelp" class="form-text text-muted">Deberás validarlo en tu casilla de email. <strong>¡Este será tu email de acceso!</strong></small>
+          </div>
 
-                <button id="submit"  type="submit" class="button-primary" disabled>¡Registrarme!</button>
+          <div class="form-group input-group-lg">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required minlength="6" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" data-error="La password debe tener al menos 6 caracteres, una letra mayúscula, una letra minúscula y un número">
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group input-group-lg">
+            <label for="confirmPassword">Confirma tu password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Password" required data-match-error="Las password no coinciden" data-match="#password">
+            <div class="help-block with-errors"></div>
+          </div>
 
-            </form>
+          <div class="form-group input-group-lg">
+            <label for="exampleInputPassword1">País</label>
 
-        </div>
+            <?php
+            echo form_dropdown('country', $countries, (isset($usercopy[0]->country_id) ? $usercopy[0]->country_id : set_value('country')), 'class="form-control" required');
+            ?>
+          </div>
+
+          <div class="g-recaptcha" data-sitekey="6LeQjJsaAAAAAAChoSu2zHAOpfHjQiiNnYUZT6uF"></div>
+
+
+          <button id="submitRegister" type="submit" class="button-primary" disabled>¡Registrarme!</button>
+
+        </form>
 
       </div>
 
     </div>
 
-    
-  </section>
+  </div>
 
- <script type="text/javascript">
-      
-        $( "#email" ).blur(function() {
 
-         var email = $("#email").val();
+</section>
 
-          if(email){
-            $.ajax({
-            url: "<?php echo base_url() ?>clogin/validaUser",
-            type: "POST",
-            data: { email: email},
-            context: document.body
-              }).done(function(data) {
-            
-              if(data==false){
-                 $('#submit').attr("disabled", false);
-                 $('#alert').removeClass('ver');
-              }else{
-                 $('#submit').attr("disabled", true);
-                 $('#alert').addClass('ver');
-            }
+<script type="text/javascript">
+  $("#email").blur(function() {
 
-          });
+    var email = $("#email").val();
+
+    if (email) {
+      $.ajax({
+        url: "<?php echo base_url() ?>clogin/validaUser",
+        type: "POST",
+        data: {
+          email: email
+        },
+        context: document.body
+      }).done(function(data) {
+
+        if (data == false) {
+          $('#submit').attr("disabled", false);
+          $('#alert').removeClass('ver');
+        } else {
+          $('#submit').attr("disabled", true);
+          $('#alert').addClass('ver');
         }
-        });
 
+      });
+    }
 
-    </script>
+    $('#registroForm #confirmPassword').on('keyup', function() {
+      if ($('#registroForm #password').val() === $('#registroForm #confirmPassword').val() && $('#registroForm #password').val() !== '') {
+        $('#submitRegister').attr('disabled', false);
+        $('#registroForm #confirmPassword').next('.help-block').text('');
+      } else {
+        $('#submitRegister').attr('disabled', true);
+        $('#registroForm #confirmPassword').next('.help-block').text('Las password no coinciden');
+      }
+    });
+
+  });
+</script>
 <?php echo $footer; ?>
