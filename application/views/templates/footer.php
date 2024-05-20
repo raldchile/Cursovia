@@ -51,7 +51,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="button-secondary" data-dismiss="modal">¡No por ahora!</button>
-        <button type="button" class="button-primary"><a style="text-decoration: none; color: inherit;" href="<?php echo base_url("ingresar")?>">Registrarse</a></button>
+        <a href="<?php echo base_url("ingresar")?>" class="button-primary">Registrarse</a>
       </div>
     </div>
   </div>

@@ -28,6 +28,7 @@ class Ccourses extends CI_Controller
 		$this->usersession = $this->session->userdata('user_data');
 		$this->load->model('ccourses_model');
 		$this->load->model('cfavorites_model');
+		$this->load->model('cmessages_model');
 		$session_id = $this->session->userdata('session_id');
 		if (!$session_id) {
 			$session_id = uniqid() . date('YmdHis');
@@ -38,7 +39,7 @@ class Ccourses extends CI_Controller
 
 	public function index()
 	{
-		$limit = 5;
+		$limit = 50;
 		$data["sessionuser"] = $this->usersession;
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		$data["header"] = $this->load->view('templates/header', $data, true);
@@ -46,6 +47,7 @@ class Ccourses extends CI_Controller
 		$data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
 		$data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, 0);
 		$data["total_courses"] = $this->ccourses_model->countAllCourses();
+		$data['unreadMsgs'] = $this->cmessages_model->GetAllUnreadMessages();
 
 
 		$gets = $this->input->get();
@@ -65,7 +67,7 @@ class Ccourses extends CI_Controller
 
 	function profile($client_slug = '')
 	{
-		$limit = 5;
+		$limit = 50;
 		$data["courses"] = $this->ccourses_model->getClientCourses($client_slug, $limit, 0);
 		$data["client"] = $this->ccourses_model->getClient($client_slug);
 		$data["sessionuser"] = $this->usersession;
@@ -87,7 +89,7 @@ class Ccourses extends CI_Controller
 
 	public function loadMoreCourses()
 	{
-		$limit = 5;
+		$limit = 50;
 		$client_slug = $this->input->post('client_slug');
 		$offset = $this->input->post('offset');
 

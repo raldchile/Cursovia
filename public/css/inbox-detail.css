@@ -1,0 +1,142 @@
+.msg-list .inbox-title {
+	font-size: 34px;
+	line-height: 42px;
+	color: #323232;
+	margin-bottom: 20px;
+}
+
+.inbox-msg {
+	font-size: 20px;
+	padding: 0;
+	color: #312e2e;
+	border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-ms-border-radius: 1rem;
+	-o-border-radius: 1rem;
+}
+
+.inbox-first-msg {
+	border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-ms-border-radius: 1rem;
+	-o-border-radius: 1rem;
+}
+
+.first-unread {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid #d0cece;
+	color: #067aff;
+	margin: 5px 0 0;
+	i {
+		margin-left: 5px;
+	}
+}
+
+.inbox-responses-msg {
+	display: flex;
+	flex-direction: column;
+	padding: 0 10px;
+}
+.profile {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 5px 0 5px 0;
+	color: inherit;
+	border-top: 1px solid #d0cece;
+	img {
+		width: 30px;
+		margin-right: 7px;
+		border-radius: 20%;
+		-webkit-border-radius: 20%;
+		-moz-border-radius: 20%;
+		-ms-border-radius: 20%;
+		-o-border-radius: 20%;
+	}
+	p {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		margin: 0 10px 0 0;
+		max-width: 100%;
+		font-size: larger;
+		font-weight: 700;
+	}
+}
+
+.msg-title {
+	margin: 0;
+	margin-left: 10px;
+}
+
+.msg-date {
+	margin: 5px 0 0 10px;
+	font-size: 12px;
+}
+
+.msg-content {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+	height: auto;
+	margin: 0;
+	padding: 0 10px;
+	-ms-word-break: break-all;
+	word-break: break-all;
+	word-break: break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
+	i {
+		margin-right: 5px;
+	}
+}
+@media (max-width: 768px) {
+	.msg-list .inbox-title {
+		font-size: 24px;
+		line-height: 22px;
+	}
+	.inbox-msg {
+		font-size: smaller;
+	}
+	.msg-content {
+		font-size: smaller;
+	}
+}
+.msg-card {
+	border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-ms-border-radius: 1rem;
+	-o-border-radius: 1rem;
+}
+
+.msg-box {
+	margin-top: 20px;
+	position: sticky;
+	right: 0;
+	top: 0;
+	width: 325px;
+	border: 1px solid #d0cece;
+	background: #fff;
+	z-index: 999999;
+	border-radius: 1rem;
+	-webkit-border-radius: 1rem;
+	-moz-border-radius: 1rem;
+	-ms-border-radius: 1rem;
+	-o-border-radius: 1rem;
+}
+
+@media (max-width: 991px) {
+	.msg-box {
+		position: initial;
+		width: auto;
+		border: none;
+	}
+}

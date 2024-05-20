@@ -12,116 +12,6 @@ class Ccourses_model extends CI_Model
 		$this->load->model('clogin_model');
 	}
 
-	/* function getAllCourses($slug='',$ve=1) {
-
-		$posts = $this->input->post();
-
-		$output = array();
-		$i=0;
-		$txt = "";
-
-		if(!$slug){
-			if($posts){
-			$txt = soloCaracteresPermitidos( $posts["conceptosearch"] );
-			}
-		}
-
-	 	$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id');
-	 	$this->db->from('courses as c');
-	 	$this->db->join('clients as cl', 'c.client_id = cl.id');
-	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
-	 	$this->db->join('cursovia k', 'k.course_id = c.id');
-	 	$this->db->where('oc.expire >= CURDATE()');
-	 	if($slug){
-	 		$this->db->where('c.slug',$slug);
-	 	}
-
-	 	if($txt){
-
-	 		$this->db->where('( c.name LIKE "%'.$txt.'%" OR
-								c.description LIKE "%'.$txt.'%"
-								OR cl.name LIKE "%'.$txt.'%" )');
-
-	 		// $this->db->like('c.name',$txt);
-	 		// $this->db->or_like('c.description', $txt); 
-	 	}else{
-	 		$this->db->limit(50);
-	 	}
-
-	 	$this->db->where('c.status',1);
-	 	$this->db->where('cl.status',1);
-	 	$this->db->where('c.publish_kimun',1);
-	 	$this->db->where('k.cursovia_ispaid !=',1);
-	 	$this->db->order_by('rand()');
-	 	$courses = $this->db->get();
-
-	 	//echo $this->db->last_query(); die();
-
-	 	// print_r($courses->result()); die();
-
-	 	if( $courses->num_rows() ) {
-			foreach ($courses->result() as $key => $course) {
-
-				$showContent = $course->cursovia_structure;
-				$showSence = $course->cursovia_sence_code;
-				$cursovia_elearning = $course->cursovia_elearning;
-				$cursovia_inRoom = $course->cursovia_inRoom;
-				$muestraModalidad = $cursovia_elearning + $cursovia_inRoom;
-				$price = $course->cursovia_price ? $course->cursovia_price : 'Cotizar';
-
-#				echo $showContent; die();
-
-
-				if($muestraModalidad == 2){
-					$modalidad = "E-learning | Presencial";
-				}elseif($muestraModalidad == 1){
-					if($cursovia_elearning) $modalidad 	= 'E-learning';
-					if($cursovia_inRoom) $modalidad 	= 'Presencial';
-				}else{
-					$modalidad = 'Consultar';
-				}
-
-				// if($course->cursovia_price){}
-
-				$output[$i]['id'] = $course->course_id;
-				$output[$i]['image_int'] = $course->image_int;
-				$output[$i]['name'] = $course->name;
-				$output[$i]['resume'] = trim($course->resume);
-				$output[$i]['target'] = $course->cursovia_target;
-				$output[$i]['skill'] = $course->cursovia_learn_objective;
-				$output[$i]['slug'] = $course->slug;
-				$output[$i]['hour'] = $course->hour;
-				$output[$i]['code'] = $course->code;
-				$output[$i]['price'] = $price;
-				$output[$i]['description'] = trim($course->cursovia_description);
-				$output[$i]['client_name'] = $course->client_name;
-				$output[$i]['client_slug'] = $course->client_slug;
-				$output[$i]['client_logo'] = $course->client_logo;
-				$output[$i]['client_id'] = $course->client_id;
-				$output[$i]['promotional_video'] = $course->promotional_video;
-				$output[$i]['favorite'] = $this->cfavorites_model->getFavorites($course->course_id);
-				$output[$i]['total_favorites'] = $this->cfavorites_model->getAllFavorites($course->course_id);
-				$output[$i]['showSence'] = $showSence;
-				$output[$i]['modalidad'] = $modalidad;
-
-				if($slug and $showContent==1){
-					$output[$i]['content'] = $this->getContent($course->course_id);
-				}
-
-				$this->cutils_model->setCourseInRsults($course->course_id, $txt, $ve);
-
-			$i++;
-
-			}			
-		}
-
-	 	// echo $this->db->last_query(); die();
-
-		return $output;
-
-	 } */
-
-
 	function setSessionCourses()
 	{
 
@@ -167,11 +57,22 @@ class Ccourses_model extends CI_Model
 		$dbc->insert('cursovia_results', $data);
 
 		//echo dbc->last_query(); 
+		$this->clearSessionData();
+	}
+
+	function clearSessionData()
+	{
+
+		$dbc = $this->load->database('cursovia', TRUE);
+
+		$fecha = date('Y-m-d H:i:s', strtotime('-4 day'));
+
+		$dbc->where('result_date <=', $fecha);
+		$dbc->delete('cursovia_results');
 	}
 
 	function getAllCourses($slug = '', $ve = 1, $limit = 0, $offset = 0)
 	{
-
 
 		$session_id = $this->session->userdata('session_id');
 
@@ -188,7 +89,6 @@ class Ccourses_model extends CI_Model
 		$result = $query->row();
 		$result_courses_id = explode(",", $result->courses_id);
 		$result_courses_id = array_map('intval', $result_courses_id);
-
 
 		$gets = $this->input->get();
 		$output = array();
@@ -328,6 +228,16 @@ class Ccourses_model extends CI_Model
 		$this->db->where('slug', $slug);
 		$client = $this->db->get()->row_array();
 		return $client;
+	}
+
+	function getClientofCourse($course_id = '')
+	{
+		$this->db->select('cl.id');
+		$this->db->from('courses as c');
+		$this->db->join('clients as cl', 'c.client_id = cl.id');
+		$this->db->where('c.id', $course_id);
+		$client = $this->db->get()->row_array();
+		return $client['id'];
 	}
 
 	function getClientCourses($slug = '', $limit = 0, $offset = 0)
@@ -474,9 +384,6 @@ class Ccourses_model extends CI_Model
 
 	function getAllPaidBanner_Courses()
 	{
-
-		$i = 0;
-		$output = array();
 
 		$this->db->select('c.id as course_id, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.logo as client_logo, cl.id as client_id, bl.*');
 		$this->db->from('courses as c');

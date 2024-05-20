@@ -44,9 +44,9 @@
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
     <script>
-        var baseURL = '<?php echo base_url()?>';
+        var baseURL = '<?php echo base_url() ?>';
     </script>
-   
+
 
     <meta name="facebook-domain-verification" content="kabvm4o52mle3toe5a7wh5k6qmunah" />
 
@@ -96,12 +96,19 @@
                         <!--li class="header-button"><a href="/ingresar" class="fa-lock-menu">¿Qué es Cursovia?</a></li-->
 
                         <?php $validated = ($sessionuser) ? $sessionuser["validated"] : false;
-                        if ($validated) { ?>
+                        if ($validated) {
+                            $unreadMsgs = totalUnreadMsgs();
+                            $names = explode(' ', $sessionuser["full_name"]);
+                            $first_name = $names[0];
+                            $unreadMsgs = ($unreadMsgs > 0) ? ' ('.$unreadMsgs.')' : '';
+
+
+                        ?>
                             <li class="header-button"><a href="<?php echo base_url("cursos-favoritos") ?>" class="fa-heart-menu white">Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
-                            <li class="header-button"><a href="javascript:void(0);" class="fa-user white"><?php echo $sessionuser["full_name"]; ?></a>
+                            <li class="header-button"><a href="javascript:void(0);" class="fa-user white"><?php echo $first_name.$unreadMsgs ?></a>
                                 <ul class="submenu">
                                     <li><a href="<?php echo base_url("cuenta") ?>" class="fa-gear">Mi cuenta</a></li>
-                                    <li><a href="<?php echo base_url("inbox") ?>" class="fa-msg">Mis mensajes</a></li>
+                                    <li><a href="<?php echo base_url("inbox") ?>" class="fa-msg">Mis mensajes<?php echo $unreadMsgs ?></a></li>
                                     <li><a href="<?php echo base_url("salir") ?>"><i class="icon fa-solid fa-right-from-bracket"></i>Logout</a></li>
                                 </ul>
 

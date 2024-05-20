@@ -59,7 +59,7 @@ class Cutils_model extends CI_Model {
 	function checkClient($id=0,$action='vigencia'){
 
 		// $this->db->select('c.id,c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, c.showContent, c.target, c.skill, cl.name as client_name, cl.logo as client_logo, cl.id as client_id');
-	 	$this->db->select('cl.id, cl.name, cl.email');
+	 	$this->db->select('cl.id, cl.name, cl.email, cl.slug');
 	 	$this->db->from('clients as cl');
 	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 	 	if($action=='vigencia'){
@@ -77,7 +77,7 @@ class Cutils_model extends CI_Model {
 				return $this->db->affected_rows() ? true : false;	
 	 		break;
 	 		case 'datos':
-				return $datos->result();
+				return $datos->row_array();
 	 		break;
 	 	}
 	}

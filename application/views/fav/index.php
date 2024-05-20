@@ -60,14 +60,14 @@
         <div class="row favorite fav-hover">
 
 
-          <div class="col-md-10">
+          <div class="col-sm-9">
             <div class="content <?php echo $class; ?>">
 
               <label class="custom-radio-checkbox">
                 <!-- Input oculto -->
                 <!--input class="custom-radio-checkbox__input" type="checkbox" name="cheched_courses" value="<?php echo $idcurso; ?>"-->
                 <!-- Imagen en sustitucion -->
-                <span class="custom-radio-checkbox__show custom-radio-checkbox__show--checkbox"></span>
+                <!-- <span class="custom-radio-checkbox__show custom-radio-checkbox__show--checkbox"></span> -->
                 <!-- Texto -->
                 <span class="custom-radio-checkbox__text"><?php echo $name; ?></span>
               </label>
@@ -76,15 +76,13 @@
               </a>
             </div>
           </div>
-          <div class="col-md-2 button-primary">
-            <a href="mostrar/<?php echo $slug; ?>">Ver >></a>
+          <div class="col-sm-3">
+            <a href="mostrar/<?php echo $slug; ?>" class="button-primary center">Ver >></a>
           </div>
         </div>
       <?php } ?>
       <br>
-      <div class="button-primary">
-        <a href="<?php echo base_url(); ?>"">Volver al home de cursos >></a>
-      </div>
+      <a href="<?php echo base_url(); ?>" class="button-primary center">Volver al home de cursos >></a>
 
     </div>
     <!-- </form> -->
@@ -96,9 +94,7 @@
           <p class="msg-results">No encontramos ningún curso marcado como favorito.</p>
         </div>
       </div>
-      <div class="button-primary"">
-      <a href=" <?php echo base_url() ?>" class="button">Ver todos los cursos >></a>
-      </div>
+      <a href="<?php echo base_url() ?>" class="button-primary center">Ver todos los cursos >></a>
     </div>
   <?php } ?>
 </section>

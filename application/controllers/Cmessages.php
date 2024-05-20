@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Cmessages extends CI_Controller {
+class Cmessages extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -21,15 +22,13 @@ class Cmessages extends CI_Controller {
 
 	// 
 
-	function __construct() {
+	function __construct()
+	{
 		parent::__construct();
 		$this->load->model('cmessages_model');
 		$this->usersession = $this->session->userdata('user_data');
 		$this->load->model('cfavorites_model');
 		$this->load->model('caccount_model');
-
-
-
 	}
 
 	public function index()
@@ -44,23 +43,23 @@ class Cmessages extends CI_Controller {
 	{
 
 		// VALIDAMOS SESION DEL USUARIO SI NO REDIRECCIONAMOS AL LOGIN
-		if( check_islogin() ) {
 
-		$send = $this->cmessages_model->SendMessage();
-		if($send){
-			echo "<span class=\"content-msg\">¡Contacto realizado!</span>";
-		}			
-		}else{
-		 redirect(base_url());
-	}
+		if (check_islogin()) {
+			$send = $this->cmessages_model->SendMessage();
+			if ($send) {
+				echo "<span class=\"content-msg\">¡Contacto realizado!</span>";
+			}
+		} else echo "noLogin";
+		
 	}
 
 	public function getTheMessage()
 	{
 		// VALIDAMOS SESION DEL USUARIO SI NO REDIRECCIONAMOS AL LOGIN
 		$check = $this->cmessages_model->getTheMessage();
-		if($check){
-			echo "¡Contacto realizado!"; die();
+		if ($check) {
+			echo "<span class=\"content-msg\">¡Contacto realizado!</span>";
+			die();
 		}
 	}
 
@@ -68,7 +67,7 @@ class Cmessages extends CI_Controller {
 	{
 		$check = $this->cmessages_model->CheckMessage($token);
 
-		if($check){
+		if ($check) {
 
 			$data["datos"] = $check;
 			$data["sessionuser"] = $this->usersession;
@@ -97,24 +96,24 @@ class Cmessages extends CI_Controller {
 					$data["error"] = "El curso no está publicado en Cursovia...";
 					$this->load->view('index/error', $data);
 					break;
-				
+
 				default:
 					$this->load->view('index/lectura', $data);
 					break;
 			}
 
 			// echo $check; die();
-		}else{
+		} else {
 			$this->load->view('index/error');
-		}			
+		}
 	}
 
 
 	public function readMessage($token)
 	{
-		$check = $this->cmessages_model->GetAllMessages($token);
+		$check = $this->cmessages_model->GetMessagesResponses($token);
 
-		if($check){
+		if ($check) {
 
 			$data["mensajes"] = $check;
 			$data["sessionuser"] = $this->usersession;
@@ -138,7 +137,7 @@ class Cmessages extends CI_Controller {
 					$data["error"] = "Token No existe...";
 					$this->load->view('index/error', $data);
 					break;
-				
+
 				default:
 					$this->load->view('msgs/detail', $data);
 					break;
@@ -146,22 +145,21 @@ class Cmessages extends CI_Controller {
 
 
 			// echo $check; die();
-		}else{
+		} else {
 			$this->load->view('index/error');
-		}			
+		}
 	}
 
 
-		public function checkMessageUser()
+	public function checkMessageUser()
 	{
-			$data["sessionuser"] = $this->usersession;
-			$data["mensajes"] = $this->cmessages_model->GetAllMessages();
-			$data["qty"] = $this->cmessages_model->getQtyMsg();
-			$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
-			$data["user"] = $this->caccount_model->getUsername();
-			$data["header"] = $this->load->view('templates/header_detail', $data, true);
-			$data["footer"] = $this->load->view('templates/footer', $data, true);
-			$this->load->view('msgs/inbox', $data);
-
+		$data["sessionuser"] = $this->usersession;
+		$data["mensajes"] = $this->cmessages_model->GetAllMessages();
+		$data["qty"] = $this->cmessages_model->getQtyMsg();
+		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
+		$data["user"] = $this->caccount_model->getUsername();
+		$data["header"] = $this->load->view('templates/header_detail', $data, true);
+		$data["footer"] = $this->load->view('templates/footer', $data, true);
+		$this->load->view('msgs/inbox', $data);
 	}
 }
