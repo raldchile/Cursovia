@@ -20,7 +20,7 @@ class Caccount_model extends CI_Model {
 		$dbc->where('u.status', 1);
 		$users = $dbc->get();
 
-		return $users->result();
+		return $users->row_array();
 
 	}
 

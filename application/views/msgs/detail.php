@@ -16,7 +16,6 @@ echo $header; ?>
       $ischeck          = $mensajes[0]["ischeck"];
       $course_name      = $mensajes[0]["course_name"];
       $course_id        = $mensajes[0]["course_id"];
-      $responses        = $mensajes[0]["responses"];
       $message_id       = $mensajes[0]["id"];
       $class            = "";
       $marca            = "";
@@ -27,7 +26,7 @@ echo $header; ?>
       $client_email = $mensajes[0]['client']['email'];
       $client_color_first = $mensajes[0]['client']['color_first'];
       $client_color_second = $mensajes[0]['client']['color_second'];
-      $client_background = $mensajes['client']['background'];
+      $client_background = $mensajes[0]['client']['background'];
       $client_logo = $mensajes[0]['client']['logo'];
       $client_profile_img = $mensajes[0]['client']['profile_img'];
 
@@ -42,7 +41,7 @@ echo $header; ?>
               <h1 class="inbox-title">Contacto para curso <?php echo $course_name; ?></h1>
               <div class="inbox-first-msg">
                 <div class="profile">
-                <img src="<?php echo $from_id == $cliente_idK ? $client_profile_img : $user_profile_img; ?>" alt="Imagen perfil">
+                <img src="<?php echo $user_profile_img?>" alt="Imagen perfil">
                   <p class="msg-title">Consulta enviada a <?php echo $client_alias ?>:</p>
                 </div>
                 <p class="msg-content"><i class="fa-solid fa-check-double" style="<?php echo ($ischeck == 2) ? 'color: #067aff' : 'color: #3b4a54' ?>"></i><?php echo $message ?></p>

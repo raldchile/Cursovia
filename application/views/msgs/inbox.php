@@ -34,6 +34,7 @@
         $token            = $value["token"];
         $cliente_name     = $value["cliente_name"];
         $cliente_idK      = $value["cliente_idK"];
+        $client_validity      = $value["client_validity"];
         $message          = $value["message"];
         $token            = $value["token"];
         $created          = FechaToCastle($value["created"]);
@@ -41,25 +42,26 @@
         $unreadMsg        = $value["unreadMsg"];
         $last_response    = $value["last_response"];
         $course_name      = $value["course_name"];
-        $qty_messages     = $value["qty_messages"];
         $class            = "";
         $marca            = "";
 
         if ($unreadMsg > 0) {
           $class = "unreadMsgs";
         }
-        if ($last_response['ischek'] and $last_response['from_id'] != $cliente_idK) {
-          echo 'si';
-        }
+
+
+        $validity = $client_validity ? '' : 'disabled';
 
         $client_name = stot($value['client']["name"]);
         $client_slug = $value['client']["slug"];
+        $client_status    = $value['client']["status"];
+        $client_expire = $value['client']["expire"];
         $client_alias = $value['client']['alias'];
         $client_profile_img = $value['client']['profile_img'];
         $client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
       ?>
 
-        <a href="<?php echo base_url('leer/' . $token); ?>" class="inbox <?php echo $class; ?>">
+        <a href="<?php echo base_url('leer/' . $token); ?>" class="inbox <?php echo $class . ' ' . $validity ?>">
 
           <div class="client-name">
             <img src="<?php echo $client_profile_img ?>" alt="Imagen perfil">
@@ -73,13 +75,19 @@
               Consulta: <?php echo $course_name;  ?>
             </p>
           </div>
-          <?php if ($last_response['from_id'] != $cliente_idK) { ?>
+          <?php if ($client_validity) {
+            if ($last_response['from_id'] != $cliente_idK) { ?>
+              <div class="last-msg">
+                <p><i class="fa-solid fa-check-double" style="<?php echo ($last_response['ischeck'] == 2) ? 'color: #067aff' : 'color: #3b4a54' ?>"></i><?php echo $last_response['message'] ?></p>
+              </div>
+            <?php } else { ?>
+              <div class="last-msg">
+                <p><?php echo $last_response['message'] ?></p>
+              </div>
+            <?php }
+          } else { ?>
             <div class="last-msg">
-              <p><i class="fa-solid fa-check-double" style="<?php echo ($last_response['ischeck'] == 2) ? 'color: #067aff' : 'color: #3b4a54' ?>"></i><?php echo $last_response['message'] ?></p>
-            </div>
-          <?php } else { ?>
-            <div class="last-msg">
-              <p><?php echo $last_response['message'] ?></p>
+              <p>Lo sentimos, este cliente ya no forma parte de Cursovia</p>
             </div>
           <?php } ?>
 
@@ -91,7 +99,7 @@
               </p>
             <?php } else { ?>
               <div class="unread-msg">
-                <?php echo ($unreadMsg == 1) ? $unreadMsg.' mensaje nuevo' : $unreadMsg.' mensajes nuevos'?>
+                <?php echo ($unreadMsg == 1) ? $unreadMsg . ' mensaje nuevo' : $unreadMsg . ' mensajes nuevos' ?>
               </div>
               <p class=unread-msg>
                 <?php echo FechaToCastle($last_response['created']) ?>

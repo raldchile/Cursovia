@@ -32,7 +32,7 @@ if (!$client_profile_cover) {
     $image = "https://w3.kampusproject.com/" . $image;
 }
 
-$client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . $client_profile_img : 'public/imgs/ca_perfil_2.png';
+$client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
 
 // print_r($paid_banner_courses);
 
@@ -66,7 +66,7 @@ $client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . 
                     <i class="description-button fa-regular"></i>
                 </h1>
                 <p class="description">
-                    <strong><?php if ($description) echo $description;
+                    <strong><?php if (isset($description)) echo $description;
                             else echo (($client_alias) ? $client_alias : $client_name) ?></strong>
                     no ha puesto una descripción aún
                 </p>

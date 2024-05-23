@@ -439,13 +439,15 @@ class Cmessages_model extends CI_Model
 					$fechamsg	=	$msg->created;
 					$clientId = $this->ccourses_model->getClientofCourse($course_id);
 
-					$datosCliente = $this->cutils_model->checkClient($clientId, $action = 'datos');
+					$datosCliente = $this->cutils_model->checkClient($clientId, 'datos');
 					$cliente_name  = $datosCliente['name'];
 					$cliente_email = $datosCliente['email'];
 					$cliente_idK = $datosCliente['id'];
+					$last_response = $this->GetMessagesResponses($msg->token, true);
+					$vigente =  $this->cutils_model->checkClient($cliente_idK);
 
 					$output[$i]['client'] = $this->ccourses_model->getClient($datosCliente['slug']);
-
+					$output[$i]['client_validity'] = $vigente;
 					$output[$i]['id'] = $idmsg;
 					$output[$i]['from_id'] = $msg->from_id;
 					// $output[$i]['subject'] = $msg->subject;
@@ -460,7 +462,7 @@ class Cmessages_model extends CI_Model
 					$output[$i]['course_name'] = $this->ccourses_model->getCourseName($course_id);
 					$output[$i]['course_id'] = $course_id;
 					$output[$i]['unreadMsg'] = $this->GetUnreadMessages($msg->token);
-					$output[$i]['last_response'] = end($this->GetMessagesResponses($msg->token, true));
+					$output[$i]['last_response'] = end($last_response);
 
 					$i++;
 				}
@@ -504,12 +506,15 @@ class Cmessages_model extends CI_Model
 					$dbc->update('messages', $data);
 				}
 
-				$datosCliente = $this->cutils_model->checkClient($clientId, $action = 'datos');
+				$datosCliente = $this->cutils_model->checkClient($clientId, 'datos');
 				$cliente_name  = $datosCliente['name'];
 				$cliente_email = $datosCliente['email'];
 				$cliente_idK = $datosCliente['id'];
 
 				$output[$i]['client'] = $this->ccourses_model->getClient($datosCliente['slug']);
+				$vigente =  $this->cutils_model->checkClient($cliente_idK);
+
+				if (!$vigente && !$isForLastResponse) return 'NC';
 
 				$output[$i]['id'] = $idmsg;
 				$output[$i]['from_id'] = $msg->from_id;
@@ -533,6 +538,8 @@ class Cmessages_model extends CI_Model
 			}
 
 			return $output;
+		} else {
+			return 'NT';
 		}
 	}
 
@@ -553,14 +560,17 @@ class Cmessages_model extends CI_Model
 	function GetAllUnreadMessages()
 	{
 		$sessionuser = $this->usersession;
-		$User	=	$sessionuser["id"];
-		$dbc = $this->load->database('cursovia', TRUE);
-		$dbc->from('messages');
-		$dbc->where('to_id', $User);
-		$dbc->where('ischeck', 1);
-		$dbc->where('status', 1);
-		$dbc->order_by('created', 'desc');
-		$count = $dbc->get()->num_rows();
+		$user	=	isset($sessionuser["id"]) ? $sessionuser["id"] : null;
+		$count = 0;
+		if ($user) {
+			$dbc = $this->load->database('cursovia', TRUE);
+			$dbc->from('messages');
+			$dbc->where('to_id', $user);
+			$dbc->where('ischeck', 1);
+			$dbc->where('status', 1);
+			$dbc->order_by('created', 'desc');
+			$count = $dbc->get()->num_rows();
+		}
 		return $count;
 	}
 
@@ -581,13 +591,16 @@ class Cmessages_model extends CI_Model
 	{
 		$dbc = $this->load->database('cursovia', TRUE);
 		$sessionuser = $this->usersession;
-		$fromUser	=	$sessionuser["id"];
-
-		$dbc->from('messages');
-		$dbc->where('from_id', $fromUser);
-		$dbc->where('message_id', NULL);
-		$dbc->where('status', 1);
-		$qty = $dbc->get();
-		return $qty->num_rows();
+		$fromUser	=	isset($sessionuser["id"]) ? $sessionuser["id"] : null;
+		$count  = 0;
+		if ($fromUser) {
+			$dbc->from('messages');
+			$dbc->where('from_id', $fromUser);
+			$dbc->where('message_id', NULL);
+			$dbc->where('status', 1);
+			$qty = $dbc->get();
+			$count = $qty->num_rows();
+		}
+		return $count;
 	}
 }

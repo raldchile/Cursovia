@@ -72,7 +72,6 @@ class Cmessages extends CI_Controller
 			$data["datos"] = $check;
 			$data["sessionuser"] = $this->usersession;
 			$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
-			$data["user"] = $this->caccount_model->getUsername();
 			$data["header"] = $this->load->view('templates/header_detail', $data, true);
 			$data["footer"] = $this->load->view('templates/footer', $data, true);
 
@@ -118,7 +117,6 @@ class Cmessages extends CI_Controller
 			$data["mensajes"] = $check;
 			$data["sessionuser"] = $this->usersession;
 			$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
-			$data["user"] = $this->caccount_model->getUsername();
 			$data["header"] = $this->load->view('templates/header_detail', $data, true);
 			$data["footer"] = $this->load->view('templates/footer', $data, true);
 
@@ -157,7 +155,6 @@ class Cmessages extends CI_Controller
 		$data["mensajes"] = $this->cmessages_model->GetAllMessages();
 		$data["qty"] = $this->cmessages_model->getQtyMsg();
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
-		$data["user"] = $this->caccount_model->getUsername();
 		$data["header"] = $this->load->view('templates/header_detail', $data, true);
 		$data["footer"] = $this->load->view('templates/footer', $data, true);
 		$this->load->view('msgs/inbox', $data);

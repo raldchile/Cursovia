@@ -74,7 +74,7 @@ class Cutils_model extends CI_Model {
 
 	 	switch ($action){
 	 		case 'vigencia':
-				return $this->db->affected_rows() ? true : false;	
+				return ($this->db->affected_rows()) ? true : false;	
 	 		break;
 	 		case 'datos':
 				return $datos->row_array();

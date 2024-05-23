@@ -223,8 +223,9 @@ class Ccourses_model extends CI_Model
 
 	function getClient($slug = '')
 	{
-		$this->db->select('id, name, slug, alias, description, phone, email, color_first, color_second,	background,	logo, profile_img, profile_cover, profile_description, favicon,	mobileicon,	email_support, address');
-		$this->db->from('clients');
+		$this->db->select('cl.* , oc.expire');
+		$this->db->from('clients as cl');
+		$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 		$this->db->where('slug', $slug);
 		$client = $this->db->get()->row_array();
 		return $client;
