@@ -479,6 +479,7 @@ class Cmessages_model extends CI_Model
 		$i = 0;
 
 		$unreadMsg = $this->GetUnreadMessages($token);
+		$sessionuser = $this->usersession;
 
 		$dbc = $this->load->database('cursovia', TRUE);
 		$dbc->from('messages');
@@ -496,7 +497,7 @@ class Cmessages_model extends CI_Model
 				$fechamsg	=	$msg->created;
 				$clientId = $this->ccourses_model->getClientofCourse($course_id);
 				$justChecked = false;
-				if ($msg->ischeck == 1 and !$isForLastResponse) {
+				if ($msg->ischeck == 1 and !$isForLastResponse and $msg->from_id != $sessionuser["id"]) {
 					$justChecked = true;
 					$data = array(
 						'ischeck' => 2
