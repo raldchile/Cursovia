@@ -87,10 +87,10 @@ class Cutils_model extends CI_Model {
 	 	$this->db->from('courses as c');
 	 	$this->db->where('c.id', $course_id);
 	 	$this->db->where('c.client_id', $client_id);
-	 	$this->db->where('cursovia', 1);
+	 	$this->db->where('publish_kimun', 1);
 	 	$this->db->where('c.status', 1);
 	 	$datos = $this->db->get();
-	 	// echo $this->db->last_query(); 
+	 	// echo $this->db->last_query();
 	 	return $this->db->affected_rows() ? true : false;	
 	}
 
