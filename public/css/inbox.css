@@ -11,9 +11,27 @@
 	-ms-border-radius: 1rem;
 	-o-border-radius: 1rem;
 }
-
+.disabled {
+	pointer-events: none;
+	cursor: default;
+	color: gray;
+	font-weight: 700;
+	.last-msg {
+		p {
+			color: #e91e63;
+		}
+	}
+	.fecha{
+		div.unread-msg {
+			background-color: #e91e63;
+		}
+		p.unread-msg{
+			color: #e91e63;
+		}
+	}
+}
 .inbox:nth-child(2n) {
-    background: rgb(255, 255, 255);
+	background: rgb(255, 255, 255);
 }
 
 .inbox.unreadMsgs {
@@ -24,7 +42,7 @@
 	text-decoration: none;
 	background-color: #ffc107;
 	color: #fff;
-	*{
+	* {
 		color: inherit;
 	}
 }
@@ -73,7 +91,7 @@
 		white-space: nowrap;
 		margin: 0 10px 0 0;
 		max-width: 100%;
-		i{
+		i {
 			padding-right: 5px;
 		}
 	}
@@ -107,4 +125,3 @@
 		color: #067aff;
 	}
 }
-

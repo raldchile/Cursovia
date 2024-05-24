@@ -507,6 +507,7 @@ b {
 	padding-top: 13px;
 	padding-bottom: 13px;
 	border-radius: 13px;
+	cursor: pointer;
 	background: #e91e63;
 	margin-top: 20px;
 	transition: all 0.3s ease 0s;
@@ -1290,6 +1291,13 @@ input.buscar {
 .button-secondary:hover,
 .button-secondary:focus {
 	outline: none;
+}
+
+.button-primary:disabled,
+.button-primary:disabled {
+	background-color:#b1b1b1;
+	border: 2px solid #b1b1b1;
+	cursor: not-allowed;
 }
 
 .button-disabled{
