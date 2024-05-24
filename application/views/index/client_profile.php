@@ -27,12 +27,12 @@ $client_address = $client['address'];
 if (!$client_profile_cover) {
     $noimage = array(1, 2, 3, 4, 5, 6, 7, 8);
     $noimage = array_rand($noimage, 1);
-    $client_profile_cover = "https://cursovia.com/public/imgs/nophoto0" . $noimage . ".jpg";
+    $client_profile_cover = base_url("/public/imgs/nophoto0") . $noimage . ".jpg";
 } else {
-    $image = "https://w3.kampusproject.com/" . $image;
+    $image = URL_KAMPUS . $image;
 }
 
-$client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
+$client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
 
 // print_r($paid_banner_courses);
 
@@ -106,9 +106,9 @@ $client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . 
                                 if (!$image) {
                                     $noimage = array(1, 2, 3, 4, 5, 6, 7, 8);
                                     $noimage = array_rand($noimage, 1);
-                                    $image = "https://cursovia.com/public/imgs/nophoto0" . $noimage . ".jpg";
+                                    $image = base_url("public/imgs/nophoto0") . $noimage . ".jpg";
                                 } else {
-                                    $image = "https://w3.kampusproject.com/" . $image;
+                                    $image = URL_KAMPUS . $image;
                                 }
 
                                 $hover = array('one', 'two', 'thr', 'fou');

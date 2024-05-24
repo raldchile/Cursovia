@@ -44,7 +44,8 @@
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
     <script>
-        var baseURL = '<?php echo base_url() ?>';
+        const baseURL = '<?php echo base_url() ?>';
+        const URL_KAMPUS = '<?php echo URL_KAMPUS ?>'
     </script>
 
 

@@ -35,7 +35,7 @@ class Clogin_model extends CI_Model {
 
 			$message .= "<body>";
 			$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
-			$message .= "<img src=\"https://www.cursovia.com/public/imgs/logoCusoviaEmail-fi.png\" style=\"width: 165px\" />";
+			$message .= "<img src=\"" + base_url('public/imgs/logoCusoviaEmail-fi.png') + "\" style=\"width: 165px\" />";
 			$message .= "<p style=\"font-size: 25px\">¡Bienvenid@!</p>";
 			$message .= "<p>Estás a un paso de ser parte de <strong>Cursovia</strong>! como ya hemos registrado tus datos, sólo debes activar tu cuenta. Para eso hace clic en el siguiente botón o, copia y pega el enlace a continuación:</p>";
 			$message .= "<p><a href=\"".$url."\">".$url."</a></p>";
@@ -204,9 +204,9 @@ class Clogin_model extends CI_Model {
 
 			$message .= "<body>";
 			$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
-			$message .= "<img src=\"https://www.cursovia.com/public/imgs/logoCusoviaEmail-fi.png\" style=\"width: 165px\" />";
+			$message .= "<img src=\"" + base_url('public/imgs/logoCusoviaEmail-fi.png') + "\" style=\"width: 165px\" />";
 			$message .= "<p style=\"font-size: 25px\">¡Hola ".$name."!</p>";
-			$message .= "<p>Hemos recibido una solicitud de nueva clave para tu cuenta en <strong><a href=\"https://cursovia.local/Cursovia\">www.cursovia.com</a></strong>. Tu nueva clave es: <strong>".$token."</strong>. te recomendamos cambiarla desde el panel de usuario > Mi cuenta.</p>";
+			$message .= "<p>Hemos recibido una solicitud de nueva clave para tu cuenta en <strong><a href=\"" + base_url() + "\">www.cursovia.com</a></strong>. Tu nueva clave es: <strong>".$token."</strong>. te recomendamos cambiarla desde el panel de usuario > Mi cuenta.</p>";
 
 			$message .= "<p><strong>¡Ya puedes volver a conectarte y ser parte de este gran marketPlace de Cursos! Ingresa a:</p>";
 			$message .= "<p><a href=\"https://cursovia.local/Cursovia/ingresar\">www.cursovia.com</a></p>";

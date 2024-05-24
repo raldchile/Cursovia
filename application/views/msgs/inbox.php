@@ -58,7 +58,7 @@
         $client_expire = $value['client']["expire"];
         $client_alias = $value['client']['alias'];
         $client_profile_img = $value['client']['profile_img'];
-        $client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
+        $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
       ?>
 
         <a href="<?php echo base_url('leer/' . $token); ?>" class="inbox <?php echo $class . ' ' . $validity ?>">

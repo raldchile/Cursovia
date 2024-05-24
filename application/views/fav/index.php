@@ -51,9 +51,9 @@
         if (!$image) {
           $noimage = array(1, 2, 3, 4, 5, 6, 7, 8);
           $noimage = array_rand($noimage, 1);
-          $image = "https://cursovia.com/public/imgs/nophoto0" . $noimage . ".jpg";
+          $image = base_url("public/imgs/nophoto0") . $noimage . ".jpg";
         } else {
-          $image = "https://w3.kampusproject.com/" . $image;
+          $image = URL_KAMPUS . $image;
         }
       ?>
 

@@ -30,7 +30,7 @@ echo $header; ?>
       $client_logo = $mensajes[0]['client']['logo'];
       $client_profile_img = $mensajes[0]['client']['profile_img'];
 
-      $client_profile_img = ($client_profile_img) ? 'https://w3.kampusproject.com/' . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
+      $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
       $user_profile_img =  base_url('public/imgs/ca_user_perfil.png');
     ?>
       <div class="row">

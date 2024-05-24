@@ -48,11 +48,11 @@ $(document).ready(function () {
 						const randomIndex = Math.floor(Math.random() * noimage.length);
 						const randomNoImage = noimage[randomIndex];
 						image =
-							"https://cursovia.com/public/imgs/nophoto0" +
+						baseURL + "public/imgs/nophoto0" +
 							randomNoImage +
 							".jpg";
 					} else {
-						image = "https://w3.kampusproject.com/" + image;
+						image = URL_KAMPUS + image;
 					}
 
 					const hover = ["one", "two", "thr", "fou"];

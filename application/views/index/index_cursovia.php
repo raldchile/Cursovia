@@ -56,7 +56,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                             <?php foreach ($paid_banner_courses as $key => $paidBanner) {
                                 $pb_token   =   $paidBanner->token;
                                 $pb_image   =   $paidBanner->cursovia_banner_url;
-                                $pb_image   =   ($pb_image) ? "https://w3.kampusproject.com/" . $pb_image : base_url('/public/imgs/slider/0' . ($key + 1) . '.jpg');
+                                $pb_image   =   ($pb_image) ? URL_KAMPUS . $pb_image : base_url('/public/imgs/slider/0' . ($key + 1) . '.jpg');
                                 $pb_name    =   $paidBanner->name;
                                 $label      =   $paidBanner->label;
                                 $icon       =   $paidBanner->icon;
@@ -125,9 +125,9 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                     if (!$image) {
                         $noimage = array(1, 2, 3, 4, 5, 6, 7, 8);
                         $noimage = array_rand($noimage, 1);
-                        $image = "https://cursovia.com/public/imgs/nophoto0" . $noimage . ".jpg";
+                        $image = base_url("public/imgs/nophoto0") . $noimage . ".jpg";
                     } else {
-                        $image = "https://w3.kampusproject.com/" . $image;
+                        $image = URL_KAMPUS . $image;
                     }
 
                     $hover = array('one', 'two', 'thr', 'fou');
@@ -223,7 +223,6 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
 
 <script>
     var buscar = '<?php echo $this->session->flashdata('txt'); ?>';
-    console.log(buscar);
     $(document).ready(function() {
         if (buscar) {
             $('html, body').animate({

@@ -8,7 +8,7 @@ if (isset($courses)) {
         $image        = $courses[0]["image_int"];
 
         if ($image) {
-            $image        = "https://w3.kampusproject.com" . $image;
+            $image        = URL_KAMPUS . $image;
         } else {
             $image        = base_url("public/imgs/ca.png");
         }
@@ -84,7 +84,8 @@ if (isset($courses)) {
     else  $title = isset($client_name) ? $client_name : '';
     ?>
     <script>
-        var baseURL = '<?php echo base_url() ?>';
+        const baseURL = '<?php echo base_url() ?>';
+        const URL_KAMPUS = '<?php echo URL_KAMPUS ?>';
     </script>
 
 
@@ -113,7 +114,7 @@ if (isset($courses)) {
                                     <li class="header-button"><a href="<?php echo base_url("cursos-favoritos") ?>" class="white"><i class="icon fa-solid fa-heart"></i><span id="cantfav" class="menu-button-text">Ver Favoritos
                                                 (<?php echo $cant_favorites; ?>)</span></a></li>
                                     <li class="header-button"><a href="javascript:void(0);" class="white"><i class="fa-solid fa-user"></i><span class="menu-button-text">
-                                                <?php echo $first_name.$unreadMsgs ?>
+                                                <?php echo $first_name . $unreadMsgs ?>
                                             </span></a>
                                         <ul class="submenu">
                                             <li><a href="<?php echo base_url("cuenta") ?>" class="fa-gear">Mi cuenta</a></li>

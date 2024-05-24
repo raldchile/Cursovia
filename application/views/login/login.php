@@ -133,7 +133,7 @@
     var email = $("#email").val();
     if (email) {
       $.ajax({
-        url: "<?php echo base_url() ?>clogin/validaUser",
+        url: "<?php echo base_url('clogin/validaUser')?>",
         type: "POST",
         data: {
           email: email
