@@ -125,16 +125,13 @@ class Ccourses extends CI_Controller
 
 	function getURLExternal($token = '')
 	{
-		echo 'llego';
 		$data["sessionuser"] = $this->usersession;
 		$URLExternal = $this->ccourses_model->getURLExternal($token);
 		echo $URLExternal;
 		$data["isLogged"] = check_islogin();
-		echo 'llego2';
 		if ($URLExternal) {
 			// echo $URLExternal; die();
 			## DEBE CONSIDERAR UN REGISTRO DE CADA CLIC EN URL EXTERNA
-			echo 'llego3';
 			redirect($URLExternal);
 		}
 	}
@@ -159,6 +156,6 @@ class Ccourses extends CI_Controller
 	function watchVideo($client = '', $uri = '')
 	{
 
-		return 'https://dev.kampusproject.com/public_htm/public/cliente/uploads/' . $client . '/' . $uri;
+		return URL_KAMPUS . '/public_htm/public/cliente/uploads/' . $client . '/' . $uri;
 	}
 }

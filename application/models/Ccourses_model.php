@@ -91,8 +91,6 @@ class Ccourses_model extends CI_Model
 		$result_courses_id = array_map('intval', $result_courses_id);
 
 		$gets = $this->input->get();
-		$output = array();
-		$i = 0;
 		$txt = "";
 
 		if (!$slug) {
@@ -101,29 +99,32 @@ class Ccourses_model extends CI_Model
 			}
 		}
 
-		$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id');
+		$output = array();
+		$i = 0;
+
+		$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id, bl.*');
 		$this->db->from('courses as c');
 		$this->db->join('clients as cl', 'c.client_id = cl.id');
 		$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
 		$this->db->join('cursovia k', 'k.course_id = c.id');
+		$this->db->join('buttonlabels as bl', 'bl.id = k.cursovia_button', 'left');
 		$this->db->where('oc.expire >= CURDATE()');
 		if ($slug) {
 			$this->db->where('c.slug', $slug);
-		}
-
-		if ($txt) {
+		} else if ($txt) {
 
 			$this->db->where('( c.name LIKE "%' . $txt . '%" OR
 								c.description LIKE "%' . $txt . '%"
 								OR cl.name LIKE "%' . $txt . '%" )');
 
+
 			// $this->db->like('c.name',$txt);
 			// $this->db->or_like('c.description', $txt); 
 		}
+		else $this->db->where('k.cursovia_ispaid !=', 1);
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
 		$this->db->where('c.publish_kimun', 1);
-		$this->db->where('k.cursovia_ispaid !=', 1);
 		$this->db->order_by("FIELD(c.id, " . implode(",", $result_courses_id) . ")");
 		$this->db->limit($limit, $offset);
 		$courses = $this->db->get();
@@ -171,6 +172,9 @@ class Ccourses_model extends CI_Model
 				$output[$i]['client_slug'] = $course->client_slug;
 				$output[$i]['client_logo'] = $course->client_logo;
 				$output[$i]['client_id'] = $course->client_id;
+				$output[$i]['label'] = $course->label;
+				$output[$i]['icon'] = $course->icon;
+				$output[$i]['ispaid'] = $course->cursovia_ispaid;
 				$output[$i]['promotional_video'] = $course->promotional_video;
 				$output[$i]['favorite'] = $this->cfavorites_model->getFavorites($course->course_id);
 				$output[$i]['total_favorites'] = $this->cfavorites_model->getAllFavorites($course->course_id);
@@ -425,7 +429,7 @@ class Ccourses_model extends CI_Model
 		$this->db->where('token', $token);
 		$this->db->where('cursovia_status', 1);
 		$active_courses = $this->db->get();
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
 
 		if ($active_courses->num_rows()) {
 			foreach ($active_courses->result() as $key => $url) {
