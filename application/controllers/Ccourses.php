@@ -127,6 +127,7 @@ class Ccourses extends CI_Controller
 	{
 		$data["sessionuser"] = $this->usersession;
 		$URLExternal = $this->ccourses_model->getURLExternal($token);
+		echo $URLExternal;
 		$data["isLogged"] = check_islogin();
 		if ($URLExternal) {
 			// echo $URLExternal; die();
