@@ -142,18 +142,18 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                                         <h2><?php echo $client_name ?></h2>
                                     </a>
                                     <p>
-                                        <?php echo $description?>
+                                        <?php echo $description ?>
                                     </p>
                                     <?php if ($label) { ?>
                                         <p class="border-bottom"></p>
                                         <a class="label" href="<?php echo base_url('link-externo/' . $pb_token) ?>" target="_blank">
-                                                <?php echo $icon ?><strong><?php echo $label ?></strong>
+                                            <?php echo $icon ?><strong><?php echo $label ?></strong>
                                         </a>
                                     <?php } ?>
                                 </div>
 
                                 <?php
-                                if ($nextCourse['ispaid'] != 1) { ?>
+                                if ($key == count($courses) or (isset($nextCourse['ispaid']) and $nextCourse['ispaid'] != 1)) { ?>
                                 </div>
                             </div>
                         </div>
@@ -214,12 +214,13 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
 
                         </div>
 
-                <?php }
-                        } ?>
+                        <?php if ($key == count($courses)) { ?>
                         </div>
-
-                        <div id="load-more-courses" class="load-more-button" style="display:none;">Ver más cursos </div>
-                        <div class="subir" style="display:none;"><i class="fa-solid fa-arrow-up"></i></div>
+            <?php }
+                            }
+                        } ?>
+            <div id="load-more-courses" class="load-more-button" style="display:none;">Ver más cursos </div>
+            <div class="subir" style="display:none;"><i class="fa-solid fa-arrow-up"></i></div>
 
         </div>
     </main>
