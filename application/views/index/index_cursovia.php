@@ -78,7 +78,6 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
             $cuantos_registros = count($courses);
             $cuantas_paginas = ceil($cuantos_registros / 10);
 
-
             //$courses = array_slice( $courses, 0, 25 );
             foreach ($courses as $key => $value) {
 
@@ -152,8 +151,9 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                                     <?php } ?>
                                 </div>
 
-                                <?php
-                                if ($key == count($courses) or (isset($nextCourse['ispaid']) and $nextCourse['ispaid'] != 1)) { ?>
+                                <?php 
+                                if (($key + 1) == count($courses) or (isset($nextCourse['ispaid']) and $nextCourse['ispaid'] != 1)) { ?>
+
                                 </div>
                             </div>
                         </div>
@@ -214,7 +214,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
 
                         </div>
 
-                        <?php if ($key == count($courses)) { ?>
+                        <?php if (($key + 1) == count($courses)) { ?>
                         </div>
             <?php }
                             }
