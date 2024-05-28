@@ -132,6 +132,7 @@ class Ccourses extends CI_Controller
 		if ($URLExternal) {
 			// echo $URLExternal; die();
 			## DEBE CONSIDERAR UN REGISTRO DE CADA CLIC EN URL EXTERNA
+
 			redirect($URLExternal);
 		}
 	}

@@ -75,7 +75,7 @@ if (isset($courses)) {
 
     <?php
     $title = '';
-    if ($segmento1 == 'mostrar') $title = $name;
+    if ($segmento1 == 'mostrar') $title = isset($name) ? $name : '';
     else if ($segmento1 == 'ingresar') $title = 'Ingresar';
     else if ($segmento1 == 'cursos-favoritos') $title = 'Favoritos';
     else if ($segmento1 == 'cuenta') $title = 'Cuenta';
@@ -111,9 +111,8 @@ if (isset($courses)) {
                                     $first_name = $names[0];
                                     $unreadMsgs = ($unreadMsgs > 0) ? ' (' . $unreadMsgs . ')' : '';
                                 ?>
-                                    <li class="header-button"><a href="<?php echo base_url("cursos-favoritos") ?>" class="white"><i class="icon fa-solid fa-heart"></i><span id="cantfav" class="menu-button-text">Ver Favoritos
-                                                (<?php echo $cant_favorites; ?>)</span></a></li>
-                                    <li class="header-button"><a href="javascript:void(0);" class="white"><i class="fa-solid fa-user"></i><span class="menu-button-text">
+                                    <li class="header-button"><a href="<?php echo base_url("cursos-favoritos") ?>" class="white"><i class="icon fa-light fa-heart"></i>Ver Favoritos <span id="cantfav" class="menu-button-text">(<?php echo $cant_favorites; ?>)</span></a></li>
+                                    <li class="header-button"><a href="javascript:void(0);" class="white"><i class="icon fa-light fa-user"></i></i><span class="menu-button-text">
                                                 <?php echo $first_name . $unreadMsgs ?>
                                             </span></a>
                                         <ul class="submenu">

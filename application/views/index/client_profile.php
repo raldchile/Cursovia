@@ -179,8 +179,8 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
                                         :'(</p>
                                 </div>
                             </div>
-                            <div class="button-primary"">
-                            <a href=" <?php echo base_url('/'.$client_slug) ?>" class="button">Ver todos los cursos de <?php echo (($client_alias) ? $client_alias : $client_name)?> >></a>
+                            <div>
+                            <a  class="button-primary center" href=" <?php echo base_url('/'.$client_slug) ?>" class="button">Ver todos los cursos de <?php echo (($client_alias) ? $client_alias : $client_name)?> >></a>
                             </div>
 
                         </div>

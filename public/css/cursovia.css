@@ -81,15 +81,17 @@ a.white:hover {
 	-webkit-transition-duration: 1s;
 }
 
-.content a,
-.client-name {
-	color: #323232;
-}
-
-.content a:hover,
-.client-name:hover {
-	color: #fff;
+.content a {
 	text-decoration: none;
+	color: #323232;
+	h1,h2 {
+		width: max-content;
+		max-width: 100%;
+		margin-bottom: 5px;
+	}
+	h1:hover,h2:hover {
+		color: #fff;
+	}
 }
 
 .bordes {
@@ -117,9 +119,6 @@ a.white:hover {
 	background-color: #eee;
 }
 
-
-
-
 .fa-heart-menu:before {
 	content: "\f004";
 	font-family: "fontAwesome";
@@ -144,11 +143,6 @@ a.white:hover {
 
 .fa-msg:before {
 	content: "\f0e0";
-	font-family: "fontAwesome";
-	margin-right: 5px;
-}
-.fa-user:before {
-	content: "\f007";
 	font-family: "fontAwesome";
 	margin-right: 5px;
 }
@@ -993,8 +987,6 @@ input.buscar {
 	}
 }
 
-
-
 /*.grid-item { width: 270px; }*/
 /*      .grid-item--width2 { width: 400px; }
 */
@@ -1193,6 +1185,11 @@ input.buscar {
 	background-color: #0056b3;
 }
 
+.paid-banner-col{
+	display: grid;
+	place-items: center;
+}
+
 .paid-banner-butom {
 	position: absolute;
 	width: 100%;
@@ -1212,6 +1209,55 @@ input.buscar {
 .paid-banner-butom:hover {
 	opacity: 0.7;
 }
+
+.paid-courses-title {
+	color: #007bff;
+}
+
+.paid-course {
+	padding: 0 5px 0;
+	
+	a {
+		text-decoration: none;
+		color: #323232;
+		width: max-content;
+		* {
+			width: max-content;
+			margin-bottom: 5px;
+		}
+		*:hover {
+			color: #007bff;
+		}
+	}
+	p {
+		font-size: 14px;
+		line-height: 1;
+		margin: 0;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-webkit-line-clamp: 2;
+	}
+	p.border-bottom{
+		
+		margin-top: 5px;
+		border-bottom: 2px solid #7c7c7c;
+	}
+	a.label{
+		margin-top: 10px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		*{
+			margin: 0;
+		}
+	}
+	a.label:hover{
+		color: #007bff;
+	}
+}
+
 .load-more-button {
 	text-align: center;
 	font-weight: 700;
@@ -1277,7 +1323,6 @@ input.buscar {
 	border: 2px solid #e91e63;
 	background: none;
 	text-decoration: none;
-	
 }
 
 .button-secondary:hover {
@@ -1295,37 +1340,36 @@ input.buscar {
 
 .button-primary:disabled,
 .button-primary:disabled {
-	background-color:#b1b1b1;
+	background-color: #b1b1b1;
 	border: 2px solid #b1b1b1;
 	cursor: not-allowed;
 }
 
-.button-disabled{
+.button-disabled {
 	text-align: center;
-    font-weight: 700;
-    color: #fff;
-    text-transform: uppercase;
-    max-width: 300px;
-    display: block;
-    box-sizing: border-box;
-    font-size: 13px;
-    padding-top: 13px;
-    padding-bottom: 13px;
-    border-radius: 13px;
-    background-color:#b1b1b1;
+	font-weight: 700;
+	color: #fff;
+	text-transform: uppercase;
+	max-width: 300px;
+	display: block;
+	box-sizing: border-box;
+	font-size: 13px;
+	padding-top: 13px;
+	padding-bottom: 13px;
+	border-radius: 13px;
+	background-color: #b1b1b1;
 	border: 2px solid #b1b1b1;
-    margin-top: 20px;
-    transition: all 0.3s ease 0s;
-    margin: 8px 0;
-} 
+	margin-top: 20px;
+	transition: all 0.3s ease 0s;
+	margin: 8px 0;
+}
 
-.button-disabled:hover{
-	background-color:#b1b1b1;
+.button-disabled:hover {
+	background-color: #b1b1b1;
 	border: 2px solid #b1b1b1;
 	cursor: not-allowed;
 }
 
-.center{
+.center {
 	margin: 8px auto;
 }
-

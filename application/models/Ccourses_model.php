@@ -24,7 +24,7 @@ class Ccourses_model extends CI_Model
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
 		$this->db->where('c.publish_kimun', 1);
-		$this->db->where('k.cursovia_ispaid !=', 1);
+		$this->db->order_by('k.cursovia_ispaid DESC, RAND()');
 		$this->db->order_by('rand()');
 		$courses = $this->db->get();
 
@@ -174,6 +174,7 @@ class Ccourses_model extends CI_Model
 				$output[$i]['client_id'] = $course->client_id;
 				$output[$i]['label'] = $course->label;
 				$output[$i]['icon'] = $course->icon;
+				$output[$i]['token'] = $course->token;
 				$output[$i]['ispaid'] = $course->cursovia_ispaid;
 				$output[$i]['promotional_video'] = $course->promotional_video;
 				$output[$i]['favorite'] = $this->cfavorites_model->getFavorites($course->course_id);
@@ -215,10 +216,10 @@ class Ccourses_model extends CI_Model
 								   c.description LIKE "%' . $txt . '%"
 								   OR cl.name LIKE "%' . $txt . '%" )');
 		}
+		else $this->db->where('k.cursovia_ispaid !=', 1);
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
 		$this->db->where('c.publish_kimun', 1);
-		$this->db->where('k.cursovia_ispaid !=', 1);
 		$query = $this->db->get();
 		$count = $query->num_rows();
 
@@ -292,7 +293,7 @@ class Ccourses_model extends CI_Model
 		$this->db->where('cl.status', 1);
 		$this->db->where('cl.slug', $slug);
 		$this->db->where('c.publish_kimun', 1);
-		$this->db->where('k.cursovia_ispaid !=', 1);
+		/* $this->db->where('k.cursovia_ispaid !=', 1); */
 		$this->db->order_by("FIELD(c.id, " . implode(",", $result_courses_id) . ")");
 		$this->db->limit($limit, $offset);
 		$courses = $this->db->get();
@@ -381,7 +382,7 @@ class Ccourses_model extends CI_Model
 		$this->db->where('cl.status', 1);
 		$this->db->where('cl.slug', $slug);
 		$this->db->where('c.publish_kimun', 1);
-		$this->db->where('k.cursovia_ispaid !=', 1);
+		/* $this->db->where('k.cursovia_ispaid !=', 1); */
 		$courses = $this->db->get();
 		$count = $courses->num_rows();
 		return $count;

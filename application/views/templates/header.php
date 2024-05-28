@@ -29,9 +29,9 @@
 
 
     <!-- carrousel bxslider -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
 
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
@@ -59,29 +59,6 @@
 
     <title>Cursovia</title>
 
-    <script>
-        $(document).ready(function() {
-            $(".slider").bxSlider({
-                infiniteLoop: true,
-                // slideWidth: 600,
-                // randomStart: true,
-                // tickerHover: true,
-                touchEnabled: false,
-                controls: false,
-                auto: true,
-                autoDelay: 20,
-                slideWidth: 363,
-                minSlides: 1,
-                maxSlides: 3,
-                slideMargin: 6,
-                speed: 1500,
-                shrinkItems: true,
-                captions: true,
-                autoHover: true
-            });
-        });
-    </script>
-
 </head>
 
 <body>
@@ -101,12 +78,14 @@
                             $unreadMsgs = totalUnreadMsgs();
                             $names = explode(' ', $sessionuser["full_name"]);
                             $first_name = $names[0];
-                            $unreadMsgs = ($unreadMsgs > 0) ? ' ('.$unreadMsgs.')' : '';
+                            $unreadMsgs = ($unreadMsgs > 0) ? ' (' . $unreadMsgs . ')' : '';
 
 
                         ?>
-                            <li class="header-button"><a href="<?php echo base_url("cursos-favoritos") ?>" class="fa-heart-menu white">Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
-                            <li class="header-button"><a href="javascript:void(0);" class="fa-user white"><?php echo $first_name.$unreadMsgs ?></a>
+                            <li class="header-button"><a href="<?php echo base_url("cursos-favoritos") ?>" class="white"><i class="icon fa-light fa-heart"></i>Ver Favoritos <span id="cantfav">(<?php echo $cant_favorites; ?>)</span></a></li>
+                            <li class="header-button"><a href="javascript:void(0);" class="white"><i class="icon fa-light fa-user"></i></i><span class="menu-button-text">
+                                        <?php echo $first_name . $unreadMsgs ?>
+                                    </span></a>
                                 <ul class="submenu">
                                     <li><a href="<?php echo base_url("cuenta") ?>" class="fa-gear">Mi cuenta</a></li>
                                     <li><a href="<?php echo base_url("inbox") ?>" class="fa-msg">Mis mensajes<?php echo $unreadMsgs ?></a></li>
