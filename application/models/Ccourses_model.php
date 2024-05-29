@@ -71,7 +71,7 @@ class Ccourses_model extends CI_Model
 		$dbc->delete('cursovia_results');
 	}
 
-	function getAllCourses($slug = '', $ve = 1, $limit = 0, $offset = 0)
+	function getAllCourses($slug = '', $ve = 1, $limit = 0, $offset = 0, $toLoadMoreTxt = '')
 	{
 
 		$session_id = $this->session->userdata('session_id');
@@ -91,7 +91,7 @@ class Ccourses_model extends CI_Model
 		$result_courses_id = array_map('intval', $result_courses_id);
 
 		$gets = $this->input->get();
-		$txt = "";
+		$txt = $toLoadMoreTxt ? $toLoadMoreTxt : '';
 
 		if (!$slug) {
 			if ($gets) {
@@ -101,6 +101,8 @@ class Ccourses_model extends CI_Model
 
 		$output = array();
 		$i = 0;
+		$paid_count = $this->getAllPaidBanner_Courses($txt);
+		$paid_count = count($paid_count);
 
 		$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id, bl.*');
 		$this->db->from('courses as c');
@@ -112,6 +114,8 @@ class Ccourses_model extends CI_Model
 		if ($slug) {
 			$this->db->where('c.slug', $slug);
 		} else if ($txt) {
+
+			$limit = ($offset > 0) ? $limit : $limit + $paid_count;
 
 			$this->db->where('( c.name LIKE "%' . $txt . '%" OR
 								c.description LIKE "%' . $txt . '%"
@@ -221,6 +225,7 @@ class Ccourses_model extends CI_Model
 		$this->db->where('cl.status', 1);
 		$this->db->where('c.publish_kimun', 1);
 		$query = $this->db->get();
+		//echo $this->db->last_query(); die();
 		$count = $query->num_rows();
 
 		return $count;
@@ -246,7 +251,7 @@ class Ccourses_model extends CI_Model
 		return $client['id'];
 	}
 
-	function getClientCourses($slug = '', $limit = 0, $offset = 0)
+	function getClientCourses($slug = '', $limit = 0, $offset = 0, $toLoadMoreTxt = '')
 	{
 
 		$session_id = $this->session->userdata('session_id');
@@ -266,14 +271,13 @@ class Ccourses_model extends CI_Model
 		$result_courses_id = array_map('intval', $result_courses_id);
 
 		$gets = $this->input->get();
-		$txt = '';
+		$txt = $toLoadMoreTxt ? $toLoadMoreTxt : '';
 
 		$output = array();
 		$i = 0;
 		if ($gets) {
 			$txt = soloCaracteresPermitidos($gets["buscar"]);
 		}
-
 
 		$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id');
 		$this->db->from('courses as c');
@@ -297,6 +301,7 @@ class Ccourses_model extends CI_Model
 		$this->db->order_by("FIELD(c.id, " . implode(",", $result_courses_id) . ")");
 		$this->db->limit($limit, $offset);
 		$courses = $this->db->get();
+		//echo $this->db->last_query();
 
 		if ($courses->num_rows()) {
 			foreach ($courses->result() as $key => $course) {
@@ -388,7 +393,7 @@ class Ccourses_model extends CI_Model
 		return $count;
 	}
 
-	function getAllPaidBanner_Courses()
+	function getAllPaidBanner_Courses($filter_txt = '')
 	{
 
 		$this->db->select('c.id as course_id, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.logo as client_logo, cl.id as client_id, bl.*');
@@ -398,6 +403,13 @@ class Ccourses_model extends CI_Model
 		$this->db->join('cursovia k', 'k.course_id = c.id');
 		$this->db->join('buttonlabels as bl', 'bl.id = k.cursovia_button', 'left');
 		$this->db->where('oc.expire >= CURDATE()');
+		if ($filter_txt) {
+
+			$this->db->where('( c.name LIKE "%' . $filter_txt . '%" OR
+								c.description LIKE "%' . $filter_txt . '%"
+								OR cl.name LIKE "%' . $filter_txt . '%" )');
+
+		}
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
 		$this->db->where('c.publish_kimun', 1);

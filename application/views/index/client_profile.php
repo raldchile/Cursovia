@@ -25,9 +25,10 @@ $client_email_support = $client['email_support'];
 $client_address = $client['address'];
 
 if (!$client_profile_cover) {
-    $noimage = array(1, 2, 3, 4, 5, 6, 7, 8);
-    $noimage = array_rand($noimage, 1);
-    $client_profile_cover = base_url("/public/imgs/nophoto0") . $noimage . ".jpg";
+    $noimage = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    $random_key = array_rand($noimage, 1);
+    $noimage_value = $noimage[$random_key];
+    $client_profile_cover = base_url("/public/imgs/profile-cover/profile-Cover-") . $noimage_value . ".jpg";    
 } else {
     $image = URL_KAMPUS . $image;
 }
@@ -54,7 +55,7 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
                 </form>
             </div>
             <div class="col-sm-2">
-                <div id="go" class="client-search-button" style="background:<?php echo $client_color_first ?>">Buscar</div>
+                <div id="go" class="client-search-button">Buscar</div>
             </div>
         </div>
     </section>
@@ -128,9 +129,9 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
                                             </a>
                                         </div>
                                         <?php if ($price != 'Cotizar') { ?>
-                                            <a href="<?php echo base_url('mostrar/' . $slug); ?>" class="price" style="color:<?php echo $client_color_second ?>"><span><?php echo formateaMoneda($price); ?></span></a>
+                                            <a href="<?php echo base_url('mostrar/' . $slug); ?>"><span class="price"><?php echo formateaMoneda($price); ?></span></a>
                                         <?php } else { ?>
-                                            <a href=" <?php echo base_url('mostrar/' . $slug) ?>" class="price" style="color:<?php echo $client_color_second ?>"><span><?php echo $price; ?></span></a>
+                                            <a href=" <?php echo base_url('mostrar/' . $slug) ?>"><span class="price"><?php echo $price; ?></span></a>
                                         <?php } ?>
                                         <a href=" <?php echo base_url('mostrar/' . $slug); ?>">
                                             <div class="imgViewer" style="background:url('<?php echo $image; ?>') no-repeat; background-size: cover;">
@@ -204,7 +205,8 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
     <script>
         var clientSlug = '<?php echo $client_slug ?>';
         var totalCourses = <?php echo $total_courses ?>;
-        var offset = <?php echo count($courses) ?>
+        var offset = <?php echo count($courses) ?>;
+        var buscar = '<?php echo $this->session->flashdata('txt'); ?>';
     </script>
     <script type='text/javascript'>
         var $subir = $(".subir");

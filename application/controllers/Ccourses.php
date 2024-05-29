@@ -45,7 +45,7 @@ class Ccourses extends CI_Controller
 		$data["header"] = $this->load->view('templates/header', $data, true);
 		$data["footer"] = $this->load->view('templates/footer', $data, true);
 		$data["paid_banner_courses"] = $this->ccourses_model->getAllPaidBanner_Courses();
-		$data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, 0);
+		$data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, 0, '');
 		$data["total_courses"] = $this->ccourses_model->countAllCourses();
 		$data['unreadMsgs'] = $this->cmessages_model->GetAllUnreadMessages();
 
@@ -92,12 +92,13 @@ class Ccourses extends CI_Controller
 		$limit = 50;
 		$client_slug = $this->input->post('client_slug');
 		$offset = $this->input->post('offset');
+		$search_txt = $this->input->post('search_txt');
 
 		if ($client_slug) {
-			$data["courses"] = $this->ccourses_model->getClientCourses($client_slug, $limit, $offset);
+			$data["courses"] = $this->ccourses_model->getClientCourses($client_slug, $limit, $offset, $search_txt);
 			$data["client"] = $this->ccourses_model->getClient($client_slug);
 		} else {
-			$data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, $offset);
+			$data["courses"] = $this->ccourses_model->getAllCourses('', 1, $limit, $offset, $search_txt);
 			$data["client"] = '';
 		}
 
@@ -127,9 +128,8 @@ class Ccourses extends CI_Controller
 	{
 		$data["sessionuser"] = $this->usersession;
 		$URLExternal = $this->ccourses_model->getURLExternal($token);
-		echo $URLExternal;
 		$data["isLogged"] = check_islogin();
-		if ($URLExternal) {
+		if ($URLExternal) { 
 			// echo $URLExternal; die();
 			## DEBE CONSIDERAR UN REGISTRO DE CADA CLIC EN URL EXTERNA
 

@@ -30,48 +30,47 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
 </form>
 </section>
 
-<?php if ($courses) { ?>
+<main class="padding-sct">
 
-    <main class="padding-sct">
-        <div class="container wrap">
+    <?php if ($paid_banner_courses) {
 
+        // Array ( [0] => stdClass Object ( [course_id] => 2926 [name] => Administración de empresas [slug] => administracion-de-empresas [hour] => [code] => [description] => [resume] => [id] => 48 [cursovia_description] => Curso de Administración [cursovia_target] => Personas naturales, estudiantes, microempresarios. [cursovia_learn_objective] => Entregar herramientas avanzadas de administración a emprendedores. [cursovia_structure] => 0 [cursovia_sence_code] => 0 [cursovia_elearning] => 1 [cursovia_inRoom] => 1 [cursovia_from] => 2024-03-31 17:05:48 [cursovia_tothe] => 2024-07-31 18:06:09 [cursovia_forever] => 1 [cursovia_isbanner] => 1 [cursovia_banner_url] => /public/cliente/uploads/478/02_660869908593e.jpg [cursovia_ispaid] => 1 [cursovia_order] => 0 [cursovia_url] => https://www.rald.cl [cursovia_utm_source] => cursovia [cursovia_utm_medium] => top_banner [cursovia_utm_campaign] => DEMO-CAMPANA [cursovia_utm_term] => administracion [cursovia_utm_content] => curso-de-administracion-demo [cursovia_status] => 1 [token] => TOKENPRUEBA01 [promotional_video] => [cursovia_price] => 0 [created] => 0000-00-00 00:00:00 [client_name] => Cursovia [client_logo] => /public/cliente/uploads/478/logokampusrojo_6407be60d72e2.png [client_id] => 478 ) )
+    ?>
+        <div class="row justify-content-center">
+            <div class="col-md-12 paid-banner-col" style="margin-top:-90px; display: none">
+                <div class="slider">
+                    <?php foreach ($paid_banner_courses as $key => $paidBanner) {
+                        $pb_token   =   $paidBanner->token;
+                        $pb_image   =   $paidBanner->cursovia_banner_url;
+                        $pb_image   =   ($pb_image) ? URL_KAMPUS . $pb_image : base_url('/public/imgs/slider/0' . ($key + 1) . '.jpg');
+                        $pb_name    =   $paidBanner->name;
+                        $label      =   $paidBanner->label;
+                        $icon       =   $paidBanner->icon;
 
-            <?php if ($paid_banner_courses) {
-
-                // Array ( [0] => stdClass Object ( [course_id] => 2926 [name] => Administración de empresas [slug] => administracion-de-empresas [hour] => [code] => [description] => [resume] => [id] => 48 [cursovia_description] => Curso de Administración [cursovia_target] => Personas naturales, estudiantes, microempresarios. [cursovia_learn_objective] => Entregar herramientas avanzadas de administración a emprendedores. [cursovia_structure] => 0 [cursovia_sence_code] => 0 [cursovia_elearning] => 1 [cursovia_inRoom] => 1 [cursovia_from] => 2024-03-31 17:05:48 [cursovia_tothe] => 2024-07-31 18:06:09 [cursovia_forever] => 1 [cursovia_isbanner] => 1 [cursovia_banner_url] => /public/cliente/uploads/478/02_660869908593e.jpg [cursovia_ispaid] => 1 [cursovia_order] => 0 [cursovia_url] => https://www.rald.cl [cursovia_utm_source] => cursovia [cursovia_utm_medium] => top_banner [cursovia_utm_campaign] => DEMO-CAMPANA [cursovia_utm_term] => administracion [cursovia_utm_content] => curso-de-administracion-demo [cursovia_status] => 1 [token] => TOKENPRUEBA01 [promotional_video] => [cursovia_price] => 0 [created] => 0000-00-00 00:00:00 [client_name] => Cursovia [client_logo] => /public/cliente/uploads/478/logokampusrojo_6407be60d72e2.png [client_id] => 478 ) )
-            ?>
-                <div class="row justify-content-center">
-                    <div class="col-md-12 paid-banner-col" style="margin-top:-90px; display: none">
-                        <div class="slider">
-                            <?php foreach ($paid_banner_courses as $key => $paidBanner) {
-                                $pb_token   =   $paidBanner->token;
-                                $pb_image   =   $paidBanner->cursovia_banner_url;
-                                $pb_image   =   ($pb_image) ? URL_KAMPUS . $pb_image : base_url('/public/imgs/slider/0' . ($key + 1) . '.jpg');
-                                $pb_name    =   $paidBanner->name;
-                                $label      =   $paidBanner->label;
-                                $icon       =   $paidBanner->icon;
-
-                            ?>
-                                <div class="paid-banner">
-                                    <a href="<?php echo base_url('link-externo/' . $pb_token) ?>" target="_blank" title="<?php echo $pb_name ?>">
-                                        <img class="paid-banner-img" src="<?php echo $pb_image ?>" />
-                                        <?php if ($label) { ?>
-                                            <div class="paid-banner-butom">
-                                                <?php echo $icon ?><strong><?php echo $label ?></strong>
-                                            </div>
-                                        <?php } ?>
-                                    </a>
-                                </div>
-
-                            <?php } ?>
-
+                    ?>
+                        <div class="paid-banner">
+                            <a href="<?php echo base_url('link-externo/' . $pb_token) ?>" target="_blank" title="<?php echo $pb_name ?>">
+                                <img class="paid-banner-img" src="<?php echo $pb_image ?>" />
+                                <?php if ($label) { ?>
+                                    <div class="paid-banner-butom">
+                                        <?php echo $icon ?><strong><?php echo $label ?></strong>
+                                    </div>
+                                <?php } ?>
+                            </a>
                         </div>
 
+                    <?php } ?>
 
-
-                    </div>
                 </div>
-            <?php } ?>
+
+
+
+            </div>
+        </div>
+    <?php }
+    $paid_courses_count = 0;
+    if ($courses) { ?>
+        <div class="container wrap">
 
             <?php
 
@@ -79,6 +78,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
             $cuantas_paginas = ceil($cuantos_registros / 10);
 
             //$courses = array_slice( $courses, 0, 25 );
+
             foreach ($courses as $key => $value) {
 
                 $image        = $value["image_int"];
@@ -124,10 +124,12 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
 
                 $firstCourse = ($key == 0) ? true : false;
 
+                $paid_courses_count = $value['ispaid'] ? $paid_courses_count + 1 : $paid_courses_count;
+
                 if ($value['ispaid'] == 1) {
                     if ($firstCourse) { ?>
 
-                        <div class="paid-courses-container row">
+                        <div class="paid-courses-container row" style="display: none;">
                             <div class="col-md-12">
                                 <h1 class="paid-courses-title">Cursos Patrocinados</h1>
                                 <div class="slider-for-search">
@@ -151,7 +153,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                                     <?php } ?>
                                 </div>
 
-                                <?php 
+                                <?php
                                 if (($key + 1) == count($courses) or (isset($nextCourse['ispaid']) and $nextCourse['ispaid'] != 1)) { ?>
 
                                 </div>
@@ -223,32 +225,25 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
             <div class="subir" style="display:none;"><i class="fa-solid fa-arrow-up"></i></div>
 
         </div>
-    </main>
-<?php } else { ?>
 
-    <section>
-        <div class="container">
+        <?php }
+    if (!$courses or $paid_courses_count == count($courses)) {
+
+        if (!$courses) { ?>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="msg-results" style="color: #fff;">No encontramos ningún curso con "<?php echo $this->session->flashdata('txt'); ?>"
-                        :'(</p>
+                    <p class="msg-results"">No encontramos ningún curso con " <?php echo $this->session->flashdata('txt'); ?>" :'(</p>
                 </div>
             </div>
-            <div>
-                <a href=" <?php echo base_url() ?>" class="button-primary center">Ver todos los cursos >></a>
-            </div>
-
-
-
-
-
+        <?php } ?>
+        <div>
+            <a href=" <?php echo base_url() ?>" class="button-primary center">Ver todos los cursos >></a>
         </div>
-    </section>
 
 
+    <?php } ?>
 
-<?php } ?>
-
+</main>
 
 <script>
     var buscar = '<?php echo $this->session->flashdata('txt'); ?>';
@@ -267,14 +262,19 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
     });
 </script>
 
+<?php if ($paid_banner_courses) { ?>
+    <script type="text/javascript" src="<?php echo base_url('public/js/sliders.js?' . rand()); ?>"></script>
+<?php } ?>
+
 <?php if ($courses) { ?>
 
     <script type="text/javascript" src="<?php echo base_url('public/js/functions-fav.js?' . rand()); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('public/js/sliders.js?' . rand()); ?>"></script>
     <script>
         var clientSlug = '';
         var totalCourses = <?php echo $total_courses ?>;
-        var offset = <?php echo count($courses) ?>
+        console.log(totalCourses);
+        var offset = <?php echo count($courses) ?>;
+        console.log(offset);
     </script>
     <script type='text/javascript'>
         var $subir = $(".subir");

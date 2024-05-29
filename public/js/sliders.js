@@ -16,9 +16,8 @@ $(document).ready(function() {
         speed: 1500,
         shrinkItems: true,
         autoHover: true,
-        stopAutoOnClick: true,
     });
-
+    $('.paid-courses-container').fadeIn();
     $(".slider-for-search").bxSlider({
         infiniteLoop: true,
         touchEnabled: true,
@@ -30,7 +29,6 @@ $(document).ready(function() {
         slideMargin: 6,
         speed: 1000,
         autoHover: true,
-        stopAutoOnClick: true,
         easing: 'ease-in-out',
         mode: 'fade',
     });

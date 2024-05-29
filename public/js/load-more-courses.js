@@ -21,6 +21,7 @@ $(document).ready(function () {
 			data: {
 				client_slug: clientSlug,
 				offset: offset,
+				search_txt: buscar
 			},
 			dataType: "json",
 			success: function (response) {
@@ -69,22 +70,12 @@ $(document).ready(function () {
           </div>
 `;
 
-					// Comprobar si el precio no es 'Cotizar' y agregarlo al HTML
+	
 					const client = response.client.name;
 					if (price !== "Cotizar" && !client) {
 						cursoHTML += `
 						<a href="${baseURL}/mostrar/${slug}">
 						<span class="price">${formateaMoneda(price)}</span></a>`;
-					} else if (price !== "Cotizar" && client) {
-						cursoHTML += `
-						<a href="${baseURL}/mostrar/${slug}" class="price" style="color:${
-							response.client.color_second
-						}">
-						<span>${formateaMoneda(price)}</span></a>`;
-					} else if (price == "Cotizar" && client) {
-						cursoHTML += `
-						<a href="${baseURL}/mostrar/${slug}" class="price" style="color:${response.client.color_second}">
-						<span>${price}</span></a>`;
 					} else {
 						cursoHTML += `<a href="${baseURL}/mostrar/${slug}">
 						<span class="price">${price}</span></a>`;
@@ -135,7 +126,7 @@ $(document).ready(function () {
 					$loadMoreCourses.fadeOut();
 				}
 			},
-			error: function (xhr, status, error) {
+			error: function (error) {
 				console.error("Error al cargar más cursos:", error);
 			},
 		});

@@ -84,12 +84,14 @@ a.white:hover {
 .content a {
 	text-decoration: none;
 	color: #323232;
-	h1,h2 {
+	h1,
+	h2 {
 		width: max-content;
 		max-width: 100%;
 		margin-bottom: 5px;
 	}
-	h1:hover,h2:hover {
+	h1:hover,
+	h2:hover {
 		color: #fff;
 	}
 }
@@ -955,9 +957,6 @@ input.buscar {
 	padding: 5px;
 	font-size: 14px;
 	display: inline;
-}
-
-.price {
 	position: absolute;
 	right: 12px;
 	bottom: 22%;
@@ -994,16 +993,17 @@ input.buscar {
 .profile-cover {
 	position: relative;
 	width: 100%;
-	height: 300px;
+	height: 400px;
 	margin: 0;
 	padding: 0;
 	border: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-attachment: fixed;
 
 	.profile-image {
 		position: absolute;
-		top: 50%;
+		bottom: 0;
 		left: 5%;
 		transform: translateY(50%);
 		display: flex;
@@ -1020,9 +1020,9 @@ input.buscar {
 			-moz-border-radius: 20%;
 			-ms-border-radius: 20%;
 			-o-border-radius: 20%;
-			box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-				rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-				rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+			box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px,
+				rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+				rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 		}
 		h1 {
 			transform: translateY(-50%);
@@ -1040,12 +1040,26 @@ input.buscar {
 	width: 100%;
 	height: 100%;
 	background: rgb(0, 0, 0);
+	background: -moz-linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 0.6867121848739496) 0%,
+		rgba(255, 255, 255, 0) 26%,
+		rgba(255, 255, 255, 0) 62%,
+		rgba(0, 0, 0, 1) 97%
+	);
+	background: -webkit-linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 0.6867121848739496) 0%,
+		rgba(255, 255, 255, 0) 26%,
+		rgba(255, 255, 255, 0) 62%,
+		rgba(0, 0, 0, 1) 97%
+	);
 	background: linear-gradient(
-		0deg,
-		rgba(0, 0, 0, 0.7679446778711485) 20%,
-		rgba(139, 190, 123, 0) 44%,
-		rgba(114, 156, 101, 0) 58%,
-		rgba(0, 0, 0, 0.7343312324929971) 95%
+		180deg,
+		rgba(0, 0, 0, 0.6867121848739496) 0%,
+		rgba(255, 255, 255, 0) 26%,
+		rgba(255, 255, 255, 0) 62%,
+		rgba(0, 0, 0, 1) 97%
 	);
 }
 
@@ -1082,6 +1096,7 @@ input.buscar {
 		display: grid;
 		place-items: center;
 		color: #ffffff;
+		background: #e91e63;
 		text-transform: uppercase;
 		font-weight: 700;
 		border-radius: 10px;
@@ -1091,10 +1106,10 @@ input.buscar {
 		-moz-border-radius: 10px;
 		-ms-border-radius: 10px;
 		-o-border-radius: 10px;
+		transition: all 0.3s ease 0s;
 	}
 	.client-search-button:hover {
 		background: #007bff;
-		border-color: #b9c9da;
 		color: #fff;
 	}
 }
@@ -1185,7 +1200,7 @@ input.buscar {
 	background-color: #0056b3;
 }
 
-.paid-banner-col{
+.paid-banner-col {
 	display: grid;
 	place-items: center;
 }
@@ -1216,7 +1231,7 @@ input.buscar {
 
 .paid-course {
 	padding: 0 5px 0;
-	
+
 	a {
 		text-decoration: none;
 		color: #323232;
@@ -1231,7 +1246,7 @@ input.buscar {
 	}
 	p {
 		font-size: 14px;
-		line-height: 1;
+		line-height: 18px;
 		margin: 0;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
@@ -1239,21 +1254,21 @@ input.buscar {
 		text-overflow: ellipsis;
 		-webkit-line-clamp: 2;
 	}
-	p.border-bottom{
-		
+	p.border-bottom {
 		margin-top: 5px;
 		border-bottom: 2px solid #7c7c7c;
 	}
-	a.label{
+	a.label {
+		font-size: small;
 		margin-top: 10px;
 		display: flex;
 		align-items: center;
 		gap: 5px;
-		*{
+		* {
 			margin: 0;
 		}
 	}
-	a.label:hover{
+	a.label:hover {
 		color: #007bff;
 	}
 }
@@ -1300,6 +1315,7 @@ input.buscar {
 	background: #e91e63;
 	border: 2px solid #e91e63;
 	text-decoration: none;
+	transition: all 0.3s ease 0s;
 }
 
 .button-primary:hover {
@@ -1323,6 +1339,7 @@ input.buscar {
 	border: 2px solid #e91e63;
 	background: none;
 	text-decoration: none;
+	transition: all 0.3s ease 0s;
 }
 
 .button-secondary:hover {
