@@ -6,7 +6,7 @@ $ipuser = $_SERVER['REMOTE_ADDR'];
 $dev = ($ipuser == '191.113.23.186') ? true : false;
 
 $client_id = $client['id'];
-$client_name = stot($client["name"]);
+$client_name = $client["name"];
 $client_slug = $client["slug"];
 $client_alias = $client['alias'];
 $client_description = $client['description'];
@@ -43,7 +43,7 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
 <section class="profile-cover" style="background-image: url('<?php echo $client_profile_cover ?>')">
     <div class="profile-image">
         <img src="<?php echo $client_profile_img ?>" alt="Imagen perfil">
-        <h1><?php echo $client_name; ?></h1>
+        <h1><?php echo $client_alias ? $client_alias : $client_name ?></h1>
     </div>
 </section>
 <main class="padding-sct client-profile-main">
@@ -125,7 +125,7 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
                                                 <h1><?php echo $name; ?></h1>
                                             </a>
                                             <a href="<?php echo base_url($client_slug); ?>">
-                                                <h2 class="client-name"><?php echo $client_name; ?></h2>
+                                                <h2 class="client-name"><?php echo $client_alias ? $client_alias : $client_name ?></h2>
                                             </a>
                                         </div>
                                         <?php if ($price != 'Cotizar') { ?>

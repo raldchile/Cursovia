@@ -104,7 +104,7 @@ class Ccourses_model extends CI_Model
 		$paid_count = $this->getAllPaidBanner_Courses($txt);
 		$paid_count = count($paid_count);
 
-		$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id, bl.*');
+		$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.alias as client_alias, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id, bl.*');
 		$this->db->from('courses as c');
 		$this->db->join('clients as cl', 'c.client_id = cl.id');
 		$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
@@ -173,6 +173,7 @@ class Ccourses_model extends CI_Model
 				$output[$i]['price'] = $price;
 				$output[$i]['description'] = trim($course->cursovia_description);
 				$output[$i]['client_name'] = $course->client_name;
+				$output[$i]['client_alias'] = $course->client_alias;
 				$output[$i]['client_slug'] = $course->client_slug;
 				$output[$i]['client_logo'] = $course->client_logo;
 				$output[$i]['client_id'] = $course->client_id;
@@ -279,7 +280,7 @@ class Ccourses_model extends CI_Model
 			$txt = soloCaracteresPermitidos($gets["buscar"]);
 		}
 
-		$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id');
+		$this->db->select('c.id as course_id, c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, k.*, cl.name as client_name, cl.alias as client_alias, cl.slug as client_slug, cl.logo as client_logo, cl.id as client_id');
 		$this->db->from('courses as c');
 		$this->db->join('clients as cl', 'c.client_id = cl.id');
 		$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
@@ -339,6 +340,7 @@ class Ccourses_model extends CI_Model
 				$output[$i]['price'] = $price;
 				$output[$i]['description'] = trim($course->cursovia_description);
 				$output[$i]['client_name'] = $course->client_name;
+				$output[$i]['client_alias'] = $course->client_alias;
 				$output[$i]['client_slug'] = $course->client_slug;
 				$output[$i]['client_logo'] = $course->client_logo;
 				$output[$i]['client_id'] = $course->client_id;

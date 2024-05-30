@@ -83,7 +83,8 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
 
                 $image        = $value["image_int"];
                 $name         = stot($value["name"]);
-                $client_name  = stot($value["client_name"]);
+                $client_name  = $value["client_name"];
+                $client_alias = $value["client_alias"];
                 $client_slug  = $value["client_slug"];
                 $slug         = $value["slug"];
                 $description  = $value["description"];
@@ -140,7 +141,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                                         <h1><?php echo $name ?></h1>
                                     </a>
                                     <a href="<?php echo base_url($client_slug); ?>">
-                                        <h2><?php echo $client_name ?></h2>
+                                        <h2><?php echo $client_alias ? $client_alias : $client_name ?></h2>
                                     </a>
                                     <p>
                                         <?php echo $description ?>
