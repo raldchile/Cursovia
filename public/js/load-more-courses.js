@@ -29,7 +29,7 @@ $(document).ready(function () {
 					var image = curso.image_int;
 					const name = stot(curso.name);
 					const clientAlias = curso.client_alias;
-					clientName = clientAlias ? curso.client_name : clientAlias;
+					clientName = clientAlias? clientAlias : curso.client_name;
 					const clientSlug = curso.client_slug;
 					const slug = curso.slug;
 					const description = curso.description;

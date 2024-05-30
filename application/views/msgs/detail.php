@@ -19,9 +19,8 @@ echo $header; ?>
       $message_id       = $mensajes[0]["id"];
       $class            = "";
       $marca            = "";
-      $client_name = stot($mensajes[0]['client']["name"]);
+      $client_name = $mensajes[0]['client']['alias'] ? $mensajes[0]['client']['alias'] : $mensajes[0]['client']["name"];
       $client_slug = $mensajes[0]['client']["slug"];
-      $client_alias = $mensajes[0]['client']['alias'];
       $client_phone = $mensajes[0]['client']['phone'];
       $client_email = $mensajes[0]['client']['email'];
       $client_color_first = $mensajes[0]['client']['color_first'];
@@ -42,7 +41,7 @@ echo $header; ?>
               <div class="inbox-first-msg">
                 <div class="profile">
                 <img src="<?php echo $user_profile_img?>" alt="Imagen perfil">
-                  <p class="msg-title">Consulta enviada a <?php echo $client_alias ?>:</p>
+                  <p class="msg-title">Consulta enviada a <?php echo $client_name ?>:</p>
                 </div>
                 <p class="msg-content"><i class="fa-solid fa-check-double" style="<?php echo ($ischeck == 2) ? 'color: #067aff' : 'color: #3b4a54' ?>"></i><?php echo $message ?></p>
                 <p class="msg-date"><?php echo $created; ?></p>
@@ -70,7 +69,7 @@ echo $header; ?>
               <div class="response">
                 <div class="profile">
                   <img src="<?php echo $from_id == $cliente_idK ? $client_profile_img : $user_profile_img; ?>" alt="Imagen perfil">
-                  <p class="msg-title"><?php echo $from_id == $cliente_idK ? ($client_alias ? $client_alias : $client_name) : 'Tú'; ?></p>
+                  <p class="msg-title"><?php echo $from_id == $cliente_idK ? $client_name : 'Tú'; ?></p>
                 </div>
                 <div class="inbox-msg inbox-responses-msg">
                   <?php if ($from_id != $cliente_idK) { ?>

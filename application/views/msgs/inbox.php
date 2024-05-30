@@ -52,11 +52,10 @@
 
         $validity = $client_validity ? '' : 'disabled';
 
-        $client_name = stot($value['client']["name"]);
+        $client_name = $value['client']['alias'] ? $value['client']['alias'] : $value['client']["name"];
         $client_slug = $value['client']["slug"];
         $client_status    = $value['client']["status"];
         $client_expire = $value['client']["expire"];
-        $client_alias = $value['client']['alias'];
         $client_profile_img = $value['client']['profile_img'];
         $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img : base_url('public/imgs/ca_perfil_2.png');
       ?>
@@ -66,7 +65,7 @@
           <div class="client-name">
             <img src="<?php echo $client_profile_img ?>" alt="Imagen perfil">
             <p>
-              <?php echo $client_alias ? $client_alias : $client_name ?>
+              <?php echo $client_name ?>
             </p>
           </div>
 

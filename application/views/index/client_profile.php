@@ -6,9 +6,8 @@ $ipuser = $_SERVER['REMOTE_ADDR'];
 $dev = ($ipuser == '191.113.23.186') ? true : false;
 
 $client_id = $client['id'];
-$client_name = $client["name"];
+$client_name = $client['alias'] ? $client['alias'] : $client["name"];
 $client_slug = $client["slug"];
-$client_alias = $client['alias'];
 $client_description = $client['description'];
 $client_phone = $client['phone'];
 $client_email = $client['email'];
@@ -43,7 +42,7 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
 <section class="profile-cover" style="background-image: url('<?php echo $client_profile_cover ?>')">
     <div class="profile-image">
         <img src="<?php echo $client_profile_img ?>" alt="Imagen perfil">
-        <h1><?php echo $client_alias ? $client_alias : $client_name ?></h1>
+        <h1><?php echo $client_name ?></h1>
     </div>
 </section>
 <main class="padding-sct client-profile-main">
@@ -51,7 +50,7 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
         <div class="row justify-content-end align-items-center">
             <div class="col-7 client-searchbar">
                 <form action="<?php echo base_url($client_slug) ?>" method="get" autocomplete="off" id="buscar">
-                    <input type="text" style="text-align: center" placeholder="¿Qué quieres aprender con <?php echo (($client_alias) ? $client_alias : $client_name)?>?" name="buscar" id="SearchBar" />
+                    <input type="text" style="text-align: center" placeholder="¿Qué quieres aprender con <?php echo $client_name?>?" name="buscar" id="SearchBar" />
                 </form>
             </div>
             <div class="col-sm-2">
@@ -68,7 +67,7 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
                 </h1>
                 <p class="description">
                     <strong><?php if (isset($description)) echo $description;
-                            else echo (($client_alias) ? $client_alias : $client_name) ?></strong>
+                            else echo $client_name ?></strong>
                     no ha puesto una descripción aún
                 </p>
             </div>
@@ -88,7 +87,7 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
 
                                 $image        = $value["image_int"];
                                 $name         = stot($value["name"]);
-                                $client_name  = stot($value["client_name"]);
+                                $client_name  = $value["client_alias"] ? $value["client_alias"] : $value["client_name"];
                                 $slug         = $value["slug"];
                                 $description  = $value["description"];
                                 $idcliente    = $value["client_id"];
@@ -125,7 +124,7 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
                                                 <h1><?php echo $name; ?></h1>
                                             </a>
                                             <a href="<?php echo base_url($client_slug); ?>">
-                                                <h2 class="client-name"><?php echo $client_alias ? $client_alias : $client_name ?></h2>
+                                                <h2 class="client-name"><?php echo $client_name ?></h2>
                                             </a>
                                         </div>
                                         <?php if ($price != 'Cotizar') { ?>
@@ -176,12 +175,12 @@ $client_profile_img = ($client_profile_img) ? URL_KAMPUS . $client_profile_img :
                             <div class="row">
                                 <div class="col-md-12">
                                     <p class="msg-results">Lo sentimos no encontramos cursos de
-                                        <?php echo (($client_alias) ? $client_alias : $client_name) ?>"
+                                        <?php echo $client_name?>"
                                         :'(</p>
                                 </div>
                             </div>
                             <div>
-                            <a  class="button-primary center" href=" <?php echo base_url('/'.$client_slug) ?>" class="button">Ver todos los cursos de <?php echo (($client_alias) ? $client_alias : $client_name)?> >></a>
+                            <a  class="button-primary center" href=" <?php echo base_url('/'.$client_slug) ?>" class="button">Ver todos los cursos de <?php echo $client_name?> >></a>
                             </div>
 
                         </div>

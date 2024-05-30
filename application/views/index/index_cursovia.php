@@ -83,8 +83,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
 
                 $image        = $value["image_int"];
                 $name         = stot($value["name"]);
-                $client_name  = $value["client_name"];
-                $client_alias = $value["client_alias"];
+                $client_name  = $value["client_alias"] ? $value["client_alias"] : $value["client_name"];
                 $client_slug  = $value["client_slug"];
                 $slug         = $value["slug"];
                 $description  = $value["description"];
@@ -141,7 +140,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                                         <h1><?php echo $name ?></h1>
                                     </a>
                                     <a href="<?php echo base_url($client_slug); ?>">
-                                        <h2><?php echo $client_alias ? $client_alias : $client_name ?></h2>
+                                        <h2><?php echo $client_name ?></h2>
                                     </a>
                                     <p>
                                         <?php echo $description ?>
@@ -248,14 +247,19 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
 
 <script>
     var buscar = '<?php echo $this->session->flashdata('txt'); ?>';
+    var $focus;
     $(document).ready(function() {
         if (buscar) {
-            $focus = ($('.paid-courses-container').length > 0) ? $('.paid-courses-container') : $('#cursos-container');
+            $('html, body').animate({
+                scrollTop: $('.paid-courses-container').offset().top
+            }, 500);
+        } else {
+            $('html, body').animate({
+                scrollTop: $('#cursos-container').offset().top
+            }, 500);
         }
 
-        $('html, body').animate({
-            scrollTop: $focus.offset().top
-        }, 500);
+
 
     });
     $("#go").click(function() {
@@ -273,9 +277,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
     <script>
         var clientSlug = '';
         var totalCourses = <?php echo $total_courses ?>;
-        console.log(totalCourses);
         var offset = <?php echo count($courses) ?>;
-        console.log(offset);
     </script>
     <script type='text/javascript'>
         var $subir = $(".subir");
