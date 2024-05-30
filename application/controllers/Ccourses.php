@@ -39,7 +39,7 @@ class Ccourses extends CI_Controller
 
 	public function index()
 	{
-		$limit = 5;
+		$limit = 50;
 		$data["sessionuser"] = $this->usersession;
 		$data["cant_favorites"] = $this->cfavorites_model->countFavorites();
 		$data["header"] = $this->load->view('templates/header', $data, true);
