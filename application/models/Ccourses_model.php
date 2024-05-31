@@ -119,13 +119,13 @@ class Ccourses_model extends CI_Model
 
 			$this->db->where('( c.name LIKE "%' . $txt . '%" OR
 								c.description LIKE "%' . $txt . '%"
-								OR cl.name LIKE "%' . $txt . '%" )');
+								OR cl.name LIKE "%' . $txt . '%" 
+								OR cl.alias LIKE "%' . $txt . '%")');
 
 
 			// $this->db->like('c.name',$txt);
 			// $this->db->or_like('c.description', $txt); 
-		}
-		else $this->db->where('k.cursovia_ispaid !=', 1);
+		} else $this->db->where('k.cursovia_ispaid !=', 1);
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
 		$this->db->where('c.publish_kimun', 1);
@@ -218,10 +218,11 @@ class Ccourses_model extends CI_Model
 		}
 		if ($txt) {
 			$this->db->where('( c.name LIKE "%' . $txt . '%" OR
-								   c.description LIKE "%' . $txt . '%"
-								   OR cl.name LIKE "%' . $txt . '%" )');
-		}
-		else $this->db->where('k.cursovia_ispaid !=', 1);
+								c.description LIKE "%' . $txt . '%"
+								OR cl.name LIKE "%' . $txt . '%" 
+								OR cl.alias LIKE "%' . $txt . '%")');
+
+		} else $this->db->where('k.cursovia_ispaid !=', 1);
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
 		$this->db->where('c.publish_kimun', 1);
@@ -291,7 +292,8 @@ class Ccourses_model extends CI_Model
 
 			$this->db->where('( c.name LIKE "%' . $txt . '%" OR
 								c.description LIKE "%' . $txt . '%"
-								OR cl.name LIKE "%' . $txt . '%" )');
+								OR cl.name LIKE "%' . $txt . '%" 
+								OR cl.alias LIKE "%' . $txt . '%")');
 		}
 
 		$this->db->where('c.status', 1);
@@ -381,8 +383,9 @@ class Ccourses_model extends CI_Model
 		if ($txt) {
 
 			$this->db->where('( c.name LIKE "%' . $txt . '%" OR
-							   c.description LIKE "%' . $txt . '%"
-							   OR cl.name LIKE "%' . $txt . '%" )');
+								c.description LIKE "%' . $txt . '%"
+								OR cl.name LIKE "%' . $txt . '%" 
+								OR cl.alias LIKE "%' . $txt . '%")');
 		}
 
 		$this->db->where('c.status', 1);
@@ -410,7 +413,6 @@ class Ccourses_model extends CI_Model
 			$this->db->where('( c.name LIKE "%' . $filter_txt . '%" OR
 								c.description LIKE "%' . $filter_txt . '%"
 								OR cl.name LIKE "%' . $filter_txt . '%" )');
-
 		}
 		$this->db->where('c.status', 1);
 		$this->db->where('cl.status', 1);
