@@ -1229,6 +1229,13 @@ input.buscar {
 	color: #007bff;
 }
 
+.bx-wrapper .bx-pager {
+    color: #007bff;
+    padding-top: 0;
+}
+.bx-wrapper .bx-pager.bx-default-pager a.active {
+    background: #007bff;
+}
 .paid-course {
 	padding: 0 5px 0;
 
