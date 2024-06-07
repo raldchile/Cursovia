@@ -37,7 +37,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
         // Array ( [0] => stdClass Object ( [course_id] => 2926 [name] => Administración de empresas [slug] => administracion-de-empresas [hour] => [code] => [description] => [resume] => [id] => 48 [cursovia_description] => Curso de Administración [cursovia_target] => Personas naturales, estudiantes, microempresarios. [cursovia_learn_objective] => Entregar herramientas avanzadas de administración a emprendedores. [cursovia_structure] => 0 [cursovia_sence_code] => 0 [cursovia_elearning] => 1 [cursovia_inRoom] => 1 [cursovia_from] => 2024-03-31 17:05:48 [cursovia_tothe] => 2024-07-31 18:06:09 [cursovia_forever] => 1 [cursovia_isbanner] => 1 [cursovia_banner_url] => /public/cliente/uploads/478/02_660869908593e.jpg [cursovia_ispaid] => 1 [cursovia_order] => 0 [cursovia_url] => https://www.rald.cl [cursovia_utm_source] => cursovia [cursovia_utm_medium] => top_banner [cursovia_utm_campaign] => DEMO-CAMPANA [cursovia_utm_term] => administracion [cursovia_utm_content] => curso-de-administracion-demo [cursovia_status] => 1 [token] => TOKENPRUEBA01 [promotional_video] => [cursovia_price] => 0 [created] => 0000-00-00 00:00:00 [client_name] => Cursovia [client_logo] => /public/cliente/uploads/478/logokampusrojo_6407be60d72e2.png [client_id] => 478 ) )
     ?>
         <div class="row justify-content-center">
-            <div class="col-md-12 paid-banner-col" style="margin-top:-90px; display: none">
+            <div class="col-md-12 paid-banner-col" style="margin-top:-120px; display: none">
                 <div class="slider">
                     <?php foreach ($paid_banner_courses as $key => $paidBanner) {
                         $pb_token   =   $paidBanner->token;
@@ -70,7 +70,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
     <?php }
     $paid_courses_count = 0;
     if ($courses) { ?>
-        <div class="container wrap">
+        <div class="container" id="all-courses">
 
             <?php
 
@@ -129,7 +129,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
                 if ($value['ispaid'] == 1) {
                     if ($firstCourse) { ?>
 
-                        <div class="paid-courses-container row" style="display: none;">
+                        <div class="paid-courses-container row" style="display: none;" id="paid-courses-container">
                             <div class="col-md-12">
                                 <h1 class="paid-courses-title">Cursos Patrocinados</h1>
                                 <div class="slider-for-search">
@@ -249,25 +249,26 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
     var buscar = '<?php echo $this->session->flashdata('txt'); ?>';
     var $focus;
     $(document).ready(function() {
-        if ($('.paid-courses-container').length > 0) {
-            $('html, body').animate({
-                scrollTop: $('.paid-courses-container').offset().top
-            }, 500);
-        } else if (buscar) {
-            $('html, body').animate({
-                scrollTop: $('#cursos-container').offset().top
-            }, 500);
-        }
+        if ($('.paid-banner-col').length > 0) {
+            $('.paid-banner-col').fadeIn(function() {
+                goCourses();
+            });
+        } else goCourses();
 
     });
+
+    function goCourses() {
+        $('html, body').animate({
+            scrollTop: $('#all-courses').offset().top
+        }, 800);
+    }
     $("#go").click(function() {
         $("#buscar").submit();
     });
 </script>
 
-<?php if ($paid_banner_courses) { ?>
-    <script type="text/javascript" src="<?php echo base_url('public/js/sliders.js?' . rand()); ?>"></script>
-<?php } ?>
+<script type="text/javascript" src="<?php echo base_url('public/js/sliders.js?' . rand()); ?>"></script>
+
 
 <?php if ($courses) { ?>
 
@@ -281,19 +282,11 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
         var $subir = $(".subir");
 
         $subir.click(function() {
-            // Obtener la posición superior de la barra de búsqueda
-            var searchBarTop = $("#SearchBar").offset().top;
-
-            // Calcular la posición a la que deseas desplazarte
-            var scrollToPos = searchBarTop -
-                200; // Resta una cantidad de píxeles para dejar la barra en el medio
-
-            // Hacer scroll suavemente a la posición calculada
             $("html, body").animate({
-                    scrollTop: scrollToPos,
+                    scrollTop: 0,
                 },
                 800
-            ); // Duración de la animación en milisegundos
+            );
         });
 
         $(window).scroll(function() {

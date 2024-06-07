@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    $('.paid-banner-col').fadeIn();
     $(".slider").bxSlider({
         infiniteLoop: true,
         // slideWidth: 600,

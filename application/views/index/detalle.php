@@ -46,8 +46,6 @@ if (!$image) {
 if ($video) {
     $video = URL_KAMPUS . $video;
 }
-
-
 ?>
 
 <section class="slide inner">
@@ -183,47 +181,47 @@ if ($video) {
 <?php if ($isLogged) { ?>
 
 
-<!-- Modal -->
-<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Escribe tu solicitud y apreta el botón
-                    <strong>"Contactar"</strong>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action=<?php echo base_url("cmessages/sendMessage") ?> method="post" role="form" data-toggle="validator" id="contact-form">
-                    <div class="acount-group">
-                        <span>De: <strong><?php echo $sessionuser["full_name"]; ?></strong></span>
-                        <span>Para: <strong><?php echo $client_name; ?></strong></span>
-                        <span>Asunto: Consulta curso <strong><?php echo $name; ?></strong></span>
-                    </div>
-                    <div class="respuesta"></div>
-                    <div class="acount-group">
-                        <label><strong>Mensaje / Consulta:</strong></label>
-                        <textarea name="message" class="form-control" placeholder="Escribe tu consulta" required style="height: 200px;" id="message"></textarea>
-                    </div>
-                    <div class="form-group input-group-lg acount-group">
-                        <label>Password:</label>
-                        <input type="password" name="passUser" class="form-control" placeholder="Password" id="password" required>
-                    </div>
-                    <input type="hidden" name="toUser" value="<?php echo $idcliente; ?>">
-                    <input type="hidden" name="course" value="<?php echo $idcurso; ?>">
-                    <input type="hidden" name="subject" value="Consulta curso <?php echo $name; ?>">
-                    <input type="hidden" name="idm">
-                    <button type="submit" class="button-primary" id="enviar-form">Enviar contacto >></button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="button-secondary" data-dismiss="modal" id="cerrar">Cancelar</button>
+    <!-- Modal -->
+    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Escribe tu solicitud y apreta el botón
+                        <strong>"Contactar"</strong>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action=<?php echo base_url("cmessages/sendMessage") ?> method="post" role="form" data-toggle="validator" id="contact-form">
+                        <div class="acount-group">
+                            <span>De: <strong><?php echo $sessionuser["full_name"]; ?></strong></span>
+                            <span>Para: <strong><?php echo $client_name; ?></strong></span>
+                            <span>Asunto: Consulta curso <strong><?php echo $name; ?></strong></span>
+                        </div>
+                        <div class="respuesta"></div>
+                        <div class="acount-group">
+                            <label><strong>Mensaje / Consulta:</strong></label>
+                            <textarea name="message" class="form-control" placeholder="Escribe tu consulta" required style="height: 200px;" id="message"></textarea>
+                        </div>
+                        <div class="form-group input-group-lg acount-group">
+                            <label>Password:</label>
+                            <input type="password" name="passUser" class="form-control" placeholder="Password" id="password" required>
+                        </div>
+                        <input type="hidden" name="toUser" value="<?php echo $idcliente; ?>">
+                        <input type="hidden" name="course" value="<?php echo $idcurso; ?>">
+                        <input type="hidden" name="subject" value="Consulta curso <?php echo $name; ?>">
+                        <input type="hidden" name="idm">
+                        <button type="submit" class="button-primary" id="enviar-form">Enviar contacto >></button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button-secondary" data-dismiss="modal" id="cerrar">Cancelar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 <?php } ?>
 
