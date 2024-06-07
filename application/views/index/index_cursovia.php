@@ -37,7 +37,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
         // Array ( [0] => stdClass Object ( [course_id] => 2926 [name] => Administración de empresas [slug] => administracion-de-empresas [hour] => [code] => [description] => [resume] => [id] => 48 [cursovia_description] => Curso de Administración [cursovia_target] => Personas naturales, estudiantes, microempresarios. [cursovia_learn_objective] => Entregar herramientas avanzadas de administración a emprendedores. [cursovia_structure] => 0 [cursovia_sence_code] => 0 [cursovia_elearning] => 1 [cursovia_inRoom] => 1 [cursovia_from] => 2024-03-31 17:05:48 [cursovia_tothe] => 2024-07-31 18:06:09 [cursovia_forever] => 1 [cursovia_isbanner] => 1 [cursovia_banner_url] => /public/cliente/uploads/478/02_660869908593e.jpg [cursovia_ispaid] => 1 [cursovia_order] => 0 [cursovia_url] => https://www.rald.cl [cursovia_utm_source] => cursovia [cursovia_utm_medium] => top_banner [cursovia_utm_campaign] => DEMO-CAMPANA [cursovia_utm_term] => administracion [cursovia_utm_content] => curso-de-administracion-demo [cursovia_status] => 1 [token] => TOKENPRUEBA01 [promotional_video] => [cursovia_price] => 0 [created] => 0000-00-00 00:00:00 [client_name] => Cursovia [client_logo] => /public/cliente/uploads/478/logokampusrojo_6407be60d72e2.png [client_id] => 478 ) )
     ?>
         <div class="row justify-content-center">
-            <div class="col-md-12 paid-banner-col" style="margin-top:-120px; display: none">
+            <div class="col-md-12 paid-banner-col" style="margin-top:-90px; display: none">
                 <div class="slider">
                     <?php foreach ($paid_banner_courses as $key => $paidBanner) {
                         $pb_token   =   $paidBanner->token;
@@ -230,7 +230,7 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
     if (!$courses or $paid_courses_count == count($courses)) {
 
         if (!$courses) { ?>
-            <div class="row">
+            <div class="row" id="no-found">
                 <div class="col-md-12">
                     <p class="msg-results"">No encontramos ningún curso con " <?php echo $this->session->flashdata('txt'); ?>" :'(</p>
                 </div>
@@ -258,9 +258,17 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
     });
 
     function goCourses() {
-        $('html, body').animate({
-            scrollTop: $('#all-courses').offset().top
-        }, 800);
+        if (buscar) {
+            if ($('#no-found').length > 0) {
+                $('html, body').animate({
+                    scrollTop: $('#no-found').offset().top
+                }, 800);
+            } else {
+                $('html, body').animate({
+                    scrollTop: $('#all-courses').offset().top
+                }, 800);
+            }
+        }
     }
     $("#go").click(function() {
         $("#buscar").submit();
