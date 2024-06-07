@@ -249,17 +249,15 @@ $dev = ($ipuser == '191.113.23.186') ? true : false;
     var buscar = '<?php echo $this->session->flashdata('txt'); ?>';
     var $focus;
     $(document).ready(function() {
-        if (buscar) {
+        if ($('.paid-courses-container').length > 0) {
             $('html, body').animate({
                 scrollTop: $('.paid-courses-container').offset().top
             }, 500);
-        } else {
+        } else if (buscar) {
             $('html, body').animate({
                 scrollTop: $('#cursos-container').offset().top
             }, 500);
         }
-
-
 
     });
     $("#go").click(function() {
