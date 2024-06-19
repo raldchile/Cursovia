@@ -143,7 +143,6 @@ class Clogin extends CI_Controller
 			$getEmail = $this->clogin_model->checkLogin(true);
 			if ($getEmail) {
 				$SendEmail = $this->clogin_model->SendNewPassword($getEmail);
-				echo $SendEmail;
 				if ($SendEmail) {
 					$this->session->set_flashdata('msg', '<span class="msg">¡Hemos enviado una nueva clave a tu casilla de e-mail!</span>');
 					redirect('/clogin/getPassword');
