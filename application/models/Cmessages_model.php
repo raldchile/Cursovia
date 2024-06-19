@@ -105,7 +105,7 @@ class Cmessages_model extends CI_Model
 
 						$message .= "<body>";
 						$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
-						$message .= "<img src=\"" + base_url('public/imgs/logoCusoviaEmail-fi.png') + "\" style=\"width: 165px\" />";
+						$message .= "<img src=\"" . base_url('public/imgs/logoCusoviaEmail-fi.png') . "\" style=\"width: 165px\" />";
 						$message .= "<p style=\"font-size: 25px\">Estimado cliente:</p>";
 						$message .= "<p>Has recibido un nuevo contacto en www.cursovia.com, para verlo y contactar, haz clic en el siguiente enlace, o copialo y pégalo en tu browser:</p>";
 						$message .= "<p><a href=\"" . $url . "\">" . $url . "</a></p>";
@@ -132,7 +132,7 @@ class Cmessages_model extends CI_Model
 
 							$message .= "<body>";
 							$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
-							$message .= "<img src=\"" + base_url('public/imgs/logoCusoviaEmail-fi.png') + "\"style=\"width: 165px\" />";
+							$message .= "<img src=\"" . base_url('public/imgs/logoCusoviaEmail-fi.png') . "\"style=\"width: 165px\" />";
 							$message .= "<p style=\"font-size: 25px\">Estimado usuario:</p>";
 							$message .= "<p>Te enviamos un respaldo del contacto que has realizado en www.cursovia.com. ¡Apenas tengas una respuesta te avisaremos!</p>";
 							$message .= "<p>Atentamente,</p>";
@@ -360,7 +360,7 @@ class Cmessages_model extends CI_Model
 
 						$message .= "<body>";
 						$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
-						$message .= "<img src=\"" + base_url('public/imgs/logoCusoviaEmail-fi.png') + "\" style=\"width: 165px\" />";
+						$message .= "<img src=\"" . base_url('public/imgs/logoCusoviaEmail-fi.png') . "\" style=\"width: 165px\" />";
 						$message .= "<p style=\"font-size: 25px\">Estimado cliente:</p>";
 						$message .= "<p>Has recibido respuesta a una consulta del curso: <strong>" . $course . "</strong>. Para verlo, haz clic en el siguiente enlace, o copialo y pégalo en tu browser:</p>";
 						$message .= "<p><a href=\"" . $url . "\">" . $url . "</a></p>";
@@ -385,7 +385,7 @@ class Cmessages_model extends CI_Model
 
 							$message .= "<body>";
 							$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
-							$message .= "<img src=\"" + base_url('public/imgs/logoCusoviaEmail-fi.png') + "\" style=\"width: 165px\" />";
+							$message .= "<img src=\"" . base_url('public/imgs/logoCusoviaEmail-fi.png') . "\" style=\"width: 165px\" />";
 							$message .= "<p style=\"font-size: 25px\">Estimado usuario:</p>";
 							$message .= "<p>Te enviamos un respaldo de la respuesta has enviado por el curso: " . $course . " a través de www.cursovia.com. ¡Apenas tengas una respuesta te avisaremos!</p>";
 

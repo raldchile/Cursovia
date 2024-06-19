@@ -35,7 +35,7 @@ class Clogin_model extends CI_Model {
 
 			$message .= "<body>";
 			$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
-			$message .= "<img src=\"" + base_url('public/imgs/logoCusoviaEmail-fi.png') + "\" style=\"width: 165px\" />";
+			$message .= "<img src=\"" . base_url('public/imgs/logoCusoviaEmail-fi.png') . "\" style=\"width: 165px\" />";
 			$message .= "<p style=\"font-size: 25px\">¡Bienvenid@!</p>";
 			$message .= "<p>Estás a un paso de ser parte de <strong>Cursovia</strong>! como ya hemos registrado tus datos, sólo debes activar tu cuenta. Para eso hace clic en el siguiente botón o, copia y pega el enlace a continuación:</p>";
 			$message .= "<p><a href=\"".$url."\">".$url."</a></p>";
@@ -118,11 +118,11 @@ class Clogin_model extends CI_Model {
 		$posts = $this->input->post();
 		if($posts){
 			$email 	= $posts["emailUser"];
-			$pass 	= sha1($posts["passUser"]);
-
+		
 			$dbc->from('users');
 			$dbc->where('emilio', $email);
 			if(!$EmailOnly){
+				$pass 	= sha1($posts["passUser"]);
 				$dbc->where('canalla', $pass);
 			}
 			$dbc->where('status', 1);
@@ -190,8 +190,8 @@ class Clogin_model extends CI_Model {
 
 			$token 		= substr(sha1($date),0,8);
 
-			$full_name	= soloCaracteresPermitidos( $posts["fullname"] );
-			$email 		= soloCaracteresPermitidos( $posts["email"] );
+			$full_name	= $name;
+			$email 		= $emilio;
 			$subject 	= "Enviamos una nueva clave";
 			$accion 	= "Registro"; 
 
@@ -204,9 +204,9 @@ class Clogin_model extends CI_Model {
 
 			$message .= "<body>";
 			$message .= "<div style=\"background-color:#FFF;display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
-			$message .= "<img src=\"" + base_url('public/imgs/logoCusoviaEmail-fi.png') + "\" style=\"width: 165px\" />";
+			$message .= "<img src=\"" . base_url('public/imgs/logoCusoviaEmail-fi.png') . "\" style=\"width: 165px\" />";
 			$message .= "<p style=\"font-size: 25px\">¡Hola ".$name."!</p>";
-			$message .= "<p>Hemos recibido una solicitud de nueva clave para tu cuenta en <strong><a href=\"" + base_url() + "\">www.cursovia.com</a></strong>. Tu nueva clave es: <strong>".$token."</strong>. te recomendamos cambiarla desde el panel de usuario > Mi cuenta.</p>";
+			$message .= "<p>Hemos recibido una solicitud de nueva clave para tu cuenta en <strong><a href=\"" . base_url() . "\">www.cursovia.com</a></strong>. Tu nueva clave es: <strong>".$token."</strong>. te recomendamos cambiarla desde el panel de usuario > Mi cuenta.</p>";
 
 			$message .= "<p><strong>¡Ya puedes volver a conectarte y ser parte de este gran marketPlace de Cursos! Ingresa a:</p>";
 			$message .= "<p><a href=\"https://cursovia.local/Cursovia/ingresar\">www.cursovia.com</a></p>";
@@ -229,7 +229,7 @@ class Clogin_model extends CI_Model {
 
 	 	if($dbc->affected_rows()){
 
-	 		$envio = sendMail( $emilio, $accion, $message, $company, $details, $subject);
+	 		$envio = sendMail( $emilio, $accion, $message, '', '', $subject);
 
 	 		// echo $emilio. " entra ".$envio; die();
 

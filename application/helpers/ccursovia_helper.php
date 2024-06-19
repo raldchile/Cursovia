@@ -69,12 +69,23 @@ function sendMail($email = '', $accion = '', $message = '', $nameclient = '', $d
         $CI->load->library('email');
 
         // Conectamos sendmail
-        $configGmail = array(
+        /* $configGmail = array(
             'protocol' => 'smtp',
             'smtp_host' => 'smtp.mandrillapp.com',
             'smtp_port' => 587,
             'smtp_user' => 'Rald',
             'smtp_pass' => 'md-BxSG__wuRCSqSARsg9nc-w',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        ); */
+
+        $configGmail = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.smtp2go.com',
+            'smtp_port' => 587,
+            'smtp_user' => 'Cursovia',
+            'smtp_pass' => 'MWttOG9uMzBlY3Zp',
             'mailtype' => 'html',
             'charset' => 'utf-8',
             'newline' => "\r\n"
