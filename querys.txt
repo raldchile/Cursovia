@@ -20,3 +20,22 @@ VALUES ('Inscribirte', '<i class="fa-light fa-calendar-lines-pen"></i>', CURDATE
 
 INSERT INTO `dev_kampus`.`kampus_buttonlabels` (`label`, `icon`, `creation_date`)
 VALUES ('Reservar', '<i class="fa-light fa-star"></i>', CURDATE());
+
+CREATE TABLE `dev_kampus`.`kampus_paybutton` ( `id` INT NOT NULL AUTO_INCREMENT ,  `token` TEXT NOT NULL ,  `client_id` INT NOT NULL ,  `course_id` INT NOT NULL ,  `group_id` INT NOT NULL ,  `price` INT NOT NULL ,  `description` TEXT NULL DEFAULT NULL,  `generate_qr` BOOLEAN NOT NULL ,  `expiration_date` DATETIME NOT NULL ,  `created_date` DATETIME NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `kampus_paybutton` ADD CONSTRAINT `fk_client_id` FOREIGN KEY (`client_id`) REFERENCES `kampus_clients`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE `kampus_paybutton` ADD CONSTRAINT `fk_course_id` FOREIGN KEY (`course_id`) REFERENCES `kampus_courses`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE `kampus_paybutton` ADD CONSTRAINT `fk_group_id` FOREIGN KEY (`group_id`) REFERENCES `kampus_groups`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+CREATE TABLE `dev_cursovia`.`cursovia_oc_detail` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `oc_id` INT(11) NOT NULL , `name` TEXT NOT NULL , `last_name` TEXT NOT NULL , `email` TEXT NOT NULL , `rut` TEXT NULL , `updated` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `created` DATE NOT NULL , `status` BOOLEAN NOT NULL DEFAULT FALSE , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `cursovia_oc_detail` ADD CONSTRAINT `fk_oc_id` FOREIGN KEY (`oc_id`) REFERENCES `cursovia_oc`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE `cursovia_oc_detail` CHANGE `created` `created` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+CREATE TABLE `dev_cursovia`.`cursovia_invoice` ( `id` INT NOT NULL AUTO_INCREMENT ,  `folio` INT NOT NULL ,  `razon_social` TEXT NOT NULL ,  `giro` TEXT NOT NULL ,  `rut` TEXT NOT NULL ,  `email` TEXT NOT NULL ,  `direccion` TEXT NOT NULL ,  `ciudad` TEXT NOT NULL ,  `comuna` TEXT NOT NULL ,  `updated` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `kampus_cursovia` ADD `cursovia_pay_button` TEXT NOT NULL AFTER `cursovia_button`;
+

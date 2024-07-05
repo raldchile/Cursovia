@@ -22,6 +22,7 @@ $total_favorites  = $courses[0]["total_favorites"];
 $modalidad        = $courses[0]["modalidad"];
 $showSence        = $courses[0]["showSence"];
 $price            = $courses[0]["price"];
+$pay_button       = $courses[0]["pay_button"];
 
 if (isset($courses[0]["content"]) and count($courses[0]["content"])) {
 
@@ -164,14 +165,16 @@ if ($video) {
                     <li>Modalidad: <strong><?php echo $modalidad; ?></strong></li>
                 </ul>
                 <?php if ($isLogged) { ?>
-                    <div id="login-button" class="button-primary" data-toggle="modal" data-target="#contact">Contactar</a>
-                    <?php } else { ?>
-                        <div class="button-disabled" data-toggle="modal">Inicie sesión para contactar</a>
+                    <div id="login-button" class="button-primary" data-toggle="modal" data-target="#contact">Contactar</a></div>
+                    <?php if($pay_button) {?>
+                        <a href="<?php echo base_url('pay/' . $pay_button) ?>" class="button-primary">Comprar</a> 
+                    <?php }} else { ?>
+                        <div class="button-disabled" data-toggle="modal">Inicie sesión para contactar</div>
                         <?php } ?>
 
-                        </div>
+                        
 
-                    </div>
+                    
 
             </div>
         </div>

@@ -61,7 +61,7 @@ function url_actual()
     return $url . $_SERVER['HTTP_HOST'] .  $_SERVER['REQUEST_URI'];
 }
 
-function sendMail($email = '', $accion = '', $message = '', $nameclient = '', $details = '', $subject = '')
+function sendMail($email = '', $accion = '', $message = '', $nameclient = '', $details = '', $subject = '', $attachment = '')
 {
 
     if (!empty($email)) {
@@ -116,6 +116,9 @@ function sendMail($email = '', $accion = '', $message = '', $nameclient = '', $d
         $CI->email->to($email);
         $CI->email->subject($subject);
         $CI->email->message($message);
+        if (!empty($attachment)) {
+            $CI->email->attach($attachment);
+        }
         // $CI->email->send();
 
         if ($CI->email->send()) {
@@ -197,3 +200,6 @@ function totalUnreadMsgs()
 
     return $count;
 }
+
+
+

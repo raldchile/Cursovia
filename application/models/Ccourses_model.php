@@ -171,6 +171,7 @@ class Ccourses_model extends CI_Model
 				$output[$i]['hour'] = $course->hour;
 				$output[$i]['code'] = $course->code;
 				$output[$i]['price'] = $price;
+				$output[$i]['pay_button'] = $course->cursovia_pay_button;
 				$output[$i]['description'] = trim($course->cursovia_description);
 				$output[$i]['client_name'] = $course->client_name;
 				$output[$i]['client_alias'] = $course->client_alias;
@@ -340,6 +341,7 @@ class Ccourses_model extends CI_Model
 				$output[$i]['hour'] = $course->hour;
 				$output[$i]['code'] = $course->code;
 				$output[$i]['price'] = $price;
+				$output[$i]['pay_button'] = $course->cursovia_pay_button;
 				$output[$i]['description'] = trim($course->cursovia_description);
 				$output[$i]['client_name'] = $course->client_name;
 				$output[$i]['client_alias'] = $course->client_alias;

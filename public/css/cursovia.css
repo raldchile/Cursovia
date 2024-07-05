@@ -3,6 +3,10 @@
 body {
 	/*font-family: 'Titillium Web', sans-serif;*/
 	/*font-family: 'Bitter', serif;*/
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	font-family: "Figtree", sans-serif;
 	position: relative;
 	min-height: 100vh;

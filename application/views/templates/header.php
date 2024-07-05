@@ -87,8 +87,9 @@
                                         <?php echo $first_name . $unreadMsgs ?>
                                     </span></a>
                                 <ul class="submenu">
-                                    <li><a href="<?php echo base_url("cuenta") ?>" class="fa-gear">Mi cuenta</a></li>
-                                    <li><a href="<?php echo base_url("inbox") ?>" class="fa-msg">Mis mensajes<?php echo $unreadMsgs ?></a></li>
+                                    <li><a href="<?php echo base_url("cuenta") ?>"><i class="fa-solid fa-gear"></i>Mi cuenta</a></li>
+                                    <li><a href="<?php echo base_url("inbox") ?>"><i class="fa-solid fa-envelope icon"></i>Mis mensajes<?php echo $unreadMsgs ?></a></li>
+                                    <li><a href="<?php echo base_url("compras") ?>"><i class="fa-solid fa-cart-shopping icon"></i>Mis compras<?php echo $unreadMsgs ?></a></li>
                                     <li><a href="<?php echo base_url("salir") ?>"><i class="icon fa-solid fa-right-from-bracket"></i>Logout</a></li>
                                 </ul>
 

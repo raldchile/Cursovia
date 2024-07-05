@@ -61,6 +61,13 @@ $route['leer/(:any)'] = 'cmessages/readMessage/$1';
 $route['inbox'] = 'cmessages/checkMessageUser';
 $route['cuenta'] = 'caccount';
 $route['salir'] = 'clogin/logout';
+$route['pay/(:any)'] = 'cpaybutton/index/$1';
+$route['payresume/(:any)'] = 'cpaybutton/pay';
+$route['paycomitted'] = 'cpaybutton/commitTransaction';
+$route['chatgpt'] = 'cchatgpt';
+$route['compras'] = 'cpurchases';
+$route['detalle-compra/(:any)'] = 'cpurchases/purchase_detail/$1';
+$route['add-participant/(:any)'] = 'cpurchases/add_participant/$1';
 
 $route['watch/(:num)/(:any)'] = "ccourses/watchVideo/$1/$2";
 

@@ -1,10 +1,197 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Cutils_model extends CI_Model {
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
-	function __construct() {
+class Cutils_model extends CI_Model
+{
+
+	private $client;
+
+	function __construct()
+	{
 		parent::__construct();
+		$this->usersession = $this->session->userdata('user_data');
+		$this->client = new Client([
+			'base_uri' => 'https://api.simplefactura.cl/',
+			'timeout'  => 10.0,
+		]);
 	}
+
+	public function createInvoiceV2($invoiceData)
+	{
+		$fecha = date('Y-m-d');
+
+		// Construir el cuerpo de la solicitud utilizando variables PHP y comillas dobles
+		$body = '{
+			"Documento": {
+				"Encabezado": {
+					"IdDoc": {
+						"TipoDTE": 33,
+						"FchEmis": "' . $fecha . '",
+						"FmaPago": ' . $invoiceData['FmaPago'] . ',
+						"FchVenc": "' . $fecha . '"
+					},
+					"Emisor": {
+						"RUTEmisor": "76269769-6",
+						"RznSoc": "Chilesystems",
+						"GiroEmis": "Desarrollo de software",
+						"Telefono": ["912345678"],
+						"CorreoEmisor": "mvega@chilesystems.com",
+						"Acteco": [620200],
+						"DirOrigen": "Calle 7 numero 3",
+						"CmnaOrigen": "Santiago",
+						"CiudadOrigen": "Santiago"
+					},
+					"Receptor": {
+						"RUTRecep": "' . $invoiceData['RUTRecep'] . '",
+						"RznSocRecep": "' . $invoiceData['RznSocRecep'] . '",
+						"GiroRecep": "' . $invoiceData['GiroRecep'] . '",
+						"CorreoRecep": "' . $invoiceData['CorreoRecep'] . '",
+						"DirRecep": "' . $invoiceData['DirRecep'] . '",
+						"CmnaRecep": "' . $invoiceData['CmnaRecep'] . '",
+						"CiudadRecep": "' . $invoiceData['CiudadRecep'] . '"
+					},
+					"Totales": {
+						"MntNeto": "' . $invoiceData['MntNeto'] . '",
+                		"TasaIVA": "19",
+                		"IVA": "' . $invoiceData['IVA'] . '",
+						"MntTotal": "' . $invoiceData['MntTotal'] . '"
+					}
+				},
+				"Detalle": [
+					{
+						"NroLinDet": "' . $invoiceData['NroLinDet'] . '",
+						"NmbItem": "' . $invoiceData['NmbItem'] . '",
+						"QtyItem": "' . $invoiceData['QtyItem'] . '",
+						"UnmdItem": "' . $invoiceData['UnmdItem'] . '",
+						"PrcItem": "' . $invoiceData['PrcItem'] . '",
+						"MontoItem": "' . $invoiceData['MontoItem'] . '"
+					}
+				]
+			}
+		}';
+
+		$request = new Request('POST', 'https://api.simplefactura.cl/invoiceV2/Casa_Matriz', [
+			'Authorization' => 'Basic ' . base64_encode('demo@chilesystems.com:Rv8Il4eV'), // Credenciales rellenadas
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json'
+		], $body);
+
+		try {
+			$response = $this->client->sendAsync($request)->wait();
+			//echo $response->getBody();
+			return json_decode($response->getBody());
+		} catch (GuzzleHttp\Exception\RequestException $e) {
+			//echo "Error: " . $e->getMessage() . "\n";
+			if ($e->hasResponse()) {
+				//echo "Response: " . $e->getResponse()->getBody()->getContents();
+			}
+		}
+	}
+
+	public function getInvoicePdf($folio)
+	{
+		$body = '{
+        "credenciales": {
+            "rutEmisor": "76269769-6",
+            "nombreSucursal": "Casa Matriz"
+        },
+        "dteReferenciadoExterno": {
+            "folio": ' . $folio . ',
+            "codigoTipoDte": 33,
+            "ambiente": 0
+        }
+    }';
+
+		$request = new Request('POST', 'https://api.simplefactura.cl/getPdf', [
+			'Authorization' => 'Basic ' . base64_encode('demo@chilesystems.com:Rv8Il4eV'),
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json'
+		], $body);
+
+		try {
+			$response = $this->client->sendAsync($request)->wait();
+			return $response->getBody()->getContents();
+		} catch (GuzzleHttp\Exception\RequestException $e) {
+			echo "Error: " . $e->getMessage() . "\n";
+			if ($e->hasResponse()) {
+				echo "Response: " . $e->getResponse()->getBody()->getContents();
+			}
+			return false;
+		}
+	}
+
+
+	public function sendInvoiceEmail($data)
+	{
+		$sessionuser = $this->usersession;
+
+		if ($sessionuser) {
+			$created = date('Y-m-d');
+
+			$full_name = $sessionuser["full_name"];
+			$email = $sessionuser["emilio"];
+			$subject = "Factura Electrónica - Compra realizada con éxito";
+			$details = '';
+
+			$message = "<!doctype html>";
+			$message .= "<html>";
+			$message .= "<head>";
+			$message .= "<meta charset=\"UTF-8\">";
+			$message .= "<title>Compra realizada con éxito</title>";
+			$message .= "</head>";
+			$message .= "<body>";
+			$message .= "<div style=\"background-color:#FFF; display: block; margin: 0 auto; border: 1px solid #e4e4e4; max-width: 650px; height: auto; min-height: 330px; font-family: 'Arial'; font-size: 15px; color: #272626; padding: 15px; line-height: 22px;\">";
+			$message .= "<img src=\"" . base_url('public/imgs/logoCusoviaEmail-fi.png') . "\" style=\"width: 165px\" />";
+			$message .= "<p style=\"font-size: 25px\">¡Hola, " . $full_name . "!</p>";
+			$message .= "<p>Esperamos que te encuentres bien.</p>";
+			$message .= "<p>Nos complace informarte que tu compra de " . $data['quantity'] . ", " . $data['course_name'] . ", ha sido procesada con éxito. Te adjuntamos la factura electrónica correspondiente para que puedas revisar los detalles de tu compra.</p>";
+			$message .= "<p>Detalles de la compra:</p>";
+			$message .= "<ul>";
+			$message .= "<li><strong>Curso:</strong> " . $data['course_name'] . "</li>";
+			$message .= "<li><strong>Cantidad:</strong> " . $data['quantity'] . "</li>";
+			$message .= "<li><strong>Fecha de compra:</strong> " . $created . "</li>";
+			$message .= "</ul>";
+			$message .= "<p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto con nosotros.</p>";
+			$message .= "<p>Gracias por confiar en <strong>cursovia.com</strong>. Esperamos que disfrutes tu curso.</p>";
+			$message .= "<p>Atentamente,</p>";
+			$message .= "<p>El equipo de <strong>cursovia.com</strong></p>";
+			$message .= "</div>";
+			$message .= "</body>";
+			$message .= "</html>";
+
+			// Obtener el PDF
+			$pdfContent = $this->getInvoicePdf($data['folio']);
+			if ($pdfContent) {
+				// Crear un archivo temporal para el PDF con el nombre deseado
+				$tempPdfPath = sys_get_temp_dir() . '/factura_RALD_' . $data['folio'] . '.pdf';
+				file_put_contents($tempPdfPath, $pdfContent);
+
+				// Llamar a la función sendMail
+				$envio = sendMail($email, '', $message, $full_name, $details, $subject, $tempPdfPath);
+
+				// Eliminar el archivo temporal después de enviar el correo
+				unlink($tempPdfPath);
+
+				if ($envio) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				echo "No se pudo obtener el PDF.";
+				return false;
+			}
+		}
+		return false;
+	}
+
+
+
+
+
+
 
 	// function getAllStatus() {
 	// 	$this->db->from('status');
@@ -38,7 +225,7 @@ class Cutils_model extends CI_Model {
 	// 	$this->db->from($table);
 	// 	$this->db->where('slug', $slug);
 	// 	$query = $this->db->get();
-		
+
 	// 	if( $query->num_rows() ){
 	// 		$slug = $slug."-".base_convert(date('YmdHis'), 4, 36);
 	// 	}
@@ -46,7 +233,8 @@ class Cutils_model extends CI_Model {
 	// 	return $slug;
 	// }
 
-	function getAllCountries() {
+	function getAllCountries()
+	{
 		$dbc = $this->load->database('cursovia', TRUE);
 		$dbc->from('countries');
 		$dbc->where('status', 1);
@@ -56,45 +244,48 @@ class Cutils_model extends CI_Model {
 		return $countries->result();
 	}
 
-	function checkClient($id=0,$action='vigencia'){
+	function checkClient($id = 0, $action = 'vigencia')
+	{
 
 		// $this->db->select('c.id,c.image_int, c.name, c.slug, c.hour, c.code, c.description, c.resume, c.showContent, c.target, c.skill, cl.name as client_name, cl.logo as client_logo, cl.id as client_id');
-	 	$this->db->select('cl.id, cl.name, cl.email, cl.slug');
-	 	$this->db->from('clients as cl');
-	 	$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
-	 	if($action=='vigencia'){
-	 	$this->db->where('oc.expire >= CURDATE()');
-	 	$this->db->where('cl.status', 1);
-	 	$this->db->where('oc.status', 1);
-	 	}
-	 	
-	 	$this->db->where('cl.id',$id);
+		$this->db->select('cl.id, cl.name, cl.email, cl.slug');
+		$this->db->from('clients as cl');
+		$this->db->join('lastClientOC as oc', 'oc.client_id = cl.id');
+		if ($action == 'vigencia') {
+			$this->db->where('oc.expire >= CURDATE()');
+			$this->db->where('cl.status', 1);
+			$this->db->where('oc.status', 1);
+		}
 
-	 	$datos = $this->db->get();
+		$this->db->where('cl.id', $id);
 
-	 	switch ($action){
-	 		case 'vigencia':
-				return ($this->db->affected_rows()) ? true : false;	
-	 		break;
-	 		case 'datos':
+		$datos = $this->db->get();
+
+		switch ($action) {
+			case 'vigencia':
+				return ($this->db->affected_rows()) ? true : false;
+				break;
+			case 'datos':
 				return $datos->row_array();
-	 		break;
-	 	}
+				break;
+		}
 	}
 
 
-	function checkKimun($course_id='', $client_id=''){
-	 	$this->db->from('courses as c');
-	 	$this->db->where('c.id', $course_id);
-	 	$this->db->where('c.client_id', $client_id);
-	 	$this->db->where('publish_kimun', 1);
-	 	$this->db->where('c.status', 1);
-	 	$datos = $this->db->get();
-	 	// echo $this->db->last_query();
-	 	return $this->db->affected_rows() ? true : false;	
+	function checkKimun($course_id = '', $client_id = '')
+	{
+		$this->db->from('courses as c');
+		$this->db->where('c.id', $course_id);
+		$this->db->where('c.client_id', $client_id);
+		$this->db->where('publish_kimun', 1);
+		$this->db->where('c.status', 1);
+		$datos = $this->db->get();
+		// echo $this->db->last_query();
+		return $this->db->affected_rows() ? true : false;
 	}
 
-	function setCourseInRsults($idCourse='', $txt_search='', $ve=1){
+	function setCourseInRsults($idCourse = '', $txt_search = '', $ve = 1)
+	{
 
 		$fecha = date('Y-m-d H:i:s');
 		$data = array(
@@ -106,13 +297,13 @@ class Cutils_model extends CI_Model {
 		);
 
 		// print_r($data); die();
-		
+
 		$this->db->insert('cursovia_stats', $data);
 	}
 
 
 
-	
+
 
 	// function getAllProfiles() {
 	// 	$this->db->from('users_type');
@@ -300,7 +491,7 @@ class Cutils_model extends CI_Model {
 	// 		$a=0;
 	// 		foreach ($operations->result() as $key => $operation) {
 	// 			$permission[$operation->menu_id][$operation->operation_id] = $operation->operation_name;
-				
+
 	// 			$a++;
 	// 		}
 	// 	}

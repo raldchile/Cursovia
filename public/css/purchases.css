@@ -1,0 +1,49 @@
+h1 {
+	margin: 0;
+}
+p {
+	margin: 0;
+}
+.container-purchases > *:not(:first-child) {
+	border-top: 1px solid #d0cece;
+}
+
+.purchase {
+	display: flex;
+	flex-direction: column;
+	color: #323232;
+	padding: 5px 10px 10px;
+}
+i {
+	margin-left: 5px;
+}
+.purchase:hover {
+	text-decoration: none;
+	background-color: #ffc107;
+	color: #fff;
+}
+
+.participants {
+	display: flex;
+	flex-direction: column;
+	color: #323232;
+	padding: 5px 10px 10px;
+}
+.no-cupos {
+	color: #067aff;
+}
+
+.download-link {
+    color: #067aff;
+    cursor: pointer;
+    display: inline;
+}
+
+.download-link:hover {
+    color: #ffc107;
+}
+
+.disabled-link {
+    pointer-events: none;
+    color: #ffc107;
+}
